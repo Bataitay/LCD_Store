@@ -20,7 +20,8 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        return view('back-end.category.index');
+        $categories = $this->categoryService->all();
+        return view('back-end.category.index',compact('categories'));
     }
 
     /**
@@ -30,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        
     }
 
     /**
