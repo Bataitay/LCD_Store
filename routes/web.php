@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +26,10 @@ Route::get('/login', function () {
 });
 Route::get('/register', function () {
     return view('back-end.auth.register');
+});
+Route::controller(ProductController::class)->group(function(){
+    Route::get('product/index','index');
+});
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('category/index','index')->name('category.index');
 });
