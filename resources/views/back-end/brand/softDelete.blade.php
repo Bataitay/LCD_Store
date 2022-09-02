@@ -48,23 +48,22 @@
 
                                 <tbody>
                                     @foreach ($brands as $brand)
-                                        <tr class="list-brand">
+                                        <tr>
                                             <td>{{ $brand->id }}</td>
                                             <td>{{ $brand->name }}</td>
                                             <td> @empty($brand->logo)
-                                                    <p>not yet update logo</p>
-                                                @endempty
-                                                <img src="{{ asset($brand->logo) }}" alt="">
+                                                <p>not yet update logo</p>
+                                            @endempty
+                                                <img src="{{asset($brand->logo)}}" alt="">
 
                                             </td>
                                             <td>
-                                                <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-info sm">
+                                                <a href="{{ route('brand.edit',$brand->id) }}"
+                                                    class="btn btn-info sm">
                                                     <i class="fas fa-edit "></i>
                                                 </a>
-                                                <a data-url="{{ route('brand.destroy', $brand->id) }}"
-                                                    data-id="{{ $brand->id }}" class="btn btn-danger sm deleteBrand">
-                                                    <i class=" fas fa-trash-alt "></i>
-                                                </a>
+                                                <a data-href="" id="" class="btn btn-danger sm deleteIcon"><i
+                                                        class=" fas fa-trash-alt "></i></a>
 
                                                 <a href="" class="btn btn-primary sm ">
                                                     <i class="fas fa-eye-slash"></i>
@@ -80,55 +79,4 @@
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        $(function() {
-            $('.deleteBrand').on('click', deleteBrand)
-        })
-
-        function deleteBrand(event) {
-            event.preventDefault();
-            let url = $(this).data('url');
-            let id = $(this).data('id');
-            // alert(id);
-            swal({
-                    title: "Are you sure delete?",
-                    text: "Once deleted,you can restore this file in recycle bin!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                        if (willDelete) {
-                            jQuery.ajax({
-                                    type: "delete",
-                                    'url': url,
-                                    'data': {
-                                        id: id,
-                                        _token: "{{ csrf_token() }}",
-                                    },
-                                    dataType: 'json',
-                                    success: function(data, ) {
-                                        //bug
-                                        $('.list-brand').reset()
-                                        if (data.status === 1) {
-                                            swal("Poof! Your imaginary file has been deleted!", {
-                                                    icon: "success",
-                                                }
-                                                )
-                                            }
-                                            if (data.status === 0) {
-                                                console.log(data);
-                                                // window.location.reload();
-                                                alert(data.messages)
-                                            }
-                                        }
-                                    });
-                            }
-                            else {
-                                swal("Cancel the process!!");
-                            }
-                        })
-                }
-    </script>
 @endsection

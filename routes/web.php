@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -37,3 +38,8 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('category/edit/{id}','edit')->name('category.edit');
     Route::put('category/update/{$id}','update')->name('category.update');
 });
+//brand
+ Route::resource('brand', BrandController::class);
+ Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
+
+

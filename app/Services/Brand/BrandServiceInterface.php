@@ -5,5 +5,7 @@ use App\Services\ServiceInterface;
 
 interface BrandServiceInterface extends ServiceInterface
 {
+    public function getTrash();
+
 
 }

@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Services\Brand\BrandService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BrandController extends Controller
@@ -27,10 +28,10 @@ class BrandController extends Controller
     {
         try {
             $brands = $this->brandService->all();
-       $param=[
+       $params=[
         'brands' => $brands
        ];
-       return  view('back-end.brand.index');
+       return  view('back-end.brand.index',$params);
 
         } catch (Exception $e) {
             Log::error('errors'.$e->getMessage().'getLine'.$e->getLine());
@@ -58,19 +59,19 @@ class BrandController extends Controller
     public function store(BrandRequest $request)
     {
         try {
-            $data=$request->only('data','logo');
-             $this->brandService->create($data);
+
+             $this->brandService->create($request->all());
             $notification = array(
                 'message' => 'Added successFully',
                 'alert-type' => 'success'
             );
-            return redirect()->route("category.index")->with($notification);
+            return redirect()->route("brand.index")->with($notification);
     } catch (Exception $e) {
-        Log::error('errors'.$e->getMessage().'getLine'.$e->getLine());
+        Log::error('errors'.$e->getMessage().' getLine'.$e->getLine());
         $notification = array(
-            'message' => 'Added successFully',
+            'message' => 'Added errors',
             'alert-type' => 'error');
-            return redirect()->route("category.index")->with($notification);
+            return redirect()->route("brand.index")->with($notification);
     }
 
     }
@@ -102,8 +103,17 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $this->brandService->find($id);
-        return view('back-end.brand.edit');
+        try {
+              $brand = $this->brandService->find($id);
+       $params=[
+        'brand'=> $brand
+       ];
+        return view('back-end.brand.edit',$params);
+        } catch (Exception $e) {
+            Log::error('errors'.$e->getMessage().'getLine'.$e->getLine());
+            abort(403);
+        }
+
     }
 
     /**
@@ -113,9 +123,14 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update($id, Request $request)
     {
-        //
+        try {
+            $this->brandService->update($id,$request->all());
+        }catch (Exception $e) {
+            Log::error('errors'.$e->getMessage().'getLine'.$e->getLine());
+            abort(403);
+        }
     }
 
     /**
@@ -124,8 +139,42 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $id= $request->id;
+            $brand =$this->brandService->find($id);
+            $brand->delete();
+            DB::commit();
+            $messages='Deleted successfully.'.$brand->name;
+            return response()->json([
+                'messages' =>$messages,
+                'status' => 1
+        ],200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('messages' . $e->getMessage() . 'line________' . $e->getLine());
+            $messages='Deleted errors!!!please try again.';
+            return response()->json(['messages' =>$messages,
+            'status' => 0
+        ],200);
+            }
+    }
+
+    public function getTrash()
+    {
+        try {
+            $brands = $this->brandService->getTrash();
+     $params=[
+      'brands'=> $brands
+     ];
+     dd($brands);
+      return view('back-end.brand.softDelete',$params);
+      } catch (Exception $e) {
+          Log::error('errors'.$e->getMessage().'getLine'.$e->getLine());
+          abort(403);
+     }
     }
 }
