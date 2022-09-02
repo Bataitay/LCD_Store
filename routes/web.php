@@ -40,4 +40,5 @@ Route::controller(RoleController::class)->group(function(){
     Route::post('role/store','store')->name('role.store');
     Route::get('role/edit/{id}','edit')->name('role.edit');
     Route::put('role/update/{id}','update')->name('role.update');
+    Route::delete('role/destroy/{id}','destroy')->name('role.destroy');
 });
