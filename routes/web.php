@@ -32,4 +32,8 @@ Route::controller(ProductController::class)->group(function(){
 });
 Route::controller(CategoryController::class)->group(function(){
     Route::get('category/index','index')->name('category.index');
+    Route::get('category/create','create')->name('category.create');
+    Route::post('category/store','store')->name('category.store');
+    Route::get('category/edit/{id}','edit')->name('category.edit');
+    Route::put('category/update/{$id}','update')->name('category.update');
 });

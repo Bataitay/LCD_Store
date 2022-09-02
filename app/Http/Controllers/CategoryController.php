@@ -31,7 +31,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
+
+        return view('back-end.category.add');
     }
 
     /**
@@ -42,10 +43,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = $request->all();
-        $this->productService->create($category);
+        $data = $request->all();
+        $this->categoryService->create($data);
         $notification = array(
-            'message' => 'Thêm danh mục thành công',
+            'message' => 'Added category successfully',
             'alert-type' => 'success'
         );
         return redirect()->route('category.index')->with($notification);
@@ -69,9 +70,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = $this->categoryService->find($id);
+        return view('back-end.category.edit',compact('category'));
     }
 
     /**
@@ -81,9 +83,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,$id)
     {
-        //
+        // $data = $request->all();
+        // $this->categoryService->update( $id, $data);
+        // $notification = array(
+        //     'message' => 'Edited category successfully',
+        //     'alert-type' => 'success'
+        // );
+        // return redirect()->route('category.index')->with($notification);
+
     }
 
     /**
