@@ -10,4 +10,7 @@ class Permission extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    function childrentPermissions(){
+        return $this->hasMany(Permission::class, 'group_key', 'id');
+    }
 }
