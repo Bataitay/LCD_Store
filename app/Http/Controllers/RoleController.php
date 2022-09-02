@@ -24,9 +24,9 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request)
     {
-        $roles = $this->roleService->all();
+        $roles = $this->roleService->all($request);
         $params = [
             'roles' => $roles,
         ];
