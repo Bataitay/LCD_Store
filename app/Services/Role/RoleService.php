@@ -12,7 +12,4 @@ class RoleService extends BaseService implements RoleServiceInterface{
     {
         $this->repository = $RoleRepositoryInterface;
     }
-    function create($data){
-        $this->repository->create($data);
-    }
 }
