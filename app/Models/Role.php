@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $guarded = [];
     function permissions(){
         return $this->belongsToMany(Permission::class, 'permission_roles', 'role_id', 'permission_id');
