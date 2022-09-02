@@ -52,21 +52,25 @@
                                             <td>{{ $brand->id }}</td>
                                             <td>{{ $brand->name }}</td>
                                             <td> @empty($brand->logo)
-                                                <p>not yet update logo</p>
-                                            @endempty
-                                                <img src="{{asset($brand->logo)}}" alt="">
+                                                    <p>not yet update logo</p>
+                                                @endempty
+                                                <img src="{{ asset($brand->logo) }}" alt="">
 
                                             </td>
                                             <td>
-                                                <a href="{{ route('brand.edit',$brand->id) }}"
-                                                    class="btn btn-info sm">
+                                                <a data-url="{{ route('brand.restore', $brand->id) }}"
+                                                    data-id="{{ $brand->id }}" class="btn btn-info sm restoreBrand">
                                                     <i class="fas fa-edit "></i>
                                                 </a>
-                                                <a data-href="" id="" class="btn btn-danger sm deleteIcon"><i
-                                                        class=" fas fa-trash-alt "></i></a>
+                                                <a data-url="" data-id="{{ $brand->id }}"
+                                                    class="btn btn-danger sm deleteIcon">
+                                                    <i class=" fas fa-trash-alt "></i>
+                                                </a>
 
-                                                <a href="" class="btn btn-primary sm ">
-                                                    <i class="fas fa-eye-slash"></i>
+                                                <a data-url="{{ route('brand.forceDelete', $brand->id) }}"
+                                                    data-id="{{ $brand->id }}"
+                                                    class="btn btn-primary sm forceDeleteBrand">
+                                                    <i class="fas fa-trash-can-arrow-up"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -79,4 +83,93 @@
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(function() {
+            $('.forceDeleteBrand').on('click', forceDeleteBrand);
+            $('.restoreBrand').on('click', restoreBrand);
+        })
+
+        function restoreBrand(event) {
+            event.preventDefault();
+            let url = $(this).data('url');
+            let id = $(this).data('id');
+            swal({
+                    title: "Are you sure restore?",
+                    text: "If restore,You can view in list brand!",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        jQuery.ajax({
+                            type: "post",
+                            'url': url,
+                            'data': {
+                                id: id,
+                                _token: "{{ csrf_token() }}",
+                            },
+                            dataType: 'json',
+                            success: function(data, ) {
+                                if (data.status === 1) {
+                                    swal("Successfully!!!", {
+                                        icon: "success",
+                                    })
+                                    window.location.reload();
+                                }
+                                if (data.status === 0) {
+                                    console.log(data);
+                                    alert(data.messages)
+                                }
+                            }
+                        });
+                    } else {
+                        swal("Cancel the process!!");
+                    }
+                })
+        }
+
+
+
+        function forceDeleteBrand(event) {
+            event.preventDefault();
+            let url = $(this).data('url');
+            let id = $(this).data('id');
+            swal({
+                    title: "Are you sure delete?",
+                    text: "If deleted,You cannot recover this data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        jQuery.ajax({
+                            type: "delete",
+                            'url': url,
+                            'data': {
+                                id: id,
+                                _token: "{{ csrf_token() }}",
+                            },
+                            dataType: 'json',
+                            success: function(data, ) {
+                                if (data.status === 1) {
+                                    swal("Poof! Your imaginary file has been deleted!", {
+                                        icon: "success",
+                                    })
+                                    window.location.reload();
+                                }
+                                if (data.status === 0) {
+                                    console.log(data);
+                                    alert(data.messages)
+                                }
+                            }
+                        });
+                    } else {
+                        swal("Cancel the process!!");
+                    }
+                })
+        }
+    </script>
 @endsection

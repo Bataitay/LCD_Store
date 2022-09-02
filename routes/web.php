@@ -41,5 +41,8 @@ Route::controller(CategoryController::class)->group(function(){
 //brand
  Route::resource('brand', BrandController::class);
  Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
+ Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
+ Route::delete('brands/trash/force-delete/{id}',[BrandController::class,'forceDelete'])->name('brand.forceDelete');
+
 
 

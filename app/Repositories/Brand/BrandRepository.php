@@ -47,6 +47,14 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     }
     public function getTrash()
     {
-        return $this->model->onlyTrashed()->get();
+        return  $this->model->onlyTrashed()->get();
+    }
+    public function restore($id){
+        return  $this->model->withTrashed()->where('id', $id)->restore();
+    }
+    public function forceDelete($id)
+    {
+        return  $this->model->withTrashed()->where('id', $id)->forceDelete();
+
     }
 }
