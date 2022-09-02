@@ -8,4 +8,7 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
     function getModel(){
         return Permission::class;
     }
+    public function getParentPermissions(){
+        return Permission::where('group_key', '=', 0)->get();
+    }
 }
