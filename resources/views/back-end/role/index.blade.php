@@ -1,10 +1,10 @@
 @extends('back-end.master')
 @section('content')
-<style>
-    .title_cate {
-        margin-left: 30px;
-    }
-</style>
+    <style>
+        .title_cate {
+            margin-left: 30px;
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -21,9 +21,10 @@
                             </div>
                             <div class="col-md-4 ">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('role.create') }}" class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                    <i class="mdi mdi-plus-circle addeventmore "></i>
-                                    Add Role</a>
+                                    <a href="{{ route('role.create') }}"
+                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                        <i class="mdi mdi-plus-circle addeventmore "></i>
+                                        Add Role</a>
                                 </div>
                             </div>
                         </div>
@@ -34,9 +35,9 @@
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">Name</th>
-                                        <th>Quantity</th>
-                                        <th>Thao tác</th>
+                                        <th width="17%">#</th>
+                                        <th>Name</th>
+                                        <th>Option</th>
                                     </tr>
                                 </thead>
 
@@ -45,12 +46,16 @@
                                 </tbody>
 
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-
+                                    @foreach($roles as $role)
+                                        <tr>
+                                            <td>{{ $role->id }}</td>
+                                            <td>{{ $role->name }}</td>
+                                            <td>
+                                                <a href="" class="btn btn-primary">Edit</a> | 
+                                                <a href="" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
