@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Services\Category\CategoryServiceInterface;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,9 +13,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $categoryService;
+    public function __construct(CategoryServiceInterface $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
     public function index()
     {
-        //
+        $categories = $this->categoryService->all();
+        return view('back-end.category.index',compact('categories'));
     }
 
     /**
@@ -24,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +42,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = $request->all();
+        $this->productService->create($category);
+        $notification = array(
+            'message' => 'Thêm danh mục thành công',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('category.index')->with($notification);
+
     }
 
     /**
