@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Services\Permission\PermissionServiceInterface;
+use App\Services\Role\RoleServiceInterface;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    protected $permissionService;
+    protected $roleService;
+    public function __construct(
+        PermissionServiceInterface $permissionService, 
+        RoleServiceInterface $roleService
+        )
+        {
+        $this->permissionService = $permissionService;
+        $this->roleService = $roleService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return view('back-end.role.index');
     }
 
     /**
@@ -24,7 +36,11 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $ParentPermissions = $this->permissionService->getParentPermissions();
+        $params = [
+            'ParentPermissions' => $ParentPermissions,
+        ];
+        return view('back-end.role.add', $params);
     }
 
     /**
@@ -35,7 +51,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->roleService->create($request);
+        return  redirect()->route('role.index');
     }
 
     /**
