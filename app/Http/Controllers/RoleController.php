@@ -40,9 +40,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $ParentPermissions = $this->permissionService->getParentPermissions();
+        $parentPermissions = $this->permissionService->getParentPermissions();
         $params = [
-            'ParentPermissions' => $ParentPermissions,
+            'parentPermissions' => $parentPermissions,
         ];
         return view('back-end.role.add', $params);
     }
@@ -76,9 +76,17 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
-        //
+        $role = $this->roleService->find($id);
+        $parentPermissions = $this->permissionService->getParentPermissions();
+        $permissionChecked = $role->permissions;
+        $params = [
+            'role' => $role,
+            'parentPermissions' => $parentPermissions,
+            'permissionChecked' => $permissionChecked,
+        ];
+        return view('back-end.role.edit', $params);
     }
 
     /**
@@ -88,9 +96,10 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $id)
     {
-        //
+        $this->roleService->update($id, $request);
+        return  redirect()->route('role.index');
     }
 
     /**
