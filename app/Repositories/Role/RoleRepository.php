@@ -21,4 +21,9 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
         ]);
         $role->permissions()->sync($data->permissions_id);
     }
+    function delete($id){
+        $role = $this->find($id);
+        $role->permissions()->detach();
+        $role->delete();
+    }
 }
