@@ -14,4 +14,11 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
         ]);
         $role->permissions()->attach($data->permissions_id);
     }
+    function update($id ,$data){
+        $role = $this->find($id);
+        $role->update([
+            'name' => $data->name,
+        ]);
+        $role->permissions()->sync($data->permissions_id);
+    }
 }
