@@ -26,7 +26,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('back-end.role.index');
+        $roles = $this->roleService->all();
+        $params = [
+            'roles' => $roles,
+        ];
+        return view('back-end.role.index', $params);
     }
 
     /**
