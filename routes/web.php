@@ -38,4 +38,6 @@ Route::controller(RoleController::class)->group(function(){
     Route::get('role/index','index')->name('role.index');
     Route::get('role/create','create')->name('role.create');
     Route::post('role/store','store')->name('role.store');
+    Route::get('role/edit/{id}','edit')->name('role.edit');
+    Route::put('role/update/{id}','update')->name('role.update');
 });
