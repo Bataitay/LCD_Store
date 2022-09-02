@@ -51,8 +51,12 @@
                                             <td>{{ $role->id }}</td>
                                             <td>{{ $role->name }}</td>
                                             <td>
-                                                <a href="" class="btn btn-primary">Edit</a> | 
-                                                <a href="" class="btn btn-danger">Delete</a>
+                                                <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary">Edit</a> | 
+                                                <form action="{{ route('role.destroy', $role->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn btn-danger">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
