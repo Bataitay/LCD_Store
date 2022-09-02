@@ -18,9 +18,9 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $parentNameGroups = [
-            'Categories',
-            'Products',
-            'Users',
+            'Category',
+            'Product',
+            'User',
         ];
         foreach($parentNameGroups as $parentNameGroup){
             $parentGroup =  $this->permissionService->create([
@@ -46,6 +46,11 @@ class PermissionSeeder extends Seeder
             $this->permissionService->create([
                 'name' => 'Edit ' . $parentNameGroup,
                 'group_name' => 'Edit_'.$parentNameGroup,
+                'group_key' => $parentGroup->id,
+            ]);
+            $this->permissionService->create([
+                'name' => 'Delete ' . $parentNameGroup,
+                'group_name' => 'Delete_'.$parentNameGroup,
                 'group_key' => $parentGroup->id,
             ]);
         }
