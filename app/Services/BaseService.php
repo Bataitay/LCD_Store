@@ -4,7 +4,7 @@ namespace App\Services;
 class BaseService implements ServiceInterface{
     public $repository;
 
-    public function all(){
+    public function all($request){
         return $this->repository->all();
     }
 

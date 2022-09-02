@@ -18,9 +18,9 @@ class CategoryController extends Controller
     {
         $this->categoryService = $categoryService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->categoryService->all();
+        $categories = $this->categoryService->all($request);
         return view('back-end.category.index',compact('categories'));
     }
 
@@ -85,13 +85,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
-        // $data = $request->all();
-        // $this->categoryService->update( $id, $data);
-        // $notification = array(
-        //     'message' => 'Edited category successfully',
-        //     'alert-type' => 'success'
-        // );
-        // return redirect()->route('category.index')->with($notification);
+        $data = $request->all();
+        $this->categoryService->update( $id, $data);
+        $notification = array(
+            'message' => 'Edited category successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('category.index')->with($notification);
 
     }
 
@@ -101,8 +101,26 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = $this->categoryService->delete( $id);
+        return response()->json($category);
+    }
+    public function getTrashed(){
+        $categories = $this->categoryService->getTrashed();
+        return view('back-end.category.sorfDelete',compact('categories'));
+
+    }
+    public function restore($id){
+        $this->categoryService->restore($id);
+        $notification = array(
+            'message' => 'Restore category successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('category.getTrashed')->with($notification);
+    }
+    public function force_destroy($id){
+        $category = $this->categoryService->force_destroy( $id);
+        return response()->json($category);
     }
 }

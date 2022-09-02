@@ -35,5 +35,10 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('category/create','create')->name('category.create');
     Route::post('category/store','store')->name('category.store');
     Route::get('category/edit/{id}','edit')->name('category.edit');
-    Route::put('category/update/{$id}','update')->name('category.update');
+    Route::put('category/update/{id}','update')->name('category.update');
+    Route::delete('category/delete/{id}','destroy')->name('category.delete');
+    Route::get('category/getTrashed','getTrashed')->name('category.getTrashed');
+    Route::get('category/restore/{id}','restore')->name('category.restore');
+    Route::delete('category/force_destroy/{id}','force_destroy')->name('category.force_destroy');
+
 });

@@ -12,4 +12,12 @@ class BookService extends BaseService implements BookServiceInterface{
     {
         $this->repository = $bookRepositoryInterface;
     }
+    public function all()
+    {
+        return $this->repository->all();
+    }
+    public function update($id, $data)
+    {
+        return $this->repository->update($id, $data);
+    }
 }
