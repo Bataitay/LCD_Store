@@ -32,14 +32,14 @@
                                     <label for="Permissions" class="form-label">Full Permissions</label>
                                 </div>
                                 <div class="custom-control custom-checkbox row d-flex mb-4">
-                                    @foreach ($ParentPermissions as $ParentPermission)
+                                    @foreach ($parentPermissions as $parentPermission)
                                         <div class="card col-md-12">
                                             <div class="card-header">
-                                                <input name="Permissions" type="checkbox" class="form-check-input" id="Permissions{{ $ParentPermission->id }}">
-                                                <label for="Permissions{{ $ParentPermission->id }}" class="form-label">{{ $ParentPermission->name }}</label>
+                                                <input name="Permissions" type="checkbox" class="form-check-input" id="Permissions{{ $parentPermission->id }}">
+                                                <label for="Permissions{{ $parentPermission->id }}" class="form-label">{{ $parentPermission->name }}</label>
                                             </div>
                                             <div class="card-body row d-flex">
-                                                @foreach($ParentPermission->childrentPermissions as $childrentPermission)
+                                                @foreach($parentPermission->childrentPermissions as $childrentPermission)
                                                 <div class="form-check col-2">
                                                     <input name="permissions_id[]" value="{{ $childrentPermission->id }}" type="checkbox" class="form-check-input" id="Permissions{{ $childrentPermission->id }}">
                                                     <label for="Permissions{{ $childrentPermission->id }}" class="form-label">{{ $childrentPermission->name }}</label>
