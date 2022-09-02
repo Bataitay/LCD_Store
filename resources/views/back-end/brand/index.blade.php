@@ -41,12 +41,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-
-                                <tbody id="addRow" class="addRow">
-
-                                </tbody>
-
-                                <tbody>
+                                <tbody id="myTbody">
                                     @foreach ($brands as $brand)
                                         <tr class="list-brand">
                                             <td>{{ $brand->id }}</td>
@@ -90,7 +85,6 @@
             event.preventDefault();
             let url = $(this).data('url');
             let id = $(this).data('id');
-            // alert(id);
             swal({
                     title: "Are you sure delete?",
                     text: "Once deleted,you can restore this file in recycle bin!",
@@ -99,36 +93,31 @@
                     dangerMode: true,
                 })
                 .then((willDelete) => {
-                        if (willDelete) {
-                            jQuery.ajax({
-                                    type: "delete",
-                                    'url': url,
-                                    'data': {
-                                        id: id,
-                                        _token: "{{ csrf_token() }}",
-                                    },
-                                    dataType: 'json',
-                                    success: function(data, ) {
-                                        //bug
-                                        $('.list-brand').reset()
-                                        if (data.status === 1) {
-                                            swal("Poof! Your imaginary file has been deleted!", {
-                                                    icon: "success",
-                                                }
-                                                )
-                                            }
-                                            if (data.status === 0) {
-                                                console.log(data);
-                                                // window.location.reload();
-                                                alert(data.messages)
-                                            }
-                                        }
-                                    });
+                    if (willDelete) {
+                        jQuery.ajax({
+                            type: "delete",
+                            'url': url,
+                            'data': {
+                                id: id,
+                                _token: "{{ csrf_token() }}",
+                            },
+                            dataType: 'json',
+                            success: function(data, ) {
+                                if (data.status === 1) {
+                                    swal("Poof! Your imaginary file has been deleted!", {
+                                        icon: "success",
+                                    })
+                                    window.location.reload();
+                                }
+                                if (data.status === 0) {
+                                    alert(data.messages)
+                                }
                             }
-                            else {
-                                swal("Cancel the process!!");
-                            }
-                        })
-                }
+                        });
+                    } else {
+                        swal("Cancel the process!!");
+                    }
+                })
+        }
     </script>
 @endsection

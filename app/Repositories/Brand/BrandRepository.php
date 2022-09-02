@@ -1,48 +1,52 @@
 <?php
+
 namespace App\Repositories\Brand;
 
 use App\Models\Brand;
 use App\Repositories\BaseRepository;
 
-class BrandRepository extends BaseRepository implements BrandRepositoryInterface{
+use function PHPUnit\Framework\isNull;
+
+class BrandRepository extends BaseRepository implements BrandRepositoryInterface
+{
 
     function getModel()
     {
         return Brand::class;
     }
     //
-    public function create($data){
+    public function create($data)
+    {
         if ($data['logo']) {
             $file = $data['logo'];
-            $fileExtension = $file->getClientOriginalExtension(); //jpg,png lấy ra định dạng file và trả về
-            $fileName = time(); // create file by curent time
+            $fileExtension = $file->getClientOriginalExtension();
+            $fileName = time(); // create file name by curent time
             $newFileName = $fileName . '.' . $fileExtension; //45678908766.jpg
-            // $product->image = $newFileName;// cột image gán bằng tên file mới
-            $path= 'storage/images/brand/'.$newFileName;
-            $data['logo']->storeAs('public/images/brand', $newFileName); //lưu file vào mục public/images với tê mới là $newFileName
+            $path = 'storage/images/brand/' . $newFileName;
+            $data['logo']->storeAs('public/images/brand', $newFileName); //save file in public/images/brand with newname is newFileName
             $data['logo'] = $path;
-
         }
         return $this->model->create($data);
     }
-    public function update($id, $data){
+    public function update($id, $data)
+    {
         $object = $this->model->find($id);
-        if ($data['logo']) {
+        // dd(!empty($data['logo']));
+        if (!empty($data['logo'])) {
             $file = $data['logo'];
-            $fileExtension = $file->getClientOriginalExtension(); //jpg,png lấy ra định dạng file và trả về
+            $fileExtension = $file->getClientOriginalExtension();
             $fileName = time(); // create file by curent time
             $newFileName = $fileName . '.' . $fileExtension; //45678908766.jpg
-            // $product->image = $newFileName;// cột image gán bằng tên file mới
-            $path= 'storage/images/brand/'.$newFileName;
-            $data['logo']->storeAs('public/images/brand', $newFileName); //lưu file vào mục public/images với tê mới là $newFileName
+            $path = 'storage/images/brand/' . $newFileName;
+            $data['logo']->storeAs('public/images/brand', $newFileName);// save file in public/images/brand with newname is newFileName
             $data['logo'] = $path;
-
-        }else{
-            $data['logo'] = $object->image;
+        } else {
+            $data['logo'] = $object->logo;
         }
         return $object->update($data);
     }
-    public function getTrash(){
-      return $this->model->onlyTrashed()->get();
+    public function getTrash()
+    {
+        return $this->model->onlyTrashed()->get();
     }
 }

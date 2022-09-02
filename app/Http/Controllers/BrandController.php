@@ -59,14 +59,16 @@ class BrandController extends Controller
     public function store(BrandRequest $request)
     {
         try {
-
+            DB::beginTransaction();
              $this->brandService->create($request->all());
             $notification = array(
                 'message' => 'Added successFully',
                 'alert-type' => 'success'
             );
             return redirect()->route("brand.index")->with($notification);
+            DB::commit();
     } catch (Exception $e) {
+        DB::rollBack();
         Log::error('errors'.$e->getMessage().' getLine'.$e->getLine());
         $notification = array(
             'message' => 'Added errors',
@@ -126,11 +128,22 @@ class BrandController extends Controller
     public function update($id, Request $request)
     {
         try {
+            DB::beginTransaction();
             $this->brandService->update($id,$request->all());
-        }catch (Exception $e) {
-            Log::error('errors'.$e->getMessage().'getLine'.$e->getLine());
-            abort(403);
-        }
+            DB::commit();
+            $notification = array(
+                'message' => 'Update successFully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route("brand.index")->with($notification);
+    } catch (Exception $e) {
+        Db::rollBack();
+        Log::error('errors'.$e->getMessage().' getLine'.$e->getLine());
+        $notification = array(
+            'message' => 'Update errors',
+            'alert-type' => 'error');
+            return redirect()->route("brand.index")->with($notification);
+    }
     }
 
     /**
@@ -155,7 +168,7 @@ class BrandController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('messages' . $e->getMessage() . 'line________' . $e->getLine());
+            Log::error('messages' . $e->getMessage() . 'line________' . $e->getLine().'file '.$e->getFile());
             $messages='Deleted errors!!!please try again.';
             return response()->json(['messages' =>$messages,
             'status' => 0
