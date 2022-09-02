@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $guarded = [];
+    function childrentPermissions(){
+        return $this->hasMany(Permission::class, 'group_key', 'id');
+    }
 }

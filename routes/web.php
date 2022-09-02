@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,4 +42,12 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('category/restore/{id}','restore')->name('category.restore');
     Route::delete('category/force_destroy/{id}','force_destroy')->name('category.force_destroy');
 
+});
+Route::controller(RoleController::class)->group(function(){
+    Route::get('role/index','index')->name('role.index');
+    Route::get('role/create','create')->name('role.create');
+    Route::post('role/store','store')->name('role.store');
+    Route::get('role/edit/{id}','edit')->name('role.edit');
+    Route::put('role/update/{id}','update')->name('role.update');
+    Route::delete('role/destroy/{id}','destroy')->name('role.destroy');
 });

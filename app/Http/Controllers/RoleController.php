@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Services\Permission\PermissionServiceInterface;
+use App\Services\Role\RoleServiceInterface;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    protected $permissionService;
+    protected $roleService;
+    public function __construct(
+        PermissionServiceInterface $permissionService, 
+        RoleServiceInterface $roleService
+        )
+        {
+        $this->permissionService = $permissionService;
+        $this->roleService = $roleService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = $this->roleService->all();
+        $params = [
+            'roles' => $roles,
+        ];
+        return view('back-end.role.index', $params);
     }
 
     /**
@@ -24,7 +40,11 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $parentPermissions = $this->permissionService->getParentPermissions();
+        $params = [
+            'parentPermissions' => $parentPermissions,
+        ];
+        return view('back-end.role.add', $params);
     }
 
     /**
@@ -35,7 +55,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->roleService->create($request);
+        return  redirect()->route('role.index');
     }
 
     /**
@@ -55,9 +76,17 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
-        //
+        $role = $this->roleService->find($id);
+        $parentPermissions = $this->permissionService->getParentPermissions();
+        $permissionChecked = $role->permissions;
+        $params = [
+            'role' => $role,
+            'parentPermissions' => $parentPermissions,
+            'permissionChecked' => $permissionChecked,
+        ];
+        return view('back-end.role.edit', $params);
     }
 
     /**
@@ -67,9 +96,10 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $id)
     {
-        //
+        $this->roleService->update($id, $request);
+        return  redirect()->route('role.index');
     }
 
     /**
@@ -78,8 +108,9 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        //
+       $this->roleService->delete($id);
+       return  redirect()->route('role.index');
     }
 }
