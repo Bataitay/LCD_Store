@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +33,9 @@ Route::controller(ProductController::class)->group(function(){
 });
 Route::controller(CategoryController::class)->group(function(){
     Route::get('category/index','index')->name('category.index');
+});
+Route::controller(RoleController::class)->group(function(){
+    Route::get('role/index','index')->name('role.index');
+    Route::get('role/create','create')->name('role.create');
+    Route::post('role/store','store')->name('role.store');
 });
