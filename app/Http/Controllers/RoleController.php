@@ -108,8 +108,9 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        //
+       $this->roleService->delete($id);
+       return  redirect()->route('role.index');
     }
 }
