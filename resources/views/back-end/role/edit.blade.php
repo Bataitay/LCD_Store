@@ -13,7 +13,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Add Role</h2>
+                                    <h2 for="example-text-input" class="form-label">Edit Role</h2>
                                 </div>
                             </div>
                         </div>
