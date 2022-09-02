@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +41,18 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('category/getTrashed','getTrashed')->name('category.getTrashed');
     Route::get('category/restore/{id}','restore')->name('category.restore');
     Route::delete('category/force_destroy/{id}','force_destroy')->name('category.force_destroy');
+
+});
+Route::controller(UserController::class)->group(function(){
+    Route::get('user/index','index')->name('user.index');
+    Route::get('user/create','create')->name('user.create');
+    Route::post('user/store','store')->name('user.store');
+    Route::post('user/addAvatar','addAvatar')->name('user.addAvatar');
+    Route::get('user/edit/{id}','edit')->name('user.edit');
+    Route::put('user/update/{id}','update')->name('user.update');
+    Route::delete('user/delete/{id}','destroy')->name('user.delete');
+    Route::get('user/getTrashed','getTrashed')->name('user.getTrashed');
+    Route::get('user/restore/{id}','restore')->name('user.restore');
+    Route::delete('user/force_destroy/{id}','force_destroy')->name('user.force_destroy');
 
 });

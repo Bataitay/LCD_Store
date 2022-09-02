@@ -13,35 +13,19 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage category</h2>
+                                    <h2 for="example-text-input" class="form-label">Trashed</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <h2></h2>
                             </div><br><br><br>
-                            <div class="col-md-12 d-flex">
+                            <div class="col-md-4 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('category.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Category</a>
-                                </div>
-                                <div class="md-3 title_cate">
-                                    <a href="{{ route('category.getTrashed') }}"
+                                    <a href="{{ route('category.index') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
-                                        <i class=" fas fa-trash-alt"></i>
-                                        Trash</a>
+                                        <i class=" fas fa-reply-all"></i>
+                                        All Category</a>
                                 </div>
-                                <div class="md-3 title_cate d-flex">
-                                    <div class="form-outline">
-                                            <form action="">
-                                            <input type="search" name="search" id="form1" class="form-control" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light ">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
-                                    </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -65,7 +49,7 @@
                                 <tbody id="myTable">
                                     @if (!$categories->count())
                                         <tr>
-                                            <td colspan="4">No data yet...</td>
+                                            <td colspan="3">No data yet...</td>
                                         </tr>
                                     @else
                                         @foreach ($categories as $category)
@@ -74,17 +58,16 @@
                                                 <td>{{ $category->name }}</td>
                                                 <td></td>
                                                 <td>
-                                                    <a href="{{ route('category.edit', $category->id) }}"
+                                                    <a href="{{ route('category.restore', $category->id) }}"
+                                                        onclick="return confirm('Do you want restore?')"
                                                         class="btn btn-info sm">
-                                                        <i class="fas fa-edit "></i>
+                                                        <i class="fas fa-redo"></i>
                                                     </a>
-                                                    <a data-href="{{ route('category.delete', $category->id) }}"
-                                                        id="{{ $category->id }}" class="btn btn-danger sm deleteIcon"><i
-                                                            class=" fas fa-trash-alt "></i></a>
+                                                    <a data-href="{{ route('category.force_destroy', $category->id) }}"
+                                                        id="{{ $category->id }}" class="btn btn-danger sm deleteIcon">
+                                                        <i class=" fas fa-trash-alt "></i>
+                                                    </a>
 
-                                                    <a href="" class="btn btn-primary sm ">
-                                                        <i class="fas fa-eye-slash"></i>
-                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -93,7 +76,7 @@
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Show {{ $categories->perPage() }} - {{ $categories->currentPage() }} of
+                                    Hiển thị {{ $categories->perPage() }} - {{ $categories->currentPage() }} của
                                     {{ $categories->lastPage() }}
                                 </div>
                                 <div class="col-5">

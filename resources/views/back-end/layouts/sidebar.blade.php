@@ -61,7 +61,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="pages-starter.html">Roles</a></li>
                         <li><a href="pages-timeline.html">Permission</a></li>
-                        <li><a href="pages-directory.html">Employee</a></li>
+                        <li><a href="{{ route('user.index')}}">Employee</a></li>
                     </ul>
                 </li>
                 <li class="menu-title">Web</li>
