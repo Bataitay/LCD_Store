@@ -5,7 +5,7 @@ class BaseService implements ServiceInterface{
     public $repository;
 
     public function all($request){
-        return $this->repository->all();
+        return $this->repository->all($request);
     }
 
     public function find($id){
