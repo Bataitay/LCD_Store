@@ -68,7 +68,7 @@ class RoleController extends Controller
         $params = [
             'notification' => $notification
         ];
-        return  redirect()->route('role.index', $params);
+        return  redirect()->route('role.index')->with($notification);
     }
 
     /**
@@ -111,7 +111,11 @@ class RoleController extends Controller
     public function update(RoleRequest $request, $id)
     {
         $this->roleService->update($id, $request);
-        return  redirect()->route('role.index');
+        $notification = array(
+            'message' => 'Updated role successfully',
+            'alert-type' => 'success'
+        );
+        return  redirect()->route('role.index')->with($notification);
     }
 
     /**
@@ -123,6 +127,10 @@ class RoleController extends Controller
     public function destroy($id)
     {
        $this->roleService->delete($id);
-       return  redirect()->route('role.index');
+       $notification = array(
+        'message' => 'Deleted role successfully',
+        'alert-type' => 'success'
+    );
+       return  redirect()->route('role.index')->with($notification);
     }
 }
