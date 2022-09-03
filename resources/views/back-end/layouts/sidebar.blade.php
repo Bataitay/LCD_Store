@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="calendar.html" class=" waves-effect">
+                    <a href="{{route('brand.index')}}" class=" waves-effect">
                         <i class="ri-vip-crown-2-line"></i>
                         <span>Brands</span>
                     </a>

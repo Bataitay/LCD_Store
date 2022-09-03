@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -51,3 +52,11 @@ Route::controller(RoleController::class)->group(function(){
     Route::put('role/update/{id}','update')->name('role.update');
     Route::delete('role/destroy/{id}','destroy')->name('role.destroy');
 });
+//brand
+ Route::resource('brand', BrandController::class);
+ Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
+ Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
+ Route::delete('brands/trash/force-delete/{id}',[BrandController::class,'forceDelete'])->name('brand.forceDelete');
+
+
+

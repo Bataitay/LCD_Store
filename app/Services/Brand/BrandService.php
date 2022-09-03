@@ -7,12 +7,27 @@ use App\Services\BaseService;
 
 class BrandService extends BaseService implements BrandServiceInterface {
 
-    public $brandRepository;
+    public $repository;
     public function __construct(BrandRepositoryInterface $brandRepository)
     {
-        $this->brandRepository = $brandRepository;
+        $this->repository = $brandRepository;
     }
-    
+    public function getTrash()
+    {
+        return $this->repository->getTrash();
+
+    }
+    public function restore($id)
+    {
+        return $this->repository->restore($id);
+    }
+    public function forceDelete($id)
+    {
+        return $this->repository->forceDelete($id);
+    }
+
+
+
 }
 
 

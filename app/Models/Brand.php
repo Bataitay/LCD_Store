@@ -10,4 +10,8 @@ class Brand extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+    protected $table = 'brands';
+    protected $fillable = [
+        'name', 'logo','status'
+    ];
 }
