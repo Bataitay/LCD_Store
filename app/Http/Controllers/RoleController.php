@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use App\Services\Permission\PermissionServiceInterface;
 use App\Services\Role\RoleServiceInterface;
@@ -27,9 +28,9 @@ class RoleController extends Controller
      */
     public function index( Request $request)
     {
-        if (! Gate::allows('List_Role')) {
-            abort(403);
-        }
+        // if (! Gate::allows('List_Role')) {
+        //     abort(403);
+        // }
         $roles = $this->roleService->all($request);
         $params = [
             'roles' => $roles,
@@ -57,10 +58,17 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         $this->roleService->create($request);
-        return  redirect()->route('role.index');
+        $notification = array(
+            'message' => 'Added role successfully',
+            'alert-type' => 'success'
+        );
+        $params = [
+            'notification' => $notification
+        ];
+        return  redirect()->route('role.index', $params);
     }
 
     /**
@@ -100,7 +108,7 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         $this->roleService->update($id, $request);
         return  redirect()->route('role.index');

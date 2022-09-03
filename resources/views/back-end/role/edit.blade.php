@@ -24,21 +24,24 @@
                                 @method('PUT')
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Role Name</label>
-                                    <input name="name" value="{{ $role->name }}" type="input" class="form-control"
+                                    <input name="name" value="{{ old('name') ?? $role->name }}" type="input" class="form-control"
                                         id="name">
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Permissions</label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="Permissions" type="checkbox" class="form-check-input checkbox_all" id="Permissions">
+                                    <input name="Permissions" type="checkbox" class="form-check-input checkbox_all"
+                                        id="Permissions">
                                     <label for="Permissions" class="form-label">Full Permissions</label>
                                 </div>
                                 <div class="custom-control custom-checkbox row d-flex mb-4">
                                     @foreach ($parentPermissions as $parentPermission)
                                         <div class="single-card col-md-12">
                                             <div class="card-header">
-                                                <input name="Permissions" type="checkbox" class="form-check-input checkbox_parent checkbox_all_childrent"
+                                                <input name="Permissions" type="checkbox"
+                                                    class="form-check-input checkbox_parent checkbox_all_childrent"
                                                     id="Permissions{{ $parentPermission->id }}">
                                                 <label for="Permissions{{ $parentPermission->id }}"
                                                     class="form-label">{{ $parentPermission->name }}</label>
