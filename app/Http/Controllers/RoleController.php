@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Services\Permission\PermissionServiceInterface;
 use App\Services\Role\RoleServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -26,6 +27,9 @@ class RoleController extends Controller
      */
     public function index( Request $request)
     {
+        if (! Gate::allows('List_Role')) {
+            abort(403);
+        }
         $roles = $this->roleService->all($request);
         $params = [
             'roles' => $roles,
