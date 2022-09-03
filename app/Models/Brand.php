@@ -12,6 +12,6 @@ class Brand extends Model
     protected $guarded = [];
     protected $table = 'brands';
     protected $fillable = [
-        'name', 'logo'
+        'name', 'logo','status'
     ];
 }

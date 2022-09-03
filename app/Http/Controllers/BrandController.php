@@ -46,8 +46,8 @@ class BrandController extends Controller
                 'message' => 'Added successFully',
                 'alert-type' => 'success'
             );
-            return redirect()->route("brand.index")->with($notification);
             DB::commit();
+            return redirect()->route("brand.index")->with($notification);
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());

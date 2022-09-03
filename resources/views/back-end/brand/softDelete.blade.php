@@ -60,17 +60,12 @@
                                             <td>
                                                 <a data-url="{{ route('brand.restore', $brand->id) }}"
                                                     data-id="{{ $brand->id }}" class="btn btn-info sm restoreBrand">
-                                                    <i class="fas fa-edit "></i>
+                                                    <i class="fas fa-redo"></i>
                                                 </a>
-                                                <a data-url="" data-id="{{ $brand->id }}"
-                                                    class="btn btn-danger sm deleteIcon">
-                                                    <i class=" fas fa-trash-alt "></i>
-                                                </a>
-
                                                 <a data-url="{{ route('brand.forceDelete', $brand->id) }}"
                                                     data-id="{{ $brand->id }}"
-                                                    class="btn btn-primary sm forceDeleteBrand">
-                                                    <i class="fas fa-trash-can-arrow-up"></i>
+                                                    class="btn btn-danger sm forceDeleteBrand">
+                                                    <i class=" fas fa-trash-alt "></i>
                                                 </a>
                                             </td>
                                         </tr>
