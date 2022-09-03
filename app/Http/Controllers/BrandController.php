@@ -18,10 +18,10 @@ class BrandController extends Controller
         $this->brandService = $brandService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $brands = $this->brandService->all();
+            $brands = $this->brandService->all($request);
             $params = [
                 'brands' => $brands
             ];
