@@ -66,7 +66,8 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('role.index') }}" class="btn btn-danger">Back</a>
+                                <button type="submit" class="btn btn-primary">Edit Role</button>
                             </form>
                         </div>
                     </div>
