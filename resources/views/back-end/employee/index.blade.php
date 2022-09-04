@@ -1,14 +1,5 @@
 @extends('back-end.master')
 @section('content')
-    <style>
-        .title_cate {
-            margin-left: 20px;
-        }
-        .image_photo{
-            width: 45px;
-            height: 45px;
-        }
-    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -39,7 +30,7 @@
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
                                         <form action="">
-                                            <input type="search" name="search" id="form1" class="form-control" />
+                                            <input type="search" name="search" id="form1" value="{{ request()->search }}" class="form-control" />
                                     </div>
                                     <button type="submit" class="btn btn-primary  waves-effect waves-light ">
                                         <i class="fas fa-search"></i>
@@ -97,7 +88,7 @@
                                                         id="{{ $user->id }}" class="btn btn-danger sm deleteIcon"><i
                                                             class=" fas fa-trash-alt "></i></a>
 
-                                                    <a href="" class="btn btn-primary sm ">
+                                                    <a href="{{ route('user.show', $user->id)}}" class="btn btn-primary sm ">
                                                         <i class="fas fa-eye-slash"></i>
                                                     </a>
                                                 </td>
@@ -113,7 +104,7 @@
                                 </div>
                                 <div class="col-5">
                                     <div class="btn-group float-end">
-                                        {{ $users->links() }}
+                                        {{ $users->appends(request()->all())->links() }}
                                     </div>
                                 </div>
                             </div>

@@ -15,7 +15,7 @@
     </header> --}}
 
         <div class="page-section">
-            <form method="post" action="{{ route('user.addAvatar') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-body">
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Số Điện thoại</label>
+                                    <label for="exampleInputEmail1">Phone</label>
                                     <input name="phone" class="form-control" type="text" value="{{ old('phone') }}"
                                         id="example-text-input">
 
@@ -51,29 +51,31 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Provice/City</label>
-                                    <select name="province_id" class="form-control province_id" >
-                                        {{-- @foreach ($provinces as $province)
-                                            <option value="{{ $province->id }}" @selected($province->id == $user->province_id)>
-                                                {{ $province->name }}</option>
-                                        @endforeach --}}
-                                    </select>
+                                    <select name="province_id" id="province_id" class="form-control province_id"
+                                    aria-label="Default select example" data-toggle="select2">
+                                    <option selected="" value="">Vui lòng chọn</option>
+                                    @foreach ($provinces as $province)
+                                        <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                    @endforeach
+                                </select>
 
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">District</label>
-                                    <select name="district_id" class="form-control district_id">
-
-                                    </select>
-
+                                    <select name="district_id" id="district_id" class="form-control district_id"
+                                    aria-label="Default select example">
+                                    <option selected="" value="">Vui lòng chọn</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Commune/Ward</label>
-                                    <select name="ward_id" class="form-control ward_id">
-
+                                    <select name="ward_id" class="form-control ward_id" aria-label="Default select example"
+                                        id="ward_id">
+                                        <option selected="" value="">Vui lòng chọn</option>
                                     </select>
                                 </div>
                             </div>
@@ -98,13 +100,11 @@
                                     <div class="custom-control custom-control-inline custom-radio">
                                         <input type="radio" class="custom-control-input" name="gender" id="rd1"
                                           checked  value="1">  Male <br>
-                                        {{-- <label class="custom-control-label" for="rd1">Nam</label> --}}
                                     </div>
                                     <div class="custom-control custom-control-inline custom-radio">
                                         <input type="radio" class="custom-control-input" name="gender" id="rd2"
                                             value="0">
                                         Female
-                                        {{-- <label class="custom-control-label" for="rd2">Nữ</label> --}}
                                     </div>
                                 </div>
                                 <br>
@@ -127,18 +127,6 @@
                                     <input type="file" name="avatar" id="filepond" class="img-fluid filepond "
                                         multiple>
                                 </div>
-                                {{-- <div class="card card-figure">
-                                    <figure class="figure">
-                                        <div class="figure-img">
-                                            <img id="showImage" class="rounded w-100 h-100 avatar-lg"
-                                                src="{{ !empty($user->image) ? url('uploads/admin_img/' . $user->image) : url('uploads/no_image.jpg') }}"
-                                                alt="Card image cap">
-                                            <span class="tile tile-circle bg-danger"><span
-                                                    class="oi oi-eye"></span></span>
-                                            </a>
-                                        </div>
-                                    </figure>
-                                </div> --}}
                             </div>
 
                         </div>
@@ -176,10 +164,77 @@
                     </div>
                 </div>
             </form>
-
-
-
         </div>
     </div>
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '.province_id', function() {
+                var province_id = $(this).val();
+                var district_name = $('.district_id').find('option:selected').text();
+                console.log(district_name);
+                console.log(province_id);
 
+                if (province_id == '') {
+                    $('#province_id').notify("Lỗi:Địa chỉ không được để trống", {
+                        globalPosition: 'top left',
+                    });
+                    return false;
+                }
+                $.ajax({
+                    url: "{{ route('user.GetDistricts') }}",
+                    type: "GET",
+                    data: {
+                        province_id: province_id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var html = '<option value="">Vui lòng chọn</option>';
+                        $.each(data, function(key, v) {
+                            console.log(v);
+                            html += '<option value=" ' + v.province_id + ' "> ' + v
+                                .name + '</option>';
+                        });
+                        $('.district_id').html(html);
+                    }
+                })
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#district_id, .payment', function() {
+                var district_id = $(this).val();
+                var ward_id = $(this).val();
+                var ward_name = $('.ward_id').find('option:selected').text();
+                if (district_id == '') {
+                    $('#district_id').notify("Lỗi:Địa chỉ không được để trống", {
+                        globalPosition: 'top left',
+                    });
+                    return false;
+                }
+                if (ward_id == '') {
+                    $('#ward_id').notify("Lỗi:Địa chỉ không được để trống", {
+                        globalPosition: 'top left',
+                    });
+                    return false;
+                }
+                $.ajax({
+                    url: "{{ route('user.getWards') }}",
+                    type: "GET",
+                    data: {
+                        district_id: district_id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var html = '<option value="">Vui lòng chọn</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value =" ' + v.id + ' "> ' + v.name +
+                                '</option>';
+                        });
+                        $('#ward_id').html(html);
+                    }
+                })
+            });
+        });
+    </script>
 @endsection

@@ -1,10 +1,6 @@
 @extends('back-end.master')
 @section('content')
-    <style>
-        .title_cate {
-            margin-left: 20px;
-        }
-    </style>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -35,7 +31,7 @@
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
                                             <form action="">
-                                            <input type="search" name="search" id="form1" class="form-control" />
+                                            <input type="search" value="{{request()->search}}" name="search" id="form1" class="form-control" />
                                         </div>
                                         <button type="submit" class="btn btn-primary  waves-effect waves-light ">
                                             <i class="fas fa-search"></i>
@@ -98,7 +94,7 @@
                                 </div>
                                 <div class="col-5">
                                     <div class="btn-group float-end">
-                                        {{ $categories->links() }}
+                                        {{ $categories->appends(request()->all())->links() }}
                                     </div>
                                 </div>
                             </div>

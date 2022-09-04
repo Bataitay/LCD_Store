@@ -5,8 +5,11 @@ use App\Services\ServiceInterface;
 
 interface UserServiceInterface extends ServiceInterface
 {
-    public function addAvatar($data);
+    public function addAvatar($request);
     public function getTrashed();
+    // public function GetDistricts( $data);
+    // public function getWards( $data);
+    public function show($id);
     public function restore($id);
     public function force_destroy($id);
 }

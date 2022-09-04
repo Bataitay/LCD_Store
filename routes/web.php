@@ -19,15 +19,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/index', function () {
+Route::get('dashboard', function () {
     return view('back-end.dashboard.index');
 });
-Route::get('/login', function () {
-    return view('back-end.auth.login');
-});
-Route::get('/register', function () {
-    return view('back-end.auth.register');
-});
+// Route::get('/login', function () {
+//     return view('back-end.auth.login');
+// });
+// Route::get('/register', function () {
+//     return view('back-end.auth.register');
+// });
+Route::middleware(['auth'])->group(function () {
 Route::controller(ProductController::class)->group(function(){
     Route::get('product/index','index');
 });
@@ -45,9 +46,12 @@ Route::controller(CategoryController::class)->group(function(){
 });
 Route::controller(UserController::class)->group(function(){
     Route::get('user/index','index')->name('user.index');
+    Route::get('user/GetDistricts','GetDistricts')->name('user.GetDistricts');
+    Route::get('user/getWards','getWards')->name('user.getWards');
     Route::get('user/create','create')->name('user.create');
     Route::post('user/store','store')->name('user.store');
     Route::post('user/addAvatar','addAvatar')->name('user.addAvatar');
+    Route::get('user/show/{id}','show')->name('user.show');
     Route::get('user/edit/{id}','edit')->name('user.edit');
     Route::put('user/update/{id}','update')->name('user.update');
     Route::delete('user/delete/{id}','destroy')->name('user.delete');
@@ -55,4 +59,14 @@ Route::controller(UserController::class)->group(function(){
     Route::get('user/restore/{id}','restore')->name('user.restore');
     Route::delete('user/force_destroy/{id}','force_destroy')->name('user.force_destroy');
 
+    Route::get('user/logout','logout')->name('user.logout');
 });
+});
+Route::controller(UserController::class)->group(function(){
+    Route::get('user/viewLogin','viewLogin')->name('user.viewLogin');
+    Route::post('user/login','login')->name('user.login');
+});
+
+// Route::post('user/addAvatar', function () {
+//     dd($_REQUEST);
+// });

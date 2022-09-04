@@ -4,6 +4,10 @@
         .title_cate {
             margin-left: 20px;
         }
+        .image_photo{
+            width: 45px;
+            height: 45px;
+        }
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -21,10 +25,10 @@
                             </div><br><br><br>
                             <div class="col-md-4 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('category.index') }}"
+                                    <a href="{{ route('user.index') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
                                         <i class=" fas fa-reply-all"></i>
-                                        All Category</a>
+                                        All Employee</a>
                                 </div>
                             </div>
                         </div>
@@ -35,10 +39,12 @@
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">Id</th>
-                                        <th>Name</th>
-                                        <th>The number of products</th>
-                                        <th>Action</th>
+                                        <th width="5%">Id</th>
+                                        <th width="15%">Name</th>
+                                        <th width="15%">Phone</th>
+                                        <th width="20%">E-mail </th>
+                                        <th width="25%">Address</th>
+                                        <th width="20%">Action</th>
                                     </tr>
                                 </thead>
 
@@ -47,24 +53,34 @@
                                 </tbody>
 
                                 <tbody id="myTable">
-                                    @if (!$categories->count())
+                                    @if (!$users->count())
                                         <tr>
-                                            <td colspan="3">No data yet...</td>
+                                            <td colspan="6">No data yet...</td>
                                         </tr>
                                     @else
-                                        @foreach ($categories as $category)
-                                            <tr class="item-{{ $category->id }}">
-                                                <td>{{ $category->id }}</td>
-                                                <td>{{ $category->name }}</td>
-                                                <td></td>
+                                        @foreach ($users as $user)
+                                            <tr class="item-{{ $user->id }}">
+                                                <td>{{ $user->id }}</td>
+                                                <td class="d-flex align-items-center ">
+                                                    <div class="rounded-circle ">
+                                                        <img class=" image_photo rounded-circle " src="{{ asset('assets/images/auth-bg.jpg') }}">
+                                                    </div>
+                                                    &nbsp;
+                                                    <div>
+                                                        <span>{{ $user->name }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->address }}</td>
                                                 <td>
-                                                    <a href="{{ route('category.restore', $category->id) }}"
+                                                    <a href="{{ route('user.restore', $user->id) }}"
                                                         onclick="return confirm('Do you want restore?')"
                                                         class="btn btn-info sm">
                                                         <i class="fas fa-redo"></i>
                                                     </a>
-                                                    <a data-href="{{ route('category.force_destroy', $category->id) }}"
-                                                        id="{{ $category->id }}" class="btn btn-danger sm deleteIcon">
+                                                    <a data-href="{{ route('user.force_destroy', $user->id) }}"
+                                                        id="{{ $user->id }}" class="btn btn-danger sm deleteIcon">
                                                         <i class=" fas fa-trash-alt "></i>
                                                     </a>
 
@@ -76,12 +92,12 @@
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Hiển thị {{ $categories->perPage() }} - {{ $categories->currentPage() }} của
-                                    {{ $categories->lastPage() }}
+                                    Show {{ $users->perPage() }} - {{ $users->currentPage() }} of
+                                    {{ $users->lastPage() }}
                                 </div>
                                 <div class="col-5">
                                     <div class="btn-group float-end">
-                                        {{ $categories->links() }}
+                                        {{ $users->links() }}
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +111,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @isset($category)
+    @isset($user)
         <script>
             $(document).on('click', '.deleteIcon', function(e) {
                 e.preventDefault();

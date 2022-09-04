@@ -16,8 +16,17 @@ class UserService extends BaseService implements UserServiceInterface {
     {
         return $this->repository->all($request);
     }
+    // public function GetDistricts( $data){
+    //     return $this->repository->GetDistricts($data);
+    // }
+    // public function getWards( $data){
+    //     // return $this->repository->getWards($data);
+    // }
     public function addAvatar($data){
-        
+        return $this->repository->addAvatar($data);
+    }
+    public function show($id){
+        return $this->repository->find($id);
     }
     public function update($id, $data){
         return $this->repository->update($id, $data);
