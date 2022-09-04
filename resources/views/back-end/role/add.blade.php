@@ -49,6 +49,9 @@
                                                 @foreach ($parentPermission->childrentPermissions as $childrentPermission)
                                                     <div class="form-check col-2">
                                                         <input name="permissions_id[]"
+                                                            @if(old('permissions_id'))
+                                                                {{ in_array($childrentPermission->id, old('permissions_id')) ? 'checked' : '' }}
+                                                            @endif
                                                             value="{{ $childrentPermission->id }}" type="checkbox"
                                                             class="form-check-input checkbox_childrent checkbox_all_childrent"
                                                             id="Permissions{{ $childrentPermission->id }}">
