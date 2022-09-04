@@ -23,7 +23,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Role Name</label>
-                                    <input name="name" value="{{ old('name') }}" type="input" class="form-control"
+                                    <input name="name" value="{{ old('name') }}" type="input" class="form-control @error('name') is-invalid @enderror"
                                         id="name">
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
