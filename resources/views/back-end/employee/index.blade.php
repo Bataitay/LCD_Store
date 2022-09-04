@@ -1,6 +1,5 @@
 @extends('back-end.master')
 @section('content')
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -9,7 +8,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage category</h2>
+                                    <h2 for="example-text-input" class="form-label">Manage Employee</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -17,27 +16,27 @@
                             </div><br><br><br>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('category.create') }}"
+                                    <a href="{{ route('user.create') }}"
                                         class="btn btn-secondary btn-rounded waves-effect waves-light ">
                                         <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Category</a>
+                                        Add Employee</a>
                                 </div>
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('category.getTrashed') }}"
+                                    <a href="{{ route('user.getTrashed') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
                                         <i class=" fas fa-trash-alt"></i>
                                         Trash</a>
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="">
-                                            <input type="search" value="{{request()->search}}" name="search" id="form1" class="form-control" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light ">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
+                                        <form action="">
+                                            <input type="search" name="search" id="form1" value="{{ request()->search }}" class="form-control" />
                                     </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -47,10 +46,12 @@
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">Id</th>
-                                        <th>Name</th>
-                                        <th>The number of products</th>
-                                        <th>Action</th>
+                                        <th width="5%">Id</th>
+                                        <th width="15%">Name</th>
+                                        <th width="15%">Phone</th>
+                                        <th width="20%">E-mail </th>
+                                        <th width="25%">Address</th>
+                                        <th width="20%">Action</th>
                                     </tr>
                                 </thead>
 
@@ -59,26 +60,35 @@
                                 </tbody>
 
                                 <tbody id="myTable">
-                                    @if (!$categories->count())
+                                    @if (!$users->count())
                                         <tr>
-                                            <td colspan="4">No data yet...</td>
+                                            <td colspan="6">No data yet...</td>
                                         </tr>
                                     @else
-                                        @foreach ($categories as $category)
-                                            <tr class="item-{{ $category->id }}">
-                                                <td>{{ $category->id }}</td>
-                                                <td>{{ $category->name }}</td>
-                                                <td></td>
+                                        @foreach ($users as $user)
+                                            <tr class="item-{{ $user->id }}">
+                                                <td>{{ $user->id }}</td>
+                                                <td class="d-flex align-items-center ">
+                                                    <div class="rounded-circle ">
+                                                        <img class=" image_photo rounded-circle " src="{{ asset('assets/images/auth-bg.jpg') }}">
+                                                    </div>
+                                                    &nbsp;
+                                                    <div>
+                                                        <span>{{ $user->name }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->address }}</td>
                                                 <td>
-                                                    <a href="{{ route('category.edit', $category->id) }}"
-                                                        class="btn btn-info sm">
+                                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info sm">
                                                         <i class="fas fa-edit "></i>
                                                     </a>
-                                                    <a data-href="{{ route('category.delete', $category->id) }}"
-                                                        id="{{ $category->id }}" class="btn btn-danger sm deleteIcon"><i
+                                                    <a data-href="{{ route('user.delete', $user->id) }}"
+                                                        id="{{ $user->id }}" class="btn btn-danger sm deleteIcon"><i
                                                             class=" fas fa-trash-alt "></i></a>
 
-                                                    <a href="" class="btn btn-primary sm ">
+                                                    <a href="{{ route('user.show', $user->id)}}" class="btn btn-primary sm ">
                                                         <i class="fas fa-eye-slash"></i>
                                                     </a>
                                                 </td>
@@ -89,12 +99,12 @@
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Show {{ $categories->perPage() }} - {{ $categories->currentPage() }} of
-                                    {{ $categories->lastPage() }}
+                                    Show {{ $users->perPage() }} - {{ $users->currentPage() }} of
+                                    {{ $users->lastPage() }}
                                 </div>
                                 <div class="col-5">
                                     <div class="btn-group float-end">
-                                        {{ $categories->appends(request()->all())->links() }}
+                                        {{ $users->appends(request()->all())->links() }}
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +118,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @isset($category)
+    @isset($user)
         <script>
             $(document).on('click', '.deleteIcon', function(e) {
                 e.preventDefault();
