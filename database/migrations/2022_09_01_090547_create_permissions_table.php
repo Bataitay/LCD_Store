@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('group_name');
-            $table->string('group_key');
+            $table->string('group_key')->nullable();
             $table->timestamps();
         });
     }

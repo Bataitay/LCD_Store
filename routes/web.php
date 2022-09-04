@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+<<<<<<< HEAD
 use App\Http\Controllers\UserController;
+=======
+use App\Http\Controllers\RoleController;
+>>>>>>> 0a7b2a6ab1a4e0495eacb57243b009fa92488e64
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +49,7 @@ Route::controller(CategoryController::class)->group(function(){
     Route::delete('category/force_destroy/{id}','force_destroy')->name('category.force_destroy');
 
 });
+<<<<<<< HEAD
 Route::controller(UserController::class)->group(function(){
     Route::get('user/index','index')->name('user.index');
     Route::get('user/GetDistricts','GetDistricts')->name('user.GetDistricts');
@@ -70,3 +76,21 @@ Route::controller(UserController::class)->group(function(){
 // Route::post('user/addAvatar', function () {
 //     dd($_REQUEST);
 // });
+=======
+Route::controller(RoleController::class)->group(function(){
+    Route::get('role/index','index')->name('role.index');
+    Route::get('role/create','create')->name('role.create');
+    Route::post('role/store','store')->name('role.store');
+    Route::get('role/edit/{id}','edit')->name('role.edit');
+    Route::put('role/update/{id}','update')->name('role.update');
+    Route::delete('role/destroy/{id}','destroy')->name('role.destroy');
+});
+//brand
+ Route::resource('brand', BrandController::class);
+ Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
+ Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
+ Route::delete('brands/trash/force-delete/{id}',[BrandController::class,'forceDelete'])->name('brand.forceDelete');
+
+
+
+>>>>>>> 0a7b2a6ab1a4e0495eacb57243b009fa92488e64

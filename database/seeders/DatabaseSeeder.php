@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            PermissionSeeder::class,
+        ]);
     }
     function importBrand(){
         for($i=1;$i<=5;$i++){

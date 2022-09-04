@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="calendar.html" class=" waves-effect">
+                    <a href="{{route('brand.index')}}" class=" waves-effect">
                         <i class="ri-vip-crown-2-line"></i>
                         <span>Brands</span>
                     </a>
@@ -59,7 +59,7 @@
                         <span>Roles</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="pages-starter.html">Roles</a></li>
+                        <li><a href="{{ route('role.index') }}">Roles</a></li>
                         <li><a href="pages-timeline.html">Permission</a></li>
                         <li><a href="{{ route('user.index')}}">Employee</a></li>
                     </ul>
