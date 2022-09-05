@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\Ward;
+use App\Services\Role\RoleServiceInterface;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $userService;
-    public function __construct(UserServiceInterface $userService)
+    private $roleService;
+    public function __construct(UserServiceInterface $userService, RoleServiceInterface $roleService)
     {
         $this->userService = $userService;
+        $this->roleService = $roleService;
     }
     public function index(Request $request)
     {
@@ -35,10 +38,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $roles = $this->roleService->all($request);
         $provinces = Province::get();
-        return view('back-end.employee.add', compact('provinces'));
+        $params = [
+            'roles' => $roles,
+            'provinces' => $provinces,
+        ];
+        return view('back-end.employee.add', $params);
     }
     public function GetDistricts(Request $request)
     {

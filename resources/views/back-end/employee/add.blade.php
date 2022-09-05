@@ -52,12 +52,12 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Provice/City</label>
                                     <select name="province_id" id="province_id" class="form-control province_id"
-                                    aria-label="Default select example" data-toggle="select2">
-                                    <option selected="" value="">Vui lòng chọn</option>
-                                    @foreach ($provinces as $province)
-                                        <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                    @endforeach
-                                </select>
+                                        aria-label="Default select example" data-toggle="select2">
+                                        <option selected="" value="">Vui lòng chọn</option>
+                                        @foreach ($provinces as $province)
+                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                        @endforeach
+                                    </select>
 
                                 </div>
                             </div>
@@ -65,9 +65,9 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">District</label>
                                     <select name="district_id" id="district_id" class="form-control district_id"
-                                    aria-label="Default select example">
-                                    <option selected="" value="">Vui lòng chọn</option>
-                                </select>
+                                        aria-label="Default select example">
+                                        <option selected="" value="">Vui lòng chọn</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -99,7 +99,7 @@
                                     <label class="d-block">Gender</label>
                                     <div class="custom-control custom-control-inline custom-radio">
                                         <input type="radio" class="custom-control-input" name="gender" id="rd1"
-                                          checked  value="1">  Male <br>
+                                            checked value="1"> Male <br>
                                     </div>
                                     <div class="custom-control custom-control-inline custom-radio">
                                         <input type="radio" class="custom-control-input" name="gender" id="rd2"
@@ -132,23 +132,27 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-lg-12 d-flex">
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
+                            <div class="mb-3">
+                                <label class="form-label">Permissions</label>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input name="Permissions" type="checkbox" class="form-check-input checkbox_all"
+                                        id="Permissions">
+                                    <label for="Permissions" class="form-label">Full Roles</label>
                                 </div>
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
-                                </div>
+                            </div>
+                            <div class="row d-flex">
+                                @foreach ($roles as $role)
+                                    <div class="form-check col-3">
+                                        <input name="roles_id[]"
+                                            value="{{ $role->id }}" type="checkbox"
+                                            class="form-check-input checkbox_childrent checkbox_all_childrent"
+                                            id="roles{{ $role->id }}">
+                                        <label for="roles{{ $role->id }}"
+                                            class="form-label">{{ $role->name }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <br>
