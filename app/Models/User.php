@@ -38,7 +38,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     function roles(){
-        return $this->belongsToMany(Role::class, 'user_roles', 'role_id', 'user_id');
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
     }
     function hasPermission($group_key){
         $roles = auth()->user()->roles;
