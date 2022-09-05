@@ -148,10 +148,10 @@ class UserController extends Controller
         $user = $this->userService->force_destroy($id);
         return response()->json($user);
     }
-    public function viewLogin(){
+    public function login(){
         return view('back-end.auth.login');
     }
-    public function login(Request $request)
+    public function handelLogin(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -179,6 +179,6 @@ class UserController extends Controller
         header("cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-        return redirect()->route('user.viewLogin');
+        return redirect()->route('login');
     }
 }
