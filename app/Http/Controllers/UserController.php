@@ -104,6 +104,8 @@ class UserController extends Controller
     public function edit($id, Request $request)
     {
         $provinces = Province::get();
+        $districts = District::get();
+        $wards = Ward::get();
         $roles = $this->roleService->all($request);
         $user = $this->userService->find($id);
         $rolesChecked = $user->roles;
@@ -112,6 +114,8 @@ class UserController extends Controller
             'user' => $user,
             'rolesChecked' => $rolesChecked,
             'provinces' => $provinces,
+            'districts' => $districts,
+            'wards' => $wards,
         ];
         return view('back-end.employee.edit', $params);
     }

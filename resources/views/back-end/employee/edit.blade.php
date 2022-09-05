@@ -64,17 +64,24 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">District</label>
-                                    <select name="district_id" class="form-control district_id">
-
+                                    <select name="district_id" id="district_id" class="form-control district_id"
+                                        aria-label="Default select example">
+                                        @foreach ($districts as $district)
+                                            <option value="{{ $district->id }}" @selected($district->id == $user->district_id)>
+                                                {{ $district->name }}</option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Commune/Ward</label>
-                                    <select name="ward_id" class="form-control ward_id">
-
+                                    <select name="ward_id" class="form-control ward_id" aria-label="Default select example"
+                                        id="ward_id">
+                                        @foreach ($wards as $ward)
+                                            <option value="{{ $ward->id }}" @selected($ward->id == $user->ward_id)>
+                                                {{ $ward->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -82,10 +89,7 @@
                     </div>
                     <div class="card-body border-top">
                         <legend>Personal information</legend>
-
                         <div class="row">
-
-
                             <div class="col-lg-9">
 
                                 <div class="form-group">
@@ -162,4 +166,73 @@
             </form>
         </div>
     </div>
+    <script>
+        $(function() {
+            $(document).on('change', '.province_id', function() {
+                var province_id = $(this).val();
+                var district_name = $('.district_id').find('option:selected').text();
+
+                if (province_id == '') {
+                    $('#province_id').notify("Lỗi:Địa chỉ không được để trống", {
+                        globalPosition: 'top left',
+                    });
+                    return false;
+                }
+                $.ajax({
+                    url: "{{ route('user.GetDistricts') }}",
+                    type: "GET",
+                    data: {
+                        province_id: province_id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var html = '<option value="">Vui lòng chọn</option>';
+                        $.each(data, function(key, v) {
+                            console.log(v);
+                            html += '<option value=" ' + v.id + ' "> ' + v
+                                .name + '</option>';
+                        });
+                        $('.district_id').html(html);
+                    }
+                })
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#district_id, .payment', function() {
+                var district_id = $(this).val();
+                var ward_id = $(this).val();
+                var ward_name = $('.ward_id').find('option:selected').text();
+                if (district_id == '') {
+                    $('#district_id').notify("Lỗi:Địa chỉ không được để trống", {
+                        globalPosition: 'top left',
+                    });
+                    return false;
+                }
+                if (ward_id == '') {
+                    $('#ward_id').notify("Lỗi:Địa chỉ không được để trống", {
+                        globalPosition: 'top left',
+                    });
+                    return false;
+                }
+                $.ajax({
+                    url: "{{ route('user.getWards') }}",
+                    type: "GET",
+                    data: {
+                        district_id: district_id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var html = '<option value="">Vui lòng chọn</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value =" ' + v.id + ' "> ' + v.name +
+                                '</option>';
+                        });
+                        $('#ward_id').html(html);
+                    }
+                })
+            });
+        });
+    </script>
 @endsection

@@ -58,7 +58,6 @@
                                             <option value="{{ $province->id }}">{{ $province->name }}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -168,8 +167,6 @@
             $(document).on('change', '.province_id', function() {
                 var province_id = $(this).val();
                 var district_name = $('.district_id').find('option:selected').text();
-                console.log(district_name);
-                console.log(province_id);
 
                 if (province_id == '') {
                     $('#province_id').notify("Lỗi:Địa chỉ không được để trống", {
@@ -188,7 +185,7 @@
                         var html = '<option value="">Vui lòng chọn</option>';
                         $.each(data, function(key, v) {
                             console.log(v);
-                            html += '<option value=" ' + v.province_id + ' "> ' + v
+                            html += '<option value=" ' + v.id + ' "> ' + v
                                 .name + '</option>';
                         });
                         $('.district_id').html(html);
@@ -196,12 +193,13 @@
                 })
             });
         });
-    </script>
-    <script type="text/javascript">
+
         $(function() {
             $(document).on('change', '#district_id, .payment', function() {
                 var district_id = $(this).val();
                 var ward_id = $(this).val();
+                // console.log(district_id);
+                // console.log(ward_id);
                 var ward_name = $('.ward_id').find('option:selected').text();
                 if (district_id == '') {
                     $('#district_id').notify("Lỗi:Địa chỉ không được để trống", {
