@@ -30,10 +30,15 @@ Route::get('dashboard', function () {
 // Route::get('/register', function () {
 //     return view('back-end.auth.register');
 // });
+Route::controller(UserController::class)->group(function(){
+    Route::get('login','login')->name('login');
+    Route::post('user/handelLogin','handelLogin')->name('user.handelLogin');
+});
 Route::middleware(['auth'])->group(function () {
     Route::controller(ProductController::class)->group(function () {
         Route::get('product/index', 'index');
     });
+
     Route::controller(CategoryController::class)->group(function () {
         Route::get('category/index', 'index')->name('category.index');
         Route::get('category/create', 'create')->name('category.create');
@@ -75,10 +80,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('brands/trash/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
     Route::delete('brands/trash/force-delete/{id}', [BrandController::class, 'forceDelete'])->name('brand.forceDelete');
 });
-Route::controller(UserController::class)->group(function () {
-    Route::get('user/viewLogin', 'viewLogin')->name('user.viewLogin');
-    Route::post('user/login', 'login')->name('user.login');
-});
+
+
 
 // Route::post('user/addAvatar', function () {
 //     dd($_REQUEST);
