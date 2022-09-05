@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,7 +28,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        $parentPermissions = Permission::where('group_key', '=', 0)->get();
+        foreach($parentPermissions as $parentPermission){
+            foreach($parentPermission->childrentPermissions as $childrentPermission){
+                Gate::define($childrentPermission->group_key, function(User $user){
+                    return $user->hasPermission($childrentPermission->group_key);
+                });
+            }
+        }
     }
 }

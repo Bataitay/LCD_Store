@@ -26,7 +26,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('login','login')->name('login');
     Route::post('user/handelLogin','handelLogin')->name('user.handelLogin');
 });
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     Route::controller(ProductController::class)->group(function () {
         Route::get('product/index', 'index');
     });
@@ -65,7 +65,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('role/edit/{id}', 'edit')->name('role.edit');
         Route::put('role/update/{id}', 'update')->name('role.update');
         Route::delete('role/destroy/{id}', 'destroy')->name('role.destroy');
-    });
+        Route::get('role/getTrashed', 'getTrashed')->name('role.getTrashed');
+        Route::get('role/restore/{id}', 'restore')->name('role.restore');
+    // });
     //brand
     Route::resource('brand', BrandController::class);
     Route::get('brands/trash', [BrandController::class, 'getTrash'])->name('brand.trash');

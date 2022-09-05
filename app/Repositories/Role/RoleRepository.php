@@ -8,6 +8,13 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
     function getModel(){
         return Role::class;
     }
+    function getAllWithPaginateLatest($request){
+        $roles = $this->model->latest()->paginate(1);
+        if(isset($request->search)){
+            $roles = $this->model->where('name', 'LIKE', '%'.request()->search.'%')->paginate(1);
+        }
+        return $roles;
+    }
     function create($data){
         $role = Role::create([
             'name' => $data->name,
@@ -25,5 +32,18 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
         $role = $this->find($id);
         $role->permissions()->detach();
         $role->delete();
+    }
+    public function getTrashed()
+    {
+        $query = $this->model->onlyTrashed();
+        $query->orderBy('id', 'desc');
+        $roles = $query->paginate(1);
+        return $roles;
+    }
+    public function restore($id)
+    {
+        $role = $this->model->withTrashed()->findOrFail($id);
+        $role->restore();
+        return $role;
     }
 }
