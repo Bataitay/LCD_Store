@@ -101,10 +101,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        $provinces = Province::get();
+        $roles = $this->roleService->all($request);
         $user = $this->userService->find($id);
-        return view('back-end.employee.edit', compact('user'));
+        $rolesChecked = $user->roles;
+        $params = [
+            'roles' => $roles,
+            'user' => $user,
+            'rolesChecked' => $rolesChecked,
+            'provinces' => $provinces,
+        ];
+        return view('back-end.employee.edit', $params);
     }
 
     /**

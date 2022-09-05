@@ -15,4 +15,10 @@ class RoleService extends BaseService implements RoleServiceInterface{
     function getAllWithPaginateLatest($request){
         return $this->repository->getAllWithPaginateLatest($request);
     }
+    function getTrashed(){
+        return $this->repository->getTrashed();
+    }
+    public function restore($id){
+        return $this->repository->restore($id);
+    }
 }

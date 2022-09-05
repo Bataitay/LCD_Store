@@ -33,4 +33,17 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
         $role->permissions()->detach();
         $role->delete();
     }
+    public function getTrashed()
+    {
+        $query = $this->model->onlyTrashed();
+        $query->orderBy('id', 'desc');
+        $roles = $query->paginate(1);
+        return $roles;
+    }
+    public function restore($id)
+    {
+        $role = $this->model->withTrashed()->findOrFail($id);
+        $role->restore();
+        return $role;
+    }
 }

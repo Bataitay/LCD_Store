@@ -127,11 +127,30 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-       $this->roleService->delete($id);
-       $notification = array(
+        $role = $this->roleService->find($id);
+        $this->roleService->delete($id);
+        $notification = array(
         'message' => 'Deleted role successfully',
         'alert-type' => 'success'
     );
-       return  redirect()->route('role.index')->with($notification);
+       return response()->json($role);
+    }
+    public function getTrashed()
+    {
+        $roles = $this->roleService->getTrashed();
+        $params = [
+            'roles' => $roles,
+        ];
+        return view('back-end.role.sorfDelete', $params);
+    }
+    public function restore($id)
+    {
+        // dd($id);
+        $this->roleService->restore($id);
+        $notification = array(
+            'message' => 'Restore role successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('role.getTrashed')->with($notification);
     }
 }
