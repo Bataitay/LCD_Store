@@ -133,14 +133,7 @@
                         <br>
                         <div class="row">
                             <div class="mb-3">
-                                <label class="form-label">Permissions</label>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input name="Permissions" type="checkbox" class="form-check-input checkbox_all"
-                                        id="Permissions">
-                                    <label for="Permissions" class="form-label">Full Roles</label>
-                                </div>
+                                <label class="form-label">Role</label>
                             </div>
                             <div class="row d-flex">
                                 @foreach ($roles as $role)
