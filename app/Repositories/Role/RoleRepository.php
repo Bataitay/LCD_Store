@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Role;
 
+use App\Models\PermissionRole;
 use App\Models\Role;
 use App\Repositories\BaseRepository;
 
@@ -30,7 +31,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
     }
     function delete($id){
         $role = $this->find($id);
-        $role->permissions()->detach();
+        // $role->permissions()->detach();
+        PermissionRole::where('role_id', '=', $id)->delete();
         $role->delete();
     }
     public function getTrashed()
@@ -44,6 +46,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
     {
         $role = $this->model->withTrashed()->findOrFail($id);
         $role->restore();
+        PermissionRole::where('role_id', '=', $id)->withTrashed()->restore();
         return $role;
     }
 }
