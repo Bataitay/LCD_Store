@@ -8,7 +8,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
     function getModel(){
         return Role::class;
     }
-    function all($request){
+    function getAllWithPaginateLatest($request){
         $roles = $this->model->latest()->paginate(1);
         if(isset($request->search)){
             $roles = $this->model->where('name', 'LIKE', '%'.request()->search.'%')->paginate(1);

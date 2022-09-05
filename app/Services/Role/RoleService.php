@@ -12,4 +12,7 @@ class RoleService extends BaseService implements RoleServiceInterface{
     {
         $this->repository = $RoleRepositoryInterface;
     }
+    function getAllWithPaginateLatest($request){
+        return $this->repository->getAllWithPaginateLatest($request);
+    }
 }

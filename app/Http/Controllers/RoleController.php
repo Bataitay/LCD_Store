@@ -31,10 +31,11 @@ class RoleController extends Controller
         // if (! Gate::allows('List_Role')) {
         //     abort(403);
         // }
-        $roles = $this->roleService->all($request);
+        $roles = $this->roleService->getAllWithPaginateLatest($request);
         $params = [
             'roles' => $roles,
         ];
+        // dd($roles);
         return view('back-end.role.index', $params);
     }
 
