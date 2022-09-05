@@ -28,9 +28,9 @@ class RoleController extends Controller
      */
     public function index( Request $request)
     {
-        // if (! Gate::allows('List_Role')) {
-        //     abort(403);
-        // }
+        if (! Gate::allows('Show_Role')) {
+            abort(403);
+        }
         $roles = $this->roleService->getAllWithPaginateLatest($request);
         $params = [
             'roles' => $roles,
@@ -152,5 +152,8 @@ class RoleController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('role.getTrashed')->with($notification);
+    }
+    function force_destroy($id){
+        $this->roleService->force_destroy($id);
     }
 }
