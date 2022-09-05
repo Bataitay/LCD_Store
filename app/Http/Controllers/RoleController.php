@@ -28,7 +28,7 @@ class RoleController extends Controller
      */
     public function index( Request $request)
     {
-        if (! Gate::allows('Show_Role')) {
+        if (Gate::denies('Show_Role')) {
             abort(403);
         }
         $roles = $this->roleService->getAllWithPaginateLatest($request);
