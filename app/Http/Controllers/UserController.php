@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $provinces = json_decode(Province::get());
+        $provinces = Province::get();
         return view('back-end.employee.add', compact('provinces'));
     }
     public function GetDistricts(Request $request)
