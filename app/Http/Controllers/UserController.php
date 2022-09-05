@@ -70,8 +70,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $this->userService->create($data);
+        $this->userService->create($request);
         $notification = array(
             'message' => 'Added employee successfully',
             'alert-type' => 'success'
