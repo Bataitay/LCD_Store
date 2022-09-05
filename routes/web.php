@@ -63,8 +63,8 @@ Route::controller(UserController::class)->group(function(){
 });
 });
 Route::controller(UserController::class)->group(function(){
-    Route::get('user/viewLogin','viewLogin')->name('user.viewLogin');
-    Route::post('user/login','login')->name('user.login');
+    Route::get('login','login')->name('login');
+    Route::post('user/handelLogin','login')->name('user.handelLogin');
 });
 
 // Route::post('user/addAvatar', function () {
