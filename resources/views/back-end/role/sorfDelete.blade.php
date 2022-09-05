@@ -56,7 +56,7 @@
                                                     class="btn btn-info sm">
                                                     <i class="fas fa-redo"></i>
                                                 </a>
-                                                <a data-href="{{ route('role.destroy', $role->id) }}"
+                                                <a data-href="{{ route('role.force_destroy', $role->id) }}"
                                                     id="{{ $role->id }}" class="btn btn-danger sm deleteIcon"><i
                                                         class=" fas fa-trash-alt "></i>
                                                 </a>
