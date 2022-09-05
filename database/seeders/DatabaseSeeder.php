@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->importBrand();
+        // $this->importBrand();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -24,7 +24,12 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            PermissionSeeder::class,
+            // PermissionSeeder::class,
+            ReviewSeeder::class,
+
+
+
+
         ]);
     }
     function importBrand(){

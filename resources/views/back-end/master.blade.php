@@ -30,6 +30,9 @@
         <!-- App Css-->
         <link href="{{ asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js">
+        </script>
+
     </head>
 
     <body data-topbar="dark">
@@ -127,7 +130,13 @@
         <div class="rightbar-overlay"></div>
 
         <!-- JAVASCRIPT -->
-        <script src="{{ asset('assets/libs/jquery/jquery.min.js')}}"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        {{-- jquery.autocomplete.js --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js">
+        </script>
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         {{-- <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js')}}"></script> --}}
         <script src="{{ asset('assets/libs/simplebar/simplebar.min.js')}}"></script>

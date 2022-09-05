@@ -57,4 +57,9 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
         return  $this->model->withTrashed()->where('id', $id)->forceDelete();
 
     }
+    public function searchBrand($name){
+        return  $this->model::where('name', 'like', '%' . $name . '%')->get();
+    }
+  
+
 }

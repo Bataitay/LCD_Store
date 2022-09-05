@@ -4,38 +4,7 @@
         .title_cate {
             margin-left: 30px;
         }
-
-        .autocomplete-suggestions {
-            border: 1px solid #999;
-            background: #FFF;
-            overflow: auto;
-        }
-
-        .autocomplete-suggestion {
-            padding: 2px 5px;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .autocomplete-selected {
-            background: #F0F0F0;
-        }
-
-        /*.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }*/
-        .autocomplete-group {
-            padding: 2px 5px;
-        }
-
-        .autocomplete-group strong {
-            display: block;
-            border-bottom: 1px solid #000;
-        }
     </style>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -47,27 +16,15 @@
                                     <h2 for="example-text-input" class="form-label">Manage Brand</h2>
                                 </div>
                             </div>
-                            <div class="col-md-12 d-flex">
+                            <div class="col-md-8">
+                                <h2></h2>
+                            </div><br><br><br>
+                            <div class="col-md-4 ">
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('brand.create') }}"
                                         class="btn btn-secondary btn-rounded waves-effect waves-light ">
                                         <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Category</a>
-                                </div>
-                                <div class="md-3 title_cate d-flex">
-                                    <form action="{{route('brand.search')}}" >
-
-                                        <div class="form-outline">
-                                            <div class="form-group">
-                                                <input class="form-control" id="keyword" type="text" placeholder="Search"
-                                                    aria-label="Search" name="keySearch">
-                                            </div>
-
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light searchBrand">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
+                                        Add Brand</a>
                                 </div>
                             </div>
                             <div class="md-3 title_cate">
@@ -95,8 +52,8 @@
                                         <tr class="list-brand">
                                             <td>{{ $brand->id }}</td>
                                             <td>
-                                                <a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a>
-                                            </td>
+                                                <a href="{{route('brand.show', $brand->id)}}">{{ $brand->name }}</a>
+                                                </td>
                                             <td> @empty($brand->logo)
                                                     <p>not yet update logo</p>
                                                 @endempty
@@ -126,15 +83,11 @@
             </div>
         </div>
     </div>
-
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(function() {
             $('.deleteBrand').on('click', deleteBrand)
-
-
         })
-
 
         function deleteBrand(event) {
             event.preventDefault();
@@ -174,26 +127,5 @@
                     }
                 })
         }
-    </script>
-    <script>
-        $(function() {
-            $("#keyword").autocomplete({
-                serviceUrl: 'search',
-                paramName: "keyword",
-                onSelect: function(suggestion) {
-                    $("#keyword").val(suggestion.value);
-                },
-                transformResult: function(response) {
-                    return {
-                        suggestions: $.map($.parseJSON(response), function(item) {
-                            return {
-                                value: item.name,
-                            };
-                        })
-                    };
-                },
-
-            });
-        })
     </script>
 @endsection

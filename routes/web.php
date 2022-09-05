@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,20 @@ Route::controller(RoleController::class)->group(function(){
  Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
  Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
  Route::delete('brands/trash/force-delete/{id}',[BrandController::class,'forceDelete'])->name('brand.forceDelete');
+ Route::get('search',[BrandController::class, 'searchByName']);
+ Route::get('searchBrand', [BrandController::class,'searchBrand'])->name('brand.search');
+ //Review
+ Route::resource('review', ReviewController::class);
+ Route::get('changeStatus/{id}',[ ReviewController::class,'changeStatus'])->name('review.changeStatus');
+ Route::get('reviews/trash',[ReviewController::class,'getTrash'])->name('review.trash');
+ Route::post('reviews/trash/restore/{id}',[ReviewController::class,'restore'])->name('review.restore');
+ Route::delete('reviews/trash/force-delete/{id}',[ReviewController::class,'forceDelete'])->name('review.forceDelete');
+ Route::get('review/search',[ReviewController::class, 'searchByName']);
+ Route::get('searchReview', [ReviewController::class,'searchReview'])->name('review.search');
+
+
+
+
 
 
 
