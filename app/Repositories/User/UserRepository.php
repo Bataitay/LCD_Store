@@ -54,6 +54,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->district_id = $data['district_id'];
         $user->ward_id = $data['ward_id'];
         $user->save();
+        $user->roles()->attach($data->roles_id);
         return $user;
     }
 
