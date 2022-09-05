@@ -40,10 +40,10 @@ class User extends Authenticatable
     function roles(){
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
     }
-    function hasPermission($group_key){
+    function hasPermission($group_name){
         $roles = auth()->user()->roles;
         foreach($roles as $role){
-            if($role->permisstions->contains('key_code', $group_key)){
+            if($role->permissions->contains('group_name', $group_name)){
                 return true;
             }
         }
