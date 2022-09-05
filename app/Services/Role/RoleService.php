@@ -21,4 +21,7 @@ class RoleService extends BaseService implements RoleServiceInterface{
     public function restore($id){
         return $this->repository->restore($id);
     }
+    function force_destroy($id){
+        return $this->repository->force_destroy($id);
+    }
 }
