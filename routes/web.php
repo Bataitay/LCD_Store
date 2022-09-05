@@ -18,18 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::get('dashboard', function () {
     return view('back-end.dashboard.index');
 });
-// Route::get('/login', function () {
-//     return view('back-end.auth.login');
-// });
-// Route::get('/register', function () {
-//     return view('back-end.auth.register');
-// });
 Route::controller(UserController::class)->group(function(){
     Route::get('login','login')->name('login');
     Route::post('user/handelLogin','handelLogin')->name('user.handelLogin');
@@ -81,8 +73,3 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('brands/trash/force-delete/{id}', [BrandController::class, 'forceDelete'])->name('brand.forceDelete');
 });
 
-
-
-// Route::post('user/addAvatar', function () {
-//     dd($_REQUEST);
-// });
