@@ -74,6 +74,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('order/index', 'index')->name('order.index');
         Route::get('order/create', 'create')->name('order.create');
         Route::post('order/store', 'store')->name('order.store');
+        Route::get('order/show/{id}', 'show')->name('order.show');
+        Route::put('order/updatesingle/{id}', 'updateSingle')->name('order.updatesingle');
         // Route::get('order/edit/{id}', 'edit')->name('order.edit');
         // Route::put('order/update/{id}', 'update')->name('order.update');
         // Route::delete('order/destroy/{id}', 'destroy')->name('order.destroy');
