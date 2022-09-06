@@ -9,7 +9,7 @@
                  alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
-                <h4 class="font-size-16 mb-1">Julia Hudda</h4>
+                <h4 class="font-size-16 mb-1">{{ Auth::user()->name}}</h4>
                 <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
             </div>
         </div>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="calendar.html" class=" waves-effect">
+                    <a href="{{ route('product.index')}}" class=" waves-effect">
                         <i class="ri-pencil-ruler-2-line"></i>
                         <span>Products</span>
                     </a>
