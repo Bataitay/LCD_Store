@@ -21,6 +21,7 @@ class PermissionSeeder extends Seeder
             'Category',
             'Product',
             'User',
+            'Role',
         ];
         foreach($parentNameGroups as $parentNameGroup){
             $parentGroup =  $this->permissionService->create([

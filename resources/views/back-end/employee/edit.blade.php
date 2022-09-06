@@ -53,10 +53,10 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Provice/City</label>
                                     <select name="province_id" class="form-control province_id">
-                                        {{-- @foreach ($provinces as $province)
+                                        @foreach ($provinces as $province)
                                             <option value="{{ $province->id }}" @selected($province->id == $user->province_id)>
                                                 {{ $province->name }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
 
                                 </div>
@@ -131,23 +131,21 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-lg-12 d-flex">
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="checkbox" name="name_role" id="">
-                                    <span>Name_role</span>
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                            </div>
+                            <div class="row d-flex">
+                                @foreach ($roles as $role)
+                                    <div class="form-check col-3">
+                                        <input name="roles_id[]"
+                                            {{ $rolesChecked->contains('id', $role->id) ? 'checked' : '' }}
+                                            value="{{ $role->id }}" type="checkbox"
+                                            class="form-check-input checkbox_childrent checkbox_all_childrent"
+                                            id="roles{{ $role->id }}">
+                                        <label for="roles{{ $role->id }}"
+                                            class="form-label">{{ $role->name }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <br>
