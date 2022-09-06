@@ -20,4 +20,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         }
         return $orders;
     }
+    function updateSingle($id){
+        $order = $this->model->find($id);
+        $order->update(['status' => 1]);
+        return $order;
+    }
 }

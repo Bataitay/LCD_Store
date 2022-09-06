@@ -15,4 +15,7 @@ class OrderService extends BaseService implements OrderServiceInterface{
     function getAllWithPaginateLatest($request){
         return $this->repository->getAllWithPaginateLatest($request);
     }
+    function updateSingle($id){
+        return $this->repository->updateSingle($id);
+    }
 }
