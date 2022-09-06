@@ -10,4 +10,7 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+    function customer(){
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
 }
