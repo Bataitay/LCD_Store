@@ -24,25 +24,31 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Full name</label>
-                                    <input name="name" class="form-control" type="text" value="{{ old('username') }}"
-                                        id="example-text-input">
-
+                                    <input name="name" type="text" value="{{ old('name') }}"
+                                        id="example-text-input" class="form-control @error('name') is-invalid @enderror">
+                                    @error('name')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Phone</label>
-                                    <input name="phone" class="form-control" type="text" value="{{ old('phone') }}"
-                                        id="example-text-input">
-
+                                    <input name="phone" type="text" value="{{ old('phone') }}" id="example-text-input"
+                                        class="form-control @error('phone') is-invalid @enderror">
+                                    @error('phone')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">E-mail</label>
-                                    <input name="email" class="form-control" type="text" value="{{ old('email') }}"
-                                        id="example-text-input">
-
+                                    <input name="email" type="text" value="{{ old('email') }}" id="example-text-input"
+                                        class="form-control @error('email') is-invalid @enderror">
+                                    @error('email')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -53,12 +59,14 @@
                                     <label for="exampleInputEmail1">Provice/City</label>
                                     <select name="province_id" id="province_id" class="form-control province_id"
                                         aria-label="Default select example" data-toggle="select2">
-                                        <option selected="" value="">Vui lòng chọn</option>
+                                        <option selected="" value="">Open this select menu</option>
                                         @foreach ($provinces as $province)
                                             <option value="{{ $province->id }}">{{ $province->name }}</option>
                                         @endforeach
                                     </select>
-
+                                    @error('province_id')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -66,8 +74,11 @@
                                     <label for="exampleInputEmail1">District</label>
                                     <select name="district_id" id="district_id" class="form-control district_id"
                                         aria-label="Default select example">
-                                        <option selected="" value="">Vui lòng chọn</option>
+                                        <option selected="" value="">Open this select menu</option>
                                     </select>
+                                    @error('district_id')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -75,8 +86,11 @@
                                     <label for="exampleInputEmail1">Commune/Ward</label>
                                     <select name="ward_id" class="form-control ward_id" aria-label="Default select example"
                                         id="ward_id">
-                                        <option selected="" value="">Vui lòng chọn</option>
+                                        <option selected="" value="">Open this select menu</option>
                                     </select>
+                                    @error('ward_id')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -91,8 +105,12 @@
 
                                 <div class="form-group">
                                     <label>Address<noscript></noscript></label>
-                                    <input name="address" type="text" class="form-control" id=""
-                                        placeholder="Enter address" value="{{ old('address') }}">
+                                    <input name="address" type="text" id="" placeholder="Enter address"
+                                        value="{{ old('address') }}"
+                                        class="form-control @error('address') is-invalid @enderror">
+                                    @error('address')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -110,14 +128,19 @@
                                 <br>
                                 <div class="form-group">
                                     <label>Password<noscript></noscript></label>
-                                    <input name="password" type="password" class="form-control" id=""
-                                        placeholder="Enter Password" value="{{ old('password') }}">
+                                    <input name="password" type="password" id="" placeholder="Enter Password"
+                                        value="{{ old('password') }}"
+                                        class="form-control @error('password') is-invalid @enderror">
+                                    @error('password')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label>Confirm Password</label>
-                                    <input name="confirm_password" type="password" class="form-control" id=""
-                                        placeholder="Nhập Confirm Password" value="{{ old('confirm_password') }}">
+                                    <input name="confirm_password" type="password" id=""
+                                        placeholder="Nhập Confirm Password" value="{{ old('confirm_password') }}"
+                                        class="form-control @error('password') is-invalid @enderror">
                                 </div>
                             </div>
 
@@ -126,6 +149,7 @@
                                     <label>Avatar Employee</label>
                                     <input type="file" name="avatar" id="filepond" class="img-fluid filepond "
                                         multiple>
+                                    <input type="hidden" name="file" id="avatar" value="">
                                 </div>
                             </div>
 
@@ -138,8 +162,7 @@
                             <div class="row d-flex">
                                 @foreach ($roles as $role)
                                     <div class="form-check col-3">
-                                        <input name="roles_id[]"
-                                            value="{{ $role->id }}" type="checkbox"
+                                        <input name="roles_id[]" value="{{ $role->id }}" type="checkbox"
                                             class="form-check-input checkbox_childrent checkbox_all_childrent"
                                             id="roles{{ $role->id }}">
                                         <label for="roles{{ $role->id }}"
@@ -152,8 +175,8 @@
                         <div class="form-group">
                             <div class="form-actions">
                                 <a class="btn btn-secondary float-right"
-                                    onclick="window.history.go(-1); return false;">Close</a>
-                                <input type="submit" class="btn btn-info waves-effect waves-light"
+                                   href="{{ route('user.index')}}" >Close</a>
+                                <input type="submit" class="btn btn-info waves-effect waves-light add_user"
                                     value="Add Profile...">
 
                             </div>
@@ -165,18 +188,9 @@
     </div>
     <script type="text/javascript">
         $(function() {
-            $(document).on('change', '.province_id', function() {
+            $(document).on('change', '.province_id, .add_user', function() {
                 var province_id = $(this).val();
                 var district_name = $('.district_id').find('option:selected').text();
-                console.log(district_name);
-                console.log(province_id);
-
-                if (province_id == '') {
-                    $('#province_id').notify("Lỗi:Địa chỉ không được để trống", {
-                        globalPosition: 'top left',
-                    });
-                    return false;
-                }
                 $.ajax({
                     url: "{{ route('user.GetDistricts') }}",
                     type: "GET",
@@ -185,10 +199,10 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        var html = '<option value="">Vui lòng chọn</option>';
+                        var html = '<option value="">Open this select menu</option>';
                         $.each(data, function(key, v) {
                             console.log(v);
-                            html += '<option value=" ' + v.province_id + ' "> ' + v
+                            html += '<option value=" ' + v.id + ' "> ' + v
                                 .name + '</option>';
                         });
                         $('.district_id').html(html);
@@ -196,25 +210,11 @@
                 })
             });
         });
-    </script>
-    <script type="text/javascript">
+
         $(function() {
-            $(document).on('change', '#district_id, .payment', function() {
+            $(document).on('change', '#district_id, .add_user', function() {
                 var district_id = $(this).val();
                 var ward_id = $(this).val();
-                var ward_name = $('.ward_id').find('option:selected').text();
-                if (district_id == '') {
-                    $('#district_id').notify("Lỗi:Địa chỉ không được để trống", {
-                        globalPosition: 'top left',
-                    });
-                    return false;
-                }
-                if (ward_id == '') {
-                    $('#ward_id').notify("Lỗi:Địa chỉ không được để trống", {
-                        globalPosition: 'top left',
-                    });
-                    return false;
-                }
                 $.ajax({
                     url: "{{ route('user.getWards') }}",
                     type: "GET",
@@ -223,7 +223,7 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        var html = '<option value="">Vui lòng chọn</option>';
+                        var html = '<option value="">Open this select menu</option>';
                         $.each(data, function(key, v) {
                             html += '<option value =" ' + v.id + ' "> ' + v.name +
                                 '</option>';

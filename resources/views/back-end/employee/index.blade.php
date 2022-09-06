@@ -49,8 +49,7 @@
                                         <th width="5%">Id</th>
                                         <th width="15%">Name</th>
                                         <th width="15%">Phone</th>
-                                        <th width="20%">E-mail </th>
-                                        <th width="25%">Address</th>
+                                        <th width="20%"> Address </th>
                                         <th width="20%">Action</th>
                                     </tr>
                                 </thead>
@@ -70,15 +69,15 @@
                                                 <td>{{ $user->id }}</td>
                                                 <td class="d-flex align-items-center ">
                                                     <div class="rounded-circle ">
-                                                        <img class=" image_photo rounded-circle " src="{{ asset('assets/images/auth-bg.jpg') }}">
+                                                        <img class=" image_photo rounded-circle " src="{{ !empty($user->avatar) ? asset($user->avatar) : asset('assets/images/no_image.png') }}">
                                                     </div>
                                                     &nbsp;
                                                     <div>
-                                                        <span>{{ $user->name }}</span>
+                                                        <span >{{ $user->name }}</span><br>
+                                                        <span id="email_user">{{ $user->email }}</span>
                                                     </div>
                                                 </td>
                                                 <td>{{ $user->phone }}</td>
-                                                <td>{{ $user->email }}</td>
                                                 <td>{{ $user->address }}</td>
                                                 <td>
                                                     <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info sm">

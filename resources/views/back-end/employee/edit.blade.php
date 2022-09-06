@@ -25,25 +25,31 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Full name</label>
-                                    <input name="name" class="form-control" type="text" value="{{ $user->name }}"
-                                        id="example-text-input">
-
+                                    <input name="name" class="form-control @error('name') is-invalid @enderror"
+                                        type="text" value="{{ old('name') ?? $user->name }}" id="example-text-input">
+                                    @error('name')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Phone</label>
-                                    <input name="phone" class="form-control" type="text" value="{{ $user->phone }}"
-                                        id="example-text-input">
-
+                                    <input name="phone" class="form-control @error('phone') is-invalid @enderror"
+                                        type="text" value="{{ old('phone') ?? $user->phone }}" id="example-text-input">
+                                    @error('phone')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">E-mail</label>
-                                    <input name="email" class="form-control" type="text" value="{{ $user->email }}"
-                                        id="example-text-input">
-
+                                    <input name="email" class="form-control @error('email') is-invalid @enderror"
+                                        type="text" value="{{ old('email') ?? $user->email }}" id="example-text-input">
+                                    @error('email')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -52,52 +58,71 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Provice/City</label>
-                                    <select name="province_id" class="form-control province_id">
+                                    <select name="province_id"
+                                        class="form-control @error('province_id') is-invalid @enderror">
                                         @foreach ($provinces as $province)
-                                            <option value="{{ $province->id }}" @selected($province->id == $user->province_id)>
+                                            <option value="{{ old('province_id') ?? $province->id }}"
+                                                @selected($province->id == $user->province_id)>
                                                 {{ $province->name }}</option>
                                         @endforeach
                                     </select>
-
+                                    @error('province_id')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">District</label>
-                                    <select name="district_id" class="form-control district_id">
-
+                                    <select name="district_id" id="district_id"
+                                        class="form-control @error('district_id') is-invalid @enderror"
+                                        aria-label="Default select example">
+                                        @foreach ($districts as $district)
+                                            <option value="{{ $district->id }}" @selected($district->id == $user->district_id)>
+                                                {{ old('district_id') ?? $district->name }}</option>
+                                        @endforeach
                                     </select>
-
+                                    @error('district_id')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Commune/Ward</label>
-                                    <select name="ward_id" class="form-control ward_id">
-
+                                    <select name="ward_id" class="form-control @error('ward_id') is-invalid @enderror"
+                                        aria-label="Default select example" id="ward_id">
+                                        @foreach ($wards as $ward)
+                                            <option value="{{ $ward->id }}" @selected($ward->id == $user->ward_id)>
+                                                {{ old('ward_id') ?? $ward->name }}</option>
+                                        @endforeach
                                     </select>
+                                    @error('ward_id')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-body border-top">
                         <legend>Personal information</legend>
-
                         <div class="row">
-
-
                             <div class="col-lg-9">
 
                                 <div class="form-group">
                                     <label>Address<noscript></noscript></label>
-                                    <input name="address" type="text" class="form-control" id=""
-                                        placeholder="Enter address" value="{{ $user->address }}">
+                                    <input name="address" type="text"
+                                        class="form-control @error('address') is-invalid @enderror" id=""
+                                        placeholder="Enter address" value="{{ old('address') ?? $user->address }}">
+                                    @error('address')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label class="d-block">Gender</label>
                                     <div class="custom-control custom-control-inline custom-radio">
-                                        <input type="radio" class="custom-control-input" name="gender" id="rd1"
+                                        <input type="radio" class="custom-control-input " name="gender" id="rd1"
                                             @if ($user->gender == 1) checked @endif value="1"> Male <br>
                                     </div>
                                     <div class="custom-control custom-control-inline custom-radio">
@@ -109,14 +134,23 @@
                                 <br>
                                 <div class="form-group">
                                     <label>Password<noscript></noscript></label>
-                                    <input name="password" type="password" class="form-control" id=""
-                                        placeholder="Enter Password" value="{{ $user->address }}">
+                                    <input name="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" id=""
+                                        placeholder="Enter Password" value="{{ old('password') ?? $user->password }}">
+                                    @error('password')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label>Confirm Password</label>
-                                    <input name="confirm_password" type="password" class="form-control" id=""
-                                        placeholder="Nhập Confirm Password" value="{{ $user->address }}">
+                                    <input name="confirm_password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" id=""
+                                        placeholder="Nhập Confirm Password"
+                                        value="{{ old('confirm_password') ?? $user->password }}">
+                                    @error('password')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -125,6 +159,7 @@
                                     <label>Avatar Employee</label>
                                     <input type="file" name="avatar" id="filepond" class="img-fluid filepond "
                                         multiple>
+                                        <input type="hidden" name="file" id="avatar" value="">
                                 </div>
                             </div>
 
@@ -152,9 +187,9 @@
                         <div class="form-group">
                             <div class="form-actions">
                                 <a class="btn btn-secondary float-right"
-                                    onclick="window.history.go(-1); return false;">Close</a>
+                                href="{{ route('user.index')}}">Close</a>
                                 <input type="submit" class="btn btn-info waves-effect waves-light"
-                                    value="Add Profile...">
+                                    value="Edit Profile...">
                             </div>
                         </div>
                     </div>
@@ -162,4 +197,54 @@
             </form>
         </div>
     </div>
+    <script>
+        $(function() {
+            $(document).on('change', '.province_id', function() {
+                var province_id = $(this).val();
+                var district_name = $('.district_id').find('option:selected').text();
+                $.ajax({
+                    url: "{{ route('user.GetDistricts') }}",
+                    type: "GET",
+                    data: {
+                        province_id: province_id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var html = '<option value="">Open this select menu</option>';
+                        $.each(data, function(key, v) {
+                            console.log(v);
+                            html += '<option value=" ' + v.id + ' "> ' + v
+                                .name + '</option>';
+                        });
+                        $('.district_id').html(html);
+                    }
+                })
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#district_id, .payment', function() {
+                var district_id = $(this).val();
+                var ward_id = $(this).val();
+                var ward_name = $('.ward_id').find('option:selected').text();
+                $.ajax({
+                    url: "{{ route('user.getWards') }}",
+                    type: "GET",
+                    data: {
+                        district_id: district_id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var html = '<option value="">Open this select menu</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value =" ' + v.id + ' "> ' + v.name +
+                                '</option>';
+                        });
+                        $('#ward_id').html(html);
+                    }
+                })
+            });
+        });
+    </script>
 @endsection
