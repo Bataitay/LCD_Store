@@ -1,10 +1,5 @@
 @extends('back-end.master')
 @section('content')
-    <style>
-        .title_cate {
-            margin-left: 30px;
-        }
-    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
