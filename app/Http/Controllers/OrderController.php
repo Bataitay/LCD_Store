@@ -3,18 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Services\Order\OrderServiceInterface;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    protected $orderService;
+    function __construct(OrderServiceInterface $orderService)
+    {
+        $this->orderService = $orderService;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('back-end.order.index');
+        $orders = $this->orderService->getAllWithPaginateLatest($request);
+        $params = [
+            'orders' => $orders,
+        ];
+        return view('back-end.order.index', $params);
     }
 
     /**
@@ -44,9 +54,9 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show()
     {
-        //
+        return view('back-end.order.show');
     }
 
     /**
