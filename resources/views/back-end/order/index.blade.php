@@ -45,7 +45,6 @@
                                         <th>Customer Name</th>
                                         <th>Customer ID</th>
                                         <th>Total Price</th>
-                                        <th>Note</th>
                                         <th>Created At</th>
                                         <th>Updated At</th>
                                         <th>Delete At</th>
@@ -65,7 +64,6 @@
                                             <td>{{ $order->customer->name }}</td>
                                             <td>{{ $order->customer_id }}</td>
                                             <td>{{ $order->order_total_price }}</td>
-                                            <td>{{ $order->note }}</td>
                                             <td>{{ $order->created_at }}</td>
                                             <td>{{ $order->updated_at }}</td>
                                             <td>{{ $order->deleted_at }}</td>
@@ -77,7 +75,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('order.show') }}"><i class="fas fa-eye text-primary"></i></a>
+                                                <a href="{{ route('order.show', $order->id) }}"><i class="fas fa-eye text-primary"></i></a>
                                             </td>
                                             {{-- <td>
                                                 <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
