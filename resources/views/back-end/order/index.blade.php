@@ -1,10 +1,5 @@
 @extends('back-end.master')
 @section('content')
-    <style>
-        .title_cate {
-            margin-left: 30px;
-        }
-    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -41,14 +36,21 @@
                         </div>
                         <div class="card-body">
 
-                            {{-- <table
+                            <table
                                 class="table table-bordered dt-responsive nowrap text-center align-middle dataTable no-footer dtr-inline"
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">#</th>
-                                        <th>Name</th>
-                                        <th>Option</th>
+                                        <th>#</th>
+                                        <th>Customer Name</th>
+                                        <th>Customer ID</th>
+                                        <th>Total Price</th>
+                                        <th>Note</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
+                                        <th>Delete At</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -57,33 +59,49 @@
                                 </tbody>
 
                                 <tbody>
-                                    @foreach ($roles as $role)
-                                        <tr class="item-{{ $role->id }}">
-                                            <td>{{ $role->id }}</td>
-                                            <td>{{ $role->name }}</td>
+                                    @foreach ($orders as $order)
+                                        <tr class="item-{{ $order->id }}">
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->customer->name }}</td>
+                                            <td>{{ $order->customer_id }}</td>
+                                            <td>{{ $order->order_total_price }}</td>
+                                            <td>{{ $order->note }}</td>
+                                            <td>{{ $order->created_at }}</td>
+                                            <td>{{ $order->updated_at }}</td>
+                                            <td>{{ $order->deleted_at }}</td>
                                             <td>
+                                                @if($order->status)
+                                                    <i class="bi bi-check-circle text-success"></i>
+                                                @else
+                                                    <i class="bi bi-x-circle text-danger"></i>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('order.show') }}"><i class="fas fa-eye text-primary"></i></a>
+                                            </td>
+                                            {{-- <td>
                                                 <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
                                                         class="fas fa-edit "></i></a>
                                                 <a data-href="{{ route('role.destroy', $role->id) }}"
                                                     id="{{ $role->id }}" class="btn btn-danger sm deleteIcon"><i
                                                         class=" fas fa-trash-alt "></i>
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table> --}}
-                            {{-- <div class="row">
+                            </table>
+                            <div class="row">
                                 <div class="col-7">
-                                    Hiển thị {{ $roles->perPage() }} - {{ $roles->currentPage() }} của
-                                    {{ $roles->lastPage() }}
+                                    Hiển thị {{ $orders->perPage() }} - {{ $orders->currentPage() }} của
+                                    {{ $orders->lastPage() }}
                                 </div>
                                 <div class="col-5">
                                     <div class="btn-group float-end">
-                                        {{ $roles->appends(request()->all())->links() }}
+                                        {{ $orders->appends(request()->all())->links() }}
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                 </div>
