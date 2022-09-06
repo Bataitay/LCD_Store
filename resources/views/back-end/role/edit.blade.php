@@ -24,8 +24,8 @@
                                 @method('PUT')
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Role Name</label>
-                                    <input name="name" value="{{ old('name') ?? $role->name }}" type="input" class="form-control"
-                                        id="name">
+                                    <input name="name" value="{{ old('name') ?? $role->name }}" type="input"
+                                        class="form-control @error('name') is-invalid @enderror" id="name">
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
                                 <div class="mb-3">
@@ -50,7 +50,11 @@
                                                 @foreach ($parentPermission->childrentPermissions as $childrentPermission)
                                                     <div class="form-check col-2">
                                                         <input name="permissions_id[]"
-                                                            {{ $permissionChecked->contains('id', $childrentPermission->id) ? 'checked' : '' }}
+                                                            @if (old('permissions_id')) 
+                                                                {{ in_array($childrentPermission->id, old('permissions_id')) ? 'checked' : '' }}
+                                                            @else
+                                                                {{ $permissionChecked->contains('id', $childrentPermission->id) ? 'checked' : '' }} 
+                                                            @endif
                                                             value="{{ $childrentPermission->id }}" type="checkbox"
                                                             class="form-check-input checkbox_childrent checkbox_all_childrent"
                                                             id="Permissions{{ $childrentPermission->id }}">
@@ -62,7 +66,8 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('role.index') }}" class="btn btn-danger">Back</a>
+                                <button type="submit" class="btn btn-primary">Edit Role</button>
                             </form>
                         </div>
                     </div>

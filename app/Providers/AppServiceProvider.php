@@ -14,6 +14,8 @@ use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use App\Repositories\Permission\PermissionRepository;
 use App\Repositories\Permission\PermissionRepositoryInterface;
+use App\Repositories\Review\ReviewRepository;
+use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
 use App\Services\Permission\PermissionService;
@@ -42,10 +44,14 @@ class AppServiceProvider extends ServiceProvider
         // register brand
         $this->app->singleton(BrandRepositoryInterface::class, BrandRepository::class);
         $this->app->singleton(BrandRepositoryInterface::class, BrandRepository::class);
+        //need cmt
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
+        //Review
+        $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);
+        $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);
     }
 
     /**

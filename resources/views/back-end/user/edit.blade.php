@@ -5,31 +5,30 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Add Brand</h4><br>
-                            <form method="post" action="{{ route('brand.store') }}" id="myForm" enctype="multipart/form-data" >
+                        <h2 class="card-title">Edit Brand {{$brand->name}}</h4><br>
+                            <form method="post" action="{{ route('brand.update',$brand->id) }}" id="myForm" enctype="multipart/form-data" >
                                 @csrf
+                                @method('PUT')
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label ">Name</label>
                                     <div class="form-group col-sm-10">
-                                        {{-- <input name="name" class="form-control" type="text" class="form-control @error('name') is-invalid @enderror"
-                                            value="{{ old('name') }}">
+                                        <input name="name" class="form-control" type="text"
+                                            value="{{ $brand->name }}">
                                         @error('name')
-                                            <div class="text text-danger"><i class=" ri-spam-2-line">{{$message}}</i></div>
-                                        @enderror --}}
-                                        <input name="name" value="{{ old('name') }}" type="input"
-                                        class="form-control @error('name') is-invalid @enderror" id="
-                                        ">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
+                                        @enderror
                                         <br><br>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label ">Logo</label>
                                     <div class="form-group col-sm-10">
-                                        <input name="name" value="{{ old('logo') }}" type="input"
-                                        class="form-control @error('logo') is-invalid @enderror" id="
-                                        ">
-                                    <span class="text-danger">{{ $errors->first('logo') }}</span>
+                                        <input name="logo" class="form-control" type="file"
+                                            value="{{ $brand->logo}}">
+                                            <img src="{{asset($brand->logo)}}" alt="">
+                                        @error('logo')
+                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
+                                        @enderror
                                         <br><br>
                                         <a class="btn btn-danger waves-effect waves-light"
                                             href="{{ route('brand.index') }}">Close</a>

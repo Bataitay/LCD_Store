@@ -45,6 +45,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('review.index')}}" class=" waves-effect">
+                        <i class="ri-vip-crown-2-line"></i>
+                        <span>Review</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('brand.index')}}" class=" waves-effect">
                         <i class="ri-vip-crown-2-line"></i>
                         <span>Brands</span>

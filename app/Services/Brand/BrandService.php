@@ -25,6 +25,10 @@ class BrandService extends BaseService implements BrandServiceInterface {
     {
         return $this->repository->forceDelete($id);
     }
+    public function searchBrand($name)
+    {
+        return $this->repository->searchBrand($name);
+    }
 
 
 

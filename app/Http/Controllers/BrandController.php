@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
+use App\Http\Requests\UpdateBrandRequest;
 use App\Services\Brand\BrandService;
 use Exception;
 use Illuminate\Http\Request;
@@ -87,7 +88,7 @@ class BrandController extends Controller
         }
     }
 
-    public function update($id, Request $request)
+    public function update($id, UpdateBrandRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -191,5 +192,27 @@ class BrandController extends Controller
                 'status' => 0
             ], 200);
         }
+    }
+
+    public function searchByName(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $cakes = $this->brandService->searchBrand($keyword);
+        return response()->json($cakes);
+    }
+    public function searchBrand(Request $request)
+    {
+        try {
+              $keySearch=$request->keySearch;
+        $brands =$this->brandService->searchBrand($keySearch);
+        $params = [
+            'brands' => $brands
+        ];
+        return  view('back-end.brand.index', $params);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . 'getLine' . $e->getLine());
+            abort(404);
+        }
+
     }
 }

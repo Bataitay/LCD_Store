@@ -28,13 +28,14 @@ class RoleController extends Controller
      */
     public function index( Request $request)
     {
-        // if (! Gate::allows('List_Role')) {
-        //     abort(403);
-        // }
-        $roles = $this->roleService->all($request);
+        if (Gate::denies('List_Role', 'List_Role')) {
+            abort(403);
+        }
+        $roles = $this->roleService->getAllWithPaginateLatest($request);
         $params = [
             'roles' => $roles,
         ];
+        // dd($roles);
         return view('back-end.role.index', $params);
     }
 
@@ -45,6 +46,9 @@ class RoleController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('Add_Role', 'Add_Role')) {
+            abort(403);
+        }
         $parentPermissions = $this->permissionService->getParentPermissions();
         $params = [
             'parentPermissions' => $parentPermissions,
@@ -126,11 +130,33 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-       $this->roleService->delete($id);
-       $notification = array(
+        $role = $this->roleService->find($id);
+        $this->roleService->delete($id);
+        $notification = array(
         'message' => 'Deleted role successfully',
         'alert-type' => 'success'
     );
-       return  redirect()->route('role.index')->with($notification);
+       return response()->json($role);
+    }
+    public function getTrashed()
+    {
+        $roles = $this->roleService->getTrashed();
+        $params = [
+            'roles' => $roles,
+        ];
+        return view('back-end.role.sorfDelete', $params);
+    }
+    public function restore($id)
+    {
+        // dd($id);
+        $this->roleService->restore($id);
+        $notification = array(
+            'message' => 'Restore role successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('role.getTrashed')->with($notification);
+    }
+    function force_destroy($id){
+        $this->roleService->force_destroy($id);
     }
 }
