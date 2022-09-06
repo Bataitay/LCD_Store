@@ -5,7 +5,7 @@ use App\Repositories\RepositoryInterface;
 
 interface UserRepositoryInterface extends RepositoryInterface{
     public function all($request);
-    public function addAvatar($data);
+    public function addAvatar($request);
     // public function GetDistricts( $data);
     // public function getWards( $data);
     public function getTrashed();
