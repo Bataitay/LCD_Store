@@ -6,8 +6,16 @@
     <div class="container-fluid">
 
         <div class="container">
+            <div class="col-md-12 d-flex">
+                <div class="md-3">
+                    <a href="{{ url()->previous() }}"
+                        class="btn btn-danger btn-rounded waves-effect waves-light ">
+                        <i class=" fas fa-reply-all"></i>
+                        Back</a>
+                </div>
+            </div>
             <!-- Title -->
-            <div class="mb-3">
+            <div class="mb-3 text-center">
                 <h2>Order Detail</h2>
             </div>
             <div class="d-flex justify-content-between align-items-center py-3">
