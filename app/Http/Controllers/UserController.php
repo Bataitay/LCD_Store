@@ -143,6 +143,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function updateAvatar(Request $request, $id)
+    {
+        // dd($request->file('avatar'));
+        $data = $request->file('avatar');
+        $file = $this->userService->updateAvatar($data, $id);
+        //   dd($file);
+        return response()->json(['file' => $file], 200);
+    }
     public function update(UpdateUserRequest $request, $id)
     {
         try {

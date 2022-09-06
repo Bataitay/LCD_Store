@@ -53,6 +53,7 @@ Route::controller(UserController::class)->group(function () {
             Route::get('user/show/{id}', 'show')->name('user.show');
             Route::get('user/edit/{id}', 'edit')->name('user.edit');
             Route::put('user/update/{id}', 'update')->name('user.update');
+            Route::put('user/updateAvatar', 'updateAvatar')->name('user.updateAvatar');
             Route::delete('user/delete/{id}', 'destroy')->name('user.delete');
             Route::get('user/getTrashed', 'getTrashed')->name('user.getTrashed');
             Route::get('user/restore/{id}', 'restore')->name('user.restore');

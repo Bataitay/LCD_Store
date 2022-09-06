@@ -176,14 +176,40 @@
         );
         const inputElement = document.getElementById('filepond');
         const pond = FilePond.create(inputElement);
-        console.log(pond);
         FilePond.setOptions({
             server: {
                 url: '{{ route('user.addAvatar') }}',
                 process: {
                     onload: (res) => {
                         var obj = JSON.parse(res);
-                        console.log(obj.file);
+                        $('#avatar').val(obj.file);
+                    }
+                },
+                revert: '/',
+                type: 'json',
+                patch: "?patch=",
+                headers: {
+                    'pond': pond,
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+            }
+        });
+    </script>
+    <script>
+        FilePond.registerPlugin(
+            FilePondPluginImagePreview,
+            FilePondPluginImageResize,
+            FilePondPluginImageTransform
+        );
+        const inputElement = document.getElementById('filepond');
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '{{ route('user.updateAvatar') }}',
+                process: {
+                    onload: (res) => {
+                        var obj = JSON.parse(res);
+                        console.log(obj);
                         $('#avatar').val(obj.file);
                     }
                 },

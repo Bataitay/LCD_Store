@@ -159,6 +159,7 @@
                                     <label>Avatar Employee</label>
                                     <input type="file" name="avatar" id="filepond" class="img-fluid filepond "
                                         multiple>
+                                        <input type="hidden" name="file" id="avatar" value="">
                                 </div>
                             </div>
 
@@ -188,7 +189,7 @@
                                 <a class="btn btn-secondary float-right"
                                 href="{{ route('user.index')}}">Close</a>
                                 <input type="submit" class="btn btn-info waves-effect waves-light"
-                                    value="Add Profile...">
+                                    value="Edit Profile...">
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Ward;
 use App\Repositories\BaseRepository;
 use App\Traits\StorageImageTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -79,6 +80,25 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             return $path;
         }
     }
+    public function updateAvatar($request, $id)
+    {
+        // $dataUploadImage = $this->storageUpload($request, 'avatar', 'employee');
+        // $user->avatar = $dataUploadImage['file_path'];
+        $user = $this->model::find($id);
+        $file = $request;
+        // dd($request);
+        if ($request) {
+            $filenameWithExt = $file->getClientOriginalName();
+            // dd($filenameWithExt);
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . date('mdYHis') . uniqid() . '.' . $extension;
+            $path = 'storage/' . $file->store('/uploads', 'public');
+            $user->avatar = $path;
+            // $user->save();
+            return $path;
+        }
+    }
 
     public function show($id)
     {
@@ -98,6 +118,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->province_id = $data['province_id'];
         $user->district_id = $data['district_id'];
         $user->ward_id = $data['ward_id'];
+        $user->avatar = $data['file'];
         $user->save();
         return $user;
     }

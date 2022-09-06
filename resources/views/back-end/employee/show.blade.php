@@ -118,6 +118,7 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
+                                    <span>{{ $user->province->name }}-{{ $user->district->name }}-{{ $user->ward->name }}</span><br>
                                     <span>{{ $user->address }}</span>
                                 </div>
                             </div>
