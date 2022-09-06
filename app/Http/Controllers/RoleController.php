@@ -28,7 +28,7 @@ class RoleController extends Controller
      */
     public function index( Request $request)
     {
-        if (Gate::denies('Show_Role')) {
+        if (Gate::denies('List_Role', 'List_Role')) {
             abort(403);
         }
         $roles = $this->roleService->getAllWithPaginateLatest($request);
@@ -46,6 +46,9 @@ class RoleController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('Add_Role', 'Add_Role')) {
+            abort(403);
+        }
         $parentPermissions = $this->permissionService->getParentPermissions();
         $params = [
             'parentPermissions' => $parentPermissions,
