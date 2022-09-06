@@ -64,17 +64,17 @@ class UserSeeder extends Seeder
             'phone' => '0368563954',
             'password' => bcrypt('123456789'),
         ]);
-        $admin_role = Role::create([
-            'name' => 'Super Admin',
-        ]);
-        $writer_role = Role::create([
-            'name' => 'writer',
-        ]);
-        $manager_role = Role::create([
-            'name' => 'manager',
-        ]);
-        $Employee_role = Role::create([
-            'name' => 'employee',
-        ]);
+        // $admin_role = Role::create([
+        //     'name' => 'Super Admin',
+        // ]);
+        // $writer_role = Role::create([
+        //     'name' => 'writer',
+        // ]);
+        // $manager_role = Role::create([
+        //     'name' => 'manager',
+        // ]);
+        // $Employee_role = Role::create([
+        //     'name' => 'employee',
+        // ]);
     }
 }

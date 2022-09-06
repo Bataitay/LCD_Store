@@ -118,7 +118,18 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
+                                    <span>{{ $user->province->name }}-{{ $user->district->name }}-{{ $user->ward->name }}</span><br>
                                     <span>{{ $user->address }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Roles</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @foreach($user->roles as $role)
+                                    <span>{{ $role->name }} -</span>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="row">

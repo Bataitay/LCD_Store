@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\Ward;
+use App\Services\Role\RoleServiceInterface;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -17,9 +22,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $userService;
-    public function __construct(UserServiceInterface $userService)
+    private $roleService;
+    public function __construct(UserServiceInterface $userService, RoleServiceInterface $roleService)
     {
         $this->userService = $userService;
+        $this->roleService = $roleService;
     }
     public function index(Request $request)
     {
@@ -35,10 +42,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $roles = $this->roleService->all($request);
         $provinces = Province::get();
-        return view('back-end.employee.add', compact('provinces'));
+        $params = [
+            'roles' => $roles,
+            'provinces' => $provinces,
+        ];
+        return view('back-end.employee.add', $params);
     }
     public function GetDistricts(Request $request)
     {
@@ -60,20 +72,31 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $data = $request->all();
-        $this->userService->create($data);
-        $notification = array(
-            'message' => 'Added employee successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('user.index')->with($notification);
+        try {
+            $this->userService->create($request);
+            $notification = array(
+                'message' => 'Added employee successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('user.index')->with($notification);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Added employee faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
     public function addAvatar(Request $request)
     {
-        //     $data = $request->all();
-        //     $this->userService->addAvatar($data);
+        // dd($request->file('avatar'));
+        $data = $request->file('avatar');
+        $file = $this->userService->addAvatar($data);
+        //   dd($file);
+        return response()->json(['file' => $file], 200);
     }
 
     /**
@@ -94,10 +117,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        $provinces = Province::get();
+        $districts = District::get();
+        $wards = Ward::get();
+        $roles = $this->roleService->all($request);
         $user = $this->userService->find($id);
-        return view('back-end.employee.edit', compact('user'));
+        $rolesChecked = $user->roles;
+        $params = [
+            'roles' => $roles,
+            'user' => $user,
+            'rolesChecked' => $rolesChecked,
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'wards' => $wards,
+        ];
+        return view('back-end.employee.edit', $params);
     }
 
     /**
@@ -107,15 +143,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateAvatar(Request $request, $id)
     {
-        $data = $request->all();
-        $this->userService->update($id, $data);
-        $notification = array(
-            'message' => 'Edited employee successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('user.index')->with($notification);
+        // dd($request->file('avatar'));
+        $data = $request->file('avatar');
+        $file = $this->userService->updateAvatar($data, $id);
+        //   dd($file);
+        return response()->json(['file' => $file], 200);
+    }
+    public function update(UpdateUserRequest $request, $id)
+    {
+        try {
+            $data = $request->all();
+            $this->userService->update($id, $data);
+            $notification = array(
+                'message' => 'Edited employee successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('user.index')->with($notification);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Edited employee faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
@@ -148,7 +201,8 @@ class UserController extends Controller
         $user = $this->userService->force_destroy($id);
         return response()->json($user);
     }
-    public function login(){
+    public function login()
+    {
         return view('back-end.auth.login');
     }
     public function handelLogin(Request $request)

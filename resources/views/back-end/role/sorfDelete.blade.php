@@ -13,7 +13,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Roles</h2>
+                                    <h2 for="example-text-input" class="form-label">Roles Trashed</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -21,27 +21,10 @@
                             </div>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('role.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Role</a>
-                                </div>
-                                <div class="md-3 title_cate">
-                                    <a href="{{ route('role.getTrashed') }}"
+                                    <a href="{{ route('role.index') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
-                                        <i class=" fas fa-trash-alt"></i>
-                                        Trash</a>
-                                </div>
-                                <div class="md-3 title_cate d-flex">
-                                    <div class="form-outline">
-                                        <form action="">
-                                            <input type="search" value="{{ request()->search }}" name="search"
-                                                id="form1" class="form-control" />
-                                    </div>
-                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    </form>
+                                        <i class=" fas fa-reply-all"></i>
+                                        All Roles</a>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +51,11 @@
                                             <td>{{ $role->id }}</td>
                                             <td>{{ $role->name }}</td>
                                             <td>
-                                                <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
-                                                        class="fas fa-edit "></i></a>
+                                                <a href="{{ route('role.restore', $role->id) }}"
+                                                    onclick="return confirm('Do you want restore?')"
+                                                    class="btn btn-info sm">
+                                                    <i class="fas fa-redo"></i>
+                                                </a>
                                                 <a data-href="{{ route('role.destroy', $role->id) }}"
                                                     id="{{ $role->id }}" class="btn btn-danger sm deleteIcon"><i
                                                         class=" fas fa-trash-alt "></i>

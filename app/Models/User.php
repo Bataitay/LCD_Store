@@ -37,4 +37,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    function roles(){
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
+    function hasPermission($group_key){
+        $roles = auth()->user()->roles;
+        foreach($roles as $role){
+            if($role->permisstions->contains('key_code', $group_key)){
+                return true;
+            }
+        }
+        return false;
+    }
+    function province(){
+        return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+    function district(){
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+    function ward(){
+        return $this->belongsTo(Ward::class, 'ward_id', 'id');
+    }
 }
