@@ -27,6 +27,12 @@
                                         Add Brand</a>
                                 </div>
                             </div>
+                            <div class="md-3 title_cate">
+                                <a href="{{ route('brand.trash') }}"
+                                    class="btn btn-danger btn-rounded waves-effect waves-light ">
+                                    <i class=" fas fa-trash-alt"></i>
+                                    Trash</a>
+                            </div>
                         </div>
                         <div class="card-body">
 
@@ -41,16 +47,13 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-
-                                <tbody id="addRow" class="addRow">
-
-                                </tbody>
-
-                                <tbody>
+                                <tbody id="myTbody">
                                     @foreach ($brands as $brand)
-                                        <tr class="review{{$brand->id}}">
+                                        <tr class="list-brand">
                                             <td>{{ $brand->id }}</td>
-                                            <td>{{ $brand->name }}</td>
+                                            <td>
+                                                <a href="{{route('brand.show', $brand->id)}}">{{ $brand->name }}</a>
+                                                </td>
                                             <td> @empty($brand->logo)
                                                     <p>not yet update logo</p>
                                                 @endempty
@@ -58,15 +61,17 @@
 
                                             </td>
                                             <td>
-                                                <a data-url="{{ route('brand.restore', $brand->id) }}"
-                                                    data-id="{{ $brand->id }}" class="btn btn-info sm restoreBrand">
-                                                    <i class="fas fa-redo"></i>
+                                                <a href="{{ route('brand.show', $brand->id) }}" class="btn btn-primary sm ">
+                                                    <i class="fas fa-eye-slash"></i>
                                                 </a>
-                                                <a data-url="{{ route('brand.forceDelete', $brand->id) }}"
-                                                    data-id="{{ $brand->id }}"
-                                                    class="btn btn-danger sm forceDeleteBrand">
+                                                <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-info sm">
+                                                    <i class="fas fa-edit "></i>
+                                                </a>
+                                                <a data-url="{{ route('brand.destroy', $brand->id) }}"
+                                                    data-id="{{ $brand->id }}" class="btn btn-warning sm deleteBrand">
                                                     <i class=" fas fa-trash-alt "></i>
                                                 </a>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -81,59 +86,16 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(function() {
-            $('.forceDeleteBrand').on('click', forceDeleteBrand);
-            $('.restoreBrand').on('click', restoreBrand);
+            $('.deleteBrand').on('click', deleteBrand)
         })
 
-        function restoreBrand(event) {
-            event.preventDefault();
-            let url = $(this).data('url');
-            let id = $(this).data('id');
-            swal({
-                    title: "Are you sure restore?",
-                    text: "If restore,You can view in list brand!",
-                    icon: "success",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        jQuery.ajax({
-                            type: "post",
-                            'url': url,
-                            'data': {
-                                id: id,
-                                _token: "{{ csrf_token() }}",
-                            },
-                            dataType: 'json',
-                            success: function(data, ) {
-                                if (data.status === 1) {
-                                    swal("Successfully!!!", {
-                                        icon: "success",
-                                    })
-                                    $('.review' + id).remove()
-                                }
-                                if (data.status === 0) {
-                                    console.log(data);
-                                    alert(data.messages)
-                                }
-                            }
-                        });
-                    } else {
-                        swal("Cancel the process!!");
-                    }
-                })
-        }
-
-
-
-        function forceDeleteBrand(event) {
+        function deleteBrand(event) {
             event.preventDefault();
             let url = $(this).data('url');
             let id = $(this).data('id');
             swal({
                     title: "Are you sure delete?",
-                    text: "If deleted,You cannot recover this data!",
+                    text: "Once deleted,you can restore this file in recycle bin!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -153,10 +115,9 @@
                                     swal("Poof! Your imaginary file has been deleted!", {
                                         icon: "success",
                                     })
-                                    $('.review' + id).remove()
+                                    window.location.reload();
                                 }
                                 if (data.status === 0) {
-                                    console.log(data);
                                     alert(data.messages)
                                 }
                             }

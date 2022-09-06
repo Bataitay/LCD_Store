@@ -48,7 +48,7 @@
 
                                 <tbody>
                                     @foreach ($brands as $brand)
-                                        <tr class="review{{$brand->id}}">
+                                        <tr>
                                             <td>{{ $brand->id }}</td>
                                             <td>{{ $brand->name }}</td>
                                             <td> @empty($brand->logo)
@@ -111,7 +111,7 @@
                                     swal("Successfully!!!", {
                                         icon: "success",
                                     })
-                                    $('.review' + id).remove()
+                                    window.location.reload();
                                 }
                                 if (data.status === 0) {
                                     console.log(data);
@@ -153,7 +153,7 @@
                                     swal("Poof! Your imaginary file has been deleted!", {
                                         icon: "success",
                                     })
-                                    $('.review' + id).remove()
+                                    window.location.reload();
                                 }
                                 if (data.status === 0) {
                                     console.log(data);

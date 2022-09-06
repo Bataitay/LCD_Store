@@ -12,23 +12,21 @@
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label ">Name</label>
                                     <div class="form-group col-sm-10">
-                                        <input name="name" class="form-control" type="text"
-                                            value="{{ $brand->name }}">
-                                        @error('name')
-                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
-                                        @enderror
+                                        <input name="name" value="{{ $brand->name }}" type="input"
+                                        class="form-control @error('name') is-invalid @enderror" id="
+                                        ">
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+
                                         <br><br>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label ">Logo</label>
                                     <div class="form-group col-sm-10">
-                                        <input name="logo" class="form-control" type="file"
-                                            value="{{ $brand->logo}}">
-                                            <img src="{{asset($brand->logo)}}" alt="">
-                                        @error('logo')
-                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
-                                        @enderror
+                                        <input name="logo" value="{{ $brand->logo }}" type="input"
+                                        class="form-control @error('logo') is-invalid @enderror" id="
+                                        ">
+                                    <span class="text-danger">{{ $errors->first('logo') }}</span>
                                         <br><br>
                                         <a class="btn btn-danger waves-effect waves-light"
                                             href="{{ route('brand.index') }}">Close</a>
