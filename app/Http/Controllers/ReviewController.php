@@ -182,23 +182,22 @@ class ReviewController extends Controller
     public function searchByName(Request $request)
     {
         $keyword = $request->input('keyword');
-        $reviews =$this->reviewService->searchReview($keyword);
+        $reviews = $this->reviewService->searchReview($keyword);
         return response()->json($reviews);
     }
 
-    public function searchBrand(Request $request)
+    public function searchReview(Request $request)
     {
         try {
-              $keySearch=$request->keySearch;
-        $brands =$this->reviewService->searchReview($keySearch);
-        $params = [
-            'brands' => $brands
-        ];
-        return  view('back-end.brand.index', $params);
+            $keySearch = $request->keySearch;
+            $reviews = $this->reviewService->searchReview($keySearch);
+            $params = [
+                'reviews' => $reviews
+            ];
+            return  view('back-end.review.index', $params);
         } catch (Exception $e) {
             Log::error('errors' . $e->getMessage() . 'getLine' . $e->getLine());
             abort(404);
         }
-
     }
 }

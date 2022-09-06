@@ -66,7 +66,7 @@ Route::controller(RoleController::class)->group(function(){
  Route::get('reviews/trash',[ReviewController::class,'getTrash'])->name('review.trash');
  Route::post('reviews/trash/restore/{id}',[ReviewController::class,'restore'])->name('review.restore');
  Route::delete('reviews/trash/force-delete/{id}',[ReviewController::class,'forceDelete'])->name('review.forceDelete');
- Route::get('review/search',[ReviewController::class, 'searchByName']);
+ Route::get('searchReviews',[ReviewController::class, 'searchByName']);
  Route::get('searchReview', [ReviewController::class,'searchReview'])->name('review.search');
 
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
-use App\Models\Brand;
+use App\Http\Requests\UpdateBrandRequest;
 use App\Services\Brand\BrandService;
 use Exception;
 use Illuminate\Http\Request;
@@ -88,7 +88,7 @@ class BrandController extends Controller
         }
     }
 
-    public function update($id, Request $request)
+    public function update($id, UpdateBrandRequest $request)
     {
         try {
             DB::beginTransaction();

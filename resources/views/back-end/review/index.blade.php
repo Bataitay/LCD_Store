@@ -1,10 +1,36 @@
 @extends('back-end.master')
 @section('content')
-    <style>
-        .title_cate {
-            margin-left: 30px;
-        }
-    </style>
+<style>
+    .title_cate {
+        margin-left: 30px;
+    }
+
+    .autocomplete-suggestions {
+        border: 1px solid #999;
+        background: #FFF;
+        overflow: auto;
+    }
+
+    .autocomplete-suggestion {
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .autocomplete-selected {
+        background: #F0F0F0;
+    }
+
+    /*.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }*/
+    .autocomplete-group {
+        padding: 2px 5px;
+    }
+
+    .autocomplete-group strong {
+        display: block;
+        border-bottom: 1px solid #000;
+    }
+</style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -31,7 +57,7 @@
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="">
+                                            <form action="{{route('review.search')}}" >
                                                 <input class="form-control" id="keyword" type="text" placeholder="Search"
                                                 aria-label="Search" name="keySearch">
                                         </div>
@@ -60,9 +86,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($reviews as $review)
-                                        <tr>
+                                        <tr class="review{{$review->id}}">
                                             <td>{{ $review->id }}</td>
-                                            <td>{{ $review->content }}</td>
+                                            <td><a href="{{ route('review.show', $review->id) }}">{{ $review->content }}</a></td>
                                             <td>{{ $review->vote }}
                                                 <i class="fas fa-star text-warning "></i>
                                             </td>
@@ -113,7 +139,6 @@
         function deleteReview(event) {
             event.preventDefault();
             let url = $(this).data('url');
-            alert(url);
             let id = $(this).data('id');
             swal({
                     title: "Are you sure delete?",
@@ -137,7 +162,7 @@
                                     swal("Poof! Your imaginary file has been deleted!", {
                                         icon: "success",
                                     })
-                                    window.location.reload();
+                                    $('.review' + id).remove()
                                 }
                                 if (data.status === 0) {
                                     alert(data.messages)
@@ -153,17 +178,16 @@
     <script>
         $(function() {
             $("#keyword").autocomplete({
-                serviceUrl: 'review/search',
+                serviceUrl: 'searchReviews',
                 paramName: "keyword",
                 onSelect: function(suggestion) {
                     $("#keyword").val(suggestion.value);
                 },
                 transformResult: function(response) {
-                    
                     return {
                         suggestions: $.map($.parseJSON(response), function(item) {
                             return {
-                                value: item.content,
+                                value: item.content
                             };
                         })
                     };

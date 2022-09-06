@@ -34,8 +34,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -100,7 +98,7 @@
                                             <td> @empty($brand->logo)
                                                     <p>not yet update logo</p>
                                                 @endempty
-                                                <img src="{{ asset($brand->logo) }}" alt="">
+                                                <img src="{{ asset($brand->logo) }}" alt="" class="image_photo">
 
                                             </td>
                                             <td>
@@ -114,7 +112,6 @@
                                                     data-id="{{ $brand->id }}" class="btn btn-warning sm deleteBrand">
                                                     <i class=" fas fa-trash-alt "></i>
                                                 </a>
-
                                             </td>
                                         </tr>
                                     @endforeach
@@ -132,9 +129,7 @@
         $(function() {
             $('.deleteBrand').on('click', deleteBrand)
 
-
         })
-
 
         function deleteBrand(event) {
             event.preventDefault();

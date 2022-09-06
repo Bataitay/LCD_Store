@@ -29,6 +29,10 @@ class ReviewRepository extends BaseRepository implements ReviewRepositoryInterfa
 
     }
     public function searchReview($name){
-        return  $this->model::where('content', 'like', '%' . $name . '%')->get();
+        return  $this->model::where('content', 'like', '%' . $name . '%')
+        ->orWhere('vote',$name)
+        ->orWhere('product_id',$name)
+        ->orWhere('customer_id',$name)
+        ->get();
     }
 }
