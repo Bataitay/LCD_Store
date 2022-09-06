@@ -49,6 +49,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('category/restore/{id}', 'restore')->name('category.restore');
             Route::delete('category/force_destroy/{id}', 'force_destroy')->name('category.force_destroy');
         });
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('product/index', 'index')->name('product.index');
+            Route::get('product/create', 'create')->name('product.create');
+            Route::post('product/store', 'store')->name('product.store');
+            Route::get('product/edit/{id}', 'edit')->name('product.edit');
+            Route::put('product/update/{id}', 'update')->name('product.update');
+            Route::delete('product/delete/{id}', 'destroy')->name('product.delete');
+            Route::get('product/getTrashed', 'getTrashed')->name('product.getTrashed');
+            Route::get('product/restore/{id}', 'restore')->name('product.restore');
+            Route::delete('product/force_destroy/{id}', 'force_destroy')->name('product.force_destroy');
+        });
         Route::controller(UserController::class)->group(function () {
             Route::get('user/index', 'index')->name('user.index');
             Route::get('user/GetDistricts', 'GetDistricts')->name('user.GetDistricts');
@@ -78,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
         });
         //brand
         Route::resource('brand', BrandController::class);
+        Route::resource('review', ReviewController::class);
         Route::get('brands/trash', [BrandController::class, 'getTrash'])->name('brand.trash');
         Route::post('brands/trash/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
         Route::delete('brands/trash/force-delete/{id}', [BrandController::class, 'forceDelete'])->name('brand.forceDelete');
