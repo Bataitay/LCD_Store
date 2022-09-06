@@ -27,17 +27,6 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             UserSeeder::class,
             ReviewSeeder::class,
-<<<<<<< HEAD
-            PermissionSeeder::class,
-            UserSeeder::class,
-=======
-            // PermissionSeeder::class,
-            ReviewSeeder::class,
-
-
-
-
->>>>>>> create_reviews
         ]);
     }
     function importBrand(){

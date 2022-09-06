@@ -72,28 +72,14 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('role/force_destroy/{id}', 'force_destroy')->name('role.force_destroy');
     });
     //brand
-    Route::resource('brand', BrandController::class);
-    Route::get('brands/trash', [BrandController::class, 'getTrash'])->name('brand.trash');
-    Route::post('brands/trash/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
-    Route::delete('brands/trash/force-delete/{id}', [BrandController::class, 'forceDelete'])->name('brand.forceDelete');
-});
-<<<<<<< HEAD
-=======
-Route::controller(RoleController::class)->group(function(){
-    Route::get('role/index','index')->name('role.index');
-    Route::get('role/create','create')->name('role.create');
-    Route::post('role/store','store')->name('role.store');
-    Route::get('role/edit/{id}','edit')->name('role.edit');
-    Route::put('role/update/{id}','update')->name('role.update');
-    Route::delete('role/destroy/{id}','destroy')->name('role.destroy');
-});
-//brand
  Route::resource('brand', BrandController::class);
  Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
  Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
  Route::delete('brands/trash/force-delete/{id}',[BrandController::class,'forceDelete'])->name('brand.forceDelete');
  Route::get('search',[BrandController::class, 'searchByName']);
+
  Route::get('searchBrand', [BrandController::class,'searchBrand'])->name('brand.search');
+
  //Review
  Route::resource('review', ReviewController::class);
  Route::get('changeStatus/{id}',[ ReviewController::class,'changeStatus'])->name('review.changeStatus');
@@ -102,11 +88,14 @@ Route::controller(RoleController::class)->group(function(){
  Route::delete('reviews/trash/force-delete/{id}',[ReviewController::class,'forceDelete'])->name('review.forceDelete');
  Route::get('searchReviews',[ReviewController::class, 'searchByName']);
  Route::get('searchReview', [ReviewController::class,'searchReview'])->name('review.search');
+});
 
 
 
 
 
 
->>>>>>> create_reviews
+
+
+
 
