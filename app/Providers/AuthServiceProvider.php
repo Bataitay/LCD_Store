@@ -31,9 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         $parentPermissions = Permission::where('group_key', '=', 0)->get();
         foreach($parentPermissions as $parentPermission){
             foreach($parentPermission->childrentPermissions as $childrentPermission){
-                $GLOBALS['group_name'] = $childrentPermission->group_name;
-                Gate::define($GLOBALS['group_name'], function(User $user){
-                    return $user->hasPermission($GLOBALS['group_name']);
+                Gate::define($childrentPermission->group_name, function(User $user, $group_name){
+                    return $user->hasPermission($group_name);
                 });
             }
         }
