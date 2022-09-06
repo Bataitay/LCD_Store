@@ -54,9 +54,15 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('back-end.order.show');
+        $order = $this->orderService->find($id);
+        $orderDetails = $order->oderDetails;
+        $params = [
+            'order' => $order,
+            'orderDetails' => $orderDetails,
+        ];
+        return view('back-end.order.show', $params);
     }
 
     /**
@@ -80,6 +86,11 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         //
+    }
+
+    function updateSingle($id){
+        $this->orderService->updateSingle($id);
+        return redirect()->route('order.index');
     }
 
     /**
