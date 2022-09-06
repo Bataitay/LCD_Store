@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
@@ -68,6 +69,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('role/getTrashed', 'getTrashed')->name('role.getTrashed');
         Route::get('role/restore/{id}', 'restore')->name('role.restore');
         Route::delete('role/force_destroy/{id}', 'force_destroy')->name('role.force_destroy');
+    });
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('order/index', 'index')->name('order.index');
+        Route::get('order/create', 'create')->name('order.create');
+        Route::post('order/store', 'store')->name('order.store');
+        // Route::get('order/edit/{id}', 'edit')->name('order.edit');
+        // Route::put('order/update/{id}', 'update')->name('order.update');
+        // Route::delete('order/destroy/{id}', 'destroy')->name('order.destroy');
+        // Route::get('order/getTrashed', 'getTrashed')->name('order.getTrashed');
+        // Route::get('order/restore/{id}', 'restore')->name('order.restore');
+        // Route::delete('order/force_destroy/{id}', 'force_destroy')->name('order.force_destroy');
     });
     //brand
     Route::resource('brand', BrandController::class);
