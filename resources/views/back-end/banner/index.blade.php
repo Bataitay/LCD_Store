@@ -1,8 +1,8 @@
 @extends('back-end.master')
 @section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
-<link rel="stylesheet" href="{{ asset('assets/custom/banner/css/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/custom/banner/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/custom/banner/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/custom/banner/css/style.css') }}">
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -13,7 +13,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Banner Manage</h2>
+                                    <h2 for="example-text-input" class="form-label">Banner Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -32,57 +32,40 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="featured-carousel owl-carousel">
-                                        <div class="item">
-                                            <div class="blog-entry">
-                                                <a href="#" class="block-20 d-flex align-items-start">
-                                                    <img src="{{ asset('assets\images\login-office.jpeg') }}" alt="">
-                                                </a>
-                                                <div class="text border border-top-0 p-4">
-                                                    <div class="d-flex align-items-center mt-2">
-                                                        <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                                    class="ion-ios-arrow-round-forward"></span></a></p>
-                                                        <p class="ml-auto meta2 mb-0">
-                                                            <a href="#" class="mr-2">Admin</a>
-                                                            <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                                        </p>
+                                        @foreach ($banners as $banner)
+                                            <div class="item">
+                                                <div class="blog-entry">
+                                                    {{-- <a href="#" class="block-20 d-flex align-items-start">
+                                                        <img src="{{ asset($banner->image) }}" alt="">
+                                                        <div class="meta-date text-center p-2">
+                                                            <span class="day">26</span>
+                                                        </div>
+                                                    </a> --}}
+                                                    <a href="#" class="block-20 d-flex align-items-start"
+                                                        style="background-image: url({{ asset($banner->image) }});">
+                                                        <div class="meta-date text-center p-2">
+                                                            <span class="day">#{{ $banner->id }}</span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="border border-top-0 p-4">
+                                                        <div class="text-center align-items-center mt-2">
+                                                            <a href="#" class="btn btn-primary sm"><i
+                                                                    class="fas fa-eye{{ $banner->status ? '' : '-slash' }}"></i></a>
+                                                            <a href="{{ route('banner.edit', $banner->id) }}"
+                                                                class="btn btn-success ml-2"><i
+                                                                    class="fas fa-edit "></i></a>
+                                                            <form action="{{ route('banner.destroy', $banner->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button class="btn btn-danger sm ml-2"><i
+                                                                        class=" fas fa-trash-alt "></i></button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="blog-entry">
-                                                <a href="#" class="block-20 d-flex align-items-start">
-                                                    <img src="{{ asset('storage\uploads\TvaQdLB84l2V2ZSvG9J8pVQzyW5NFnmlzA82InHE.jpg') }}" alt="">
-                                                </a>
-                                                <div class="text border border-top-0 p-4">
-                                                    <div class="d-flex align-items-center mt-2">
-                                                        <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                                    class="ion-ios-arrow-round-forward"></span></a></p>
-                                                        <p class="ml-auto meta2 mb-0">
-                                                            <a href="#" class="mr-2">Admin</a>
-                                                            <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="blog-entry">
-                                                <a href="#" class="block-20 d-flex align-items-start">
-                                                    <img src="{{ asset('storage\images\brand\1662215163.png') }}" alt="">
-                                                </a>
-                                                <div class="text border border-top-0 p-4">
-                                                    <div class="d-flex align-items-center mt-2">
-                                                        <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span
-                                                                    class="ion-ios-arrow-round-forward"></span></a></p>
-                                                        <p class="ml-auto meta2 mb-0">
-                                                            <a href="#" class="mr-2">Admin</a>
-                                                            <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +117,7 @@
     </script>
 @endsection
 @section('js')
-    <script src="{{ asset('assets/custom/banner/js/jquery.min.js')}}"></script>
-	<script src="{{ asset('assets/custom/banner/js/owl.carousel.min.js')}}"></script>
-	<script src="{{ asset('assets/custom/banner/js/main.js')}}"></script>
+    <script src="{{ asset('assets/custom/banner/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/custom/banner/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/custom/banner/js/main.js') }}"></script>
 @endsection
