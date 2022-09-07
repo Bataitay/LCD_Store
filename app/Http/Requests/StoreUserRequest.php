@@ -33,7 +33,6 @@ class StoreUserRequest extends FormRequest
             'province_id' => 'required',
             'district_id' => 'required',
             'ward_id' => 'required',
-            'roles_id' => 'required',
 
         ];
     }
