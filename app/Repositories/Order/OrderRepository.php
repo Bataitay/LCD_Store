@@ -9,12 +9,15 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         return Order::class;
     }
     function getAllWithPaginateLatest($request){
-        $orders = $this->model->latest()->paginate(2);
+        $orders = $this->model->latest()->paginate(1);
         if(isset($request->search)){
-            $orders = $this->model->where('id', 'LIKE', '%'.request()->search.'%')
-            ->orWhere('address', 'LIKE', '%'.request()->search.'%')
-            ->orWhere('customer_id', 'LIKE', '%'.request()->search.'%')
-            ->paginate(2);
+            $orders = $this->model
+            ->select('*', 'orders.id as id')
+            ->join('customers', 'orders.customer_id', '=', 'customers.id')
+            ->where('orders.id', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('customers.name', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('customers.id', 'LIKE', '%'.$request->search.'%')
+            ->paginate(1);
         }
         return $orders;
     }
