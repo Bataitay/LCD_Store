@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
@@ -100,5 +101,19 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('order/getTrashed', 'getTrashed')->name('order.getTrashed');
         // Route::get('order/restore/{id}', 'restore')->name('order.restore');
         // Route::delete('order/force_destroy/{id}', 'force_destroy')->name('order.force_destroy');
+    });
+    //Banner
+    Route::controller(BannerController::class)->group(function () {
+        Route::get('banner/index', 'index')->name('banner.index');
+        Route::get('banner/create', 'create')->name('banner.create');
+        Route::post('banner/store', 'store')->name('banner.store');
+        Route::get('banner/show/{id}', 'show')->name('banner.show');
+        Route::put('banner/updatesingle/{id}', 'updateSingle')->name('banner.updatesingle');
+        // Route::get('banner/edit/{id}', 'edit')->name('banner.edit');
+        // Route::put('banner/update/{id}', 'update')->name('banner.update');
+        // Route::delete('banner/destroy/{id}', 'destroy')->name('banner.destroy');
+        // Route::get('banner/getTrashed', 'getTrashed')->name('banner.getTrashed');
+        // Route::get('banner/restore/{id}', 'restore')->name('banner.restore');
+        // Route::delete('banner/force_destroy/{id}', 'force_destroy')->name('banner.force_destroy');
     });
 });
