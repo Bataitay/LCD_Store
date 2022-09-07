@@ -8,7 +8,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Roles Trashed</h2>
+                                    <h2 for="example-text-input" class="form-label">Manage Order</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -16,10 +16,21 @@
                             </div>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('role.index') }}"
+                                    <a href=""
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
-                                        <i class=" fas fa-reply-all"></i>
-                                        All Roles</a>
+                                        <i class=" fas fa-trash-alt"></i>
+                                        Trash</a>
+                                </div>
+                                <div class="md-3 title_cate d-flex">
+                                    <div class="form-outline">
+                                        <form action="">
+                                            <input type="search" value="{{ request()->search }}" name="search"
+                                                id="form1" class="form-control" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -30,9 +41,15 @@
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">#</th>
-                                        <th>Name</th>
-                                        <th>Option</th>
+                                        <th>#</th>
+                                        <th>Customer Name</th>
+                                        <th>Customer ID</th>
+                                        <th>Total Price</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
+                                        <th>Delete At</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -41,33 +58,45 @@
                                 </tbody>
 
                                 <tbody>
-                                    @foreach ($roles as $role)
-                                        <tr class="item-{{ $role->id }}">
-                                            <td>{{ $role->id }}</td>
-                                            <td>{{ $role->name }}</td>
+                                    @foreach ($orders as $order)
+                                        <tr class="item-{{ $order->id }}">
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->customer->name }}</td>
+                                            <td>{{ $order->customer_id }}</td>
+                                            <td>{{ $order->order_total_price }}</td>
+                                            <td>{{ $order->created_at }}</td>
+                                            <td>{{ $order->updated_at }}</td>
+                                            <td>{{ $order->deleted_at }}</td>
                                             <td>
-                                                <a href="{{ route('role.restore', $role->id) }}"
-                                                    onclick="return confirm('Do you want restore?')"
-                                                    class="btn btn-info sm">
-                                                    <i class="fas fa-redo"></i>
-                                                </a>
-                                                <a data-href="{{ route('role.force_destroy', $role->id) }}"
+                                                @if($order->status)
+                                                    <i class="bi bi-check-circle text-success"></i>
+                                                @else
+                                                    <i class="bi bi-x-circle text-danger"></i>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('order.show', $order->id) }}"><i class="fas fa-eye text-primary"></i></a>
+                                            </td>
+                                            {{-- <td>
+                                                <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
+                                                        class="fas fa-edit "></i></a>
+                                                <a data-href="{{ route('role.destroy', $role->id) }}"
                                                     id="{{ $role->id }}" class="btn btn-danger sm deleteIcon"><i
                                                         class=" fas fa-trash-alt "></i>
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Hiển thị {{ $roles->perPage() }} - {{ $roles->currentPage() }} của
-                                    {{ $roles->lastPage() }}
+                                    Hiển thị {{ $orders->perPage() }} - {{ $orders->currentPage() }} của
+                                    {{ $orders->lastPage() }}
                                 </div>
                                 <div class="col-5">
                                     <div class="btn-group float-end">
-                                        {{ $roles->appends(request()->all())->links() }}
+                                        {{ $orders->appends(request()->all())->links() }}
                                     </div>
                                 </div>
                             </div>

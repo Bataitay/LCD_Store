@@ -6,6 +6,8 @@ use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Brand\BrandRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Category\CategoryService;
@@ -18,6 +20,8 @@ use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
+use App\Services\Order\OrderService;
+use App\Services\Order\OrderServiceInterface;
 use App\Services\Permission\PermissionService;
 use App\Services\Permission\PermissionServiceInterface;
 use App\Services\Role\RoleService;
@@ -49,6 +53,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(OrderServiceInterface::class, OrderService::class);
         //Review
         $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);
         $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);

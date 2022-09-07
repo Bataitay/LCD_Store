@@ -91,7 +91,7 @@
                         <span>Orders</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ui-alerts.html">Orders</a></li>
+                        <li><a href="{{ route('order.index') }}">Orders</a></li>
                         <li><a href="ui-buttons.html">Orders detail</a></li>
                     </ul>
                 </li>

@@ -10,4 +10,7 @@ class OrderDetail extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+    function product(){
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }
