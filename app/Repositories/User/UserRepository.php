@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 
 use App\Models\District;
 use App\Models\User;
+use App\Models\UserRole;
 use App\Models\Ward;
 use App\Repositories\BaseRepository;
 use App\Traits\StorageImageTrait;
@@ -127,6 +128,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $user = $this->model->find($id);
         try {
+            UserRole::where('user_id', '=', $id)->delete();
             $user->delete();
             return true;
         } catch (\Exception $e) {
@@ -151,6 +153,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function force_destroy($id)
     {
         $user = $this->model->onlyTrashed()->findOrFail($id);
+        UserRole::where('user_id', '=', $id)->onlyTrashed()->forceDelete();
         $user->forceDelete();
         return $user;
     }
