@@ -155,7 +155,7 @@ class UserController extends Controller
     {
         try {
             $data = $request->all();
-            $this->userService->update($id, $data);
+            $this->userService->update($id, $request);
             $notification = array(
                 'message' => 'Edited employee successfully',
                 'alert-type' => 'success'
