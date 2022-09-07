@@ -39,8 +39,12 @@
                             </div>
                             <table class="table table-borderless">
                                 <tbody>
+                                    <tr>
+                                        <td>Product</td>
+                                        <td>Quantity</td>
+                                        <td class="text-end">Price</td>
+                                    </tr>
                                     @foreach ($orderDetails as $orderDetail)
-
                                     <tr>
                                         <td>
                                             <div class="d-flex mb-2">
