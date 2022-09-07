@@ -8,7 +8,7 @@
         <div class="container">
             <div class="col-md-12 d-flex">
                 <div class="md-3">
-                    <a href="{{ url()->previous() }}"
+                    <a href="{{ route('order.index') }}"
                         class="btn btn-danger btn-rounded waves-effect waves-light ">
                         <i class=" fas fa-reply-all"></i>
                         Back</a>

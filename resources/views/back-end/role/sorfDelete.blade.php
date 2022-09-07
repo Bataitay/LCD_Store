@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ url()->previous() }}"
+                                    <a href="{{ route('role.index') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
                                         <i class=" fas fa-reply-all"></i>
                                         All Roles</a>
