@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Banner\BannerRepository;
+use App\Repositories\Banner\BannerRepositoryInterface;
 use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Brand\BrandRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
@@ -20,6 +22,8 @@ use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
+use App\Services\Banner\BannerService;
+use App\Services\Banner\BannerServiceInterface;
 use App\Services\Order\OrderService;
 use App\Services\Order\OrderServiceInterface;
 use App\Services\Permission\PermissionService;
@@ -58,6 +62,9 @@ class AppServiceProvider extends ServiceProvider
         //Review
         $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);
         $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);
+        //Banner
+        $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
+        $this->app->bind(BannerServiceInterface::class, BannerService::class);
     }
 
     /**
