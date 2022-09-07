@@ -12,10 +12,10 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
     }
     function create($request){
         $image = $this->storageUpload($request, 'banner', 'banner');
-        dd($image);
         $banner = $this->model->create([
             'url' => $request->path,
             'status' => 0,
+            'image' => $image,
         ]);
     }
 }
