@@ -28,7 +28,7 @@
                 </li>
 
                 <li>
-                    <a href="calendar.html" class=" waves-effect">
+                    <a href="{{ route('banner.index') }}" class=" waves-effect">
                         <i class="ri-calendar-2-line"></i>
                         <span>Banners</span>
                     </a>
