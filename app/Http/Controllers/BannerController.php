@@ -19,9 +19,13 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('back-end.banner.index');
+        $banners = $this->bannerService->all($request);
+        $params = [
+            'banners' => $banners,
+        ];
+        return view('back-end.banner.index', $params);
     }
 
     /**
@@ -70,9 +74,13 @@ class BannerController extends Controller
      * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function edit(Banner $banner)
+    public function edit($id)
     {
-        //
+        $banner = $this->bannerService->find($id);
+        $params = [
+            'banner' => $banner,
+        ];
+        return view('back-end.banner.edit', $params);
     }
 
     /**
@@ -82,9 +90,14 @@ class BannerController extends Controller
      * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Banner $banner)
+    public function update(Request $request, $id)
     {
-        //
+        $this->bannerService->update($request, $id);
+        $notification = array(
+            'message' => 'Update banner successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('banner.index')->with($notification);
     }
 
     /**
@@ -93,8 +106,13 @@ class BannerController extends Controller
      * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banner $banner)
+    public function destroy($id)
     {
-        //
+        $this->bannerService->delete($id);
+        $notification = array(
+            'message' => 'Delete banner successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('banner.index')->with($notification);
     }
 }
