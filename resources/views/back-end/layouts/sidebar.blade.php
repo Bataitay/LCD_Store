@@ -5,7 +5,8 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{asset('assets/images/users/avatar-1.jpg ')}}" alt="" class="avatar-md rounded-circle">
+                <img src="{{ !empty(auth()->user()->avatar) ? asset(auth()->user()->avatar) : asset('assets/images/no_image.png') }}"
+                 alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
                 <h4 class="font-size-16 mb-1">Julia Hudda</h4>
@@ -42,6 +43,12 @@
                     <a href="calendar.html" class=" waves-effect">
                         <i class="ri-pencil-ruler-2-line"></i>
                         <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('review.index')}}" class=" waves-effect">
+                        <i class="ri-vip-crown-2-line"></i>
+                        <span>Review</span>
                     </a>
                 </li>
                 <li>

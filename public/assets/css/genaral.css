@@ -25,3 +25,7 @@ body{
 .me-2 {
     margin-right: .5rem!important;
 }
+
+#email_user{
+    font-size: 11px;
+}

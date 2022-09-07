@@ -11,25 +11,22 @@
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label ">Name</label>
                                     <div class="form-group col-sm-10">
-                                        {{-- <input name="name" class="form-control" type="text" class="form-control @error('name') is-invalid @enderror"
+                                        <input name="name" class="form-control" type="text"
                                             value="{{ old('name') }}">
                                         @error('name')
-                                            <div class="text text-danger"><i class=" ri-spam-2-line">{{$message}}</i></div>
-                                        @enderror --}}
-                                        <input name="name" value="{{ old('name') }}" type="input"
-                                        class="form-control @error('name') is-invalid @enderror" id="
-                                        ">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
+                                        @enderror
                                         <br><br>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label ">Logo</label>
                                     <div class="form-group col-sm-10">
-                                        <input name="name" value="{{ old('logo') }}" type="input"
-                                        class="form-control @error('logo') is-invalid @enderror" id="
-                                        ">
-                                    <span class="text-danger">{{ $errors->first('logo') }}</span>
+                                        <input name="logo" class="form-control" type="file"
+                                            value="{{ old('logo') }}">
+                                        @error('logo')
+                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
+                                        @enderror
                                         <br><br>
                                         <a class="btn btn-danger waves-effect waves-light"
                                             href="{{ route('brand.index') }}">Close</a>

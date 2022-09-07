@@ -1,5 +1,10 @@
 @extends('back-end.master')
 @section('content')
+    <style>
+        .title_cate {
+            margin-left: 30px;
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -8,7 +13,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Brand</h2>
+                                    <h2 for="example-text-input" class="form-label">Manage Review</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -16,10 +21,10 @@
                             </div><br><br><br>
                             <div class="col-md-4 ">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('brand.create') }}"
+                                    <a href="{{ route('review.trash') }}"
                                         class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Brand</a>
+                                        <i class="fas fa-trash-alt"></i>
+                                        Trash</a>
                                 </div>
                             </div>
                         </div>
@@ -30,36 +35,46 @@
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">Id</th>
-                                        <th>Name</th>
-                                        <th>Logo</th>
+                                        <th width="17%">#</th>
+                                        <th>Content </th>
+                                        <th>Vote </th>
+                                        <th>Status</th>
+                                        <th>Product ID</th>
+                                        <th>Customer ID</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-
-                                <tbody id="addRow" class="addRow">
-
-                                </tbody>
-
                                 <tbody>
-                                    @foreach ($brands as $brand)
-                                        <tr class="review{{$brand->id}}">
-                                            <td>{{ $brand->id }}</td>
-                                            <td>{{ $brand->name }}</td>
-                                            <td> @empty($brand->logo)
-                                                    <p>not yet update logo</p>
-                                                @endempty
-                                                <img src="{{ asset($brand->logo) }}" alt="">
-
+                                    @foreach ($reviews as $review)
+                                    <tr class="review{{$review->id}}">
+                                            <td>{{ $review->id }}</td>
+                                            <td>{{ $review->content }}</td>
+                                            <td>{{ $review->vote }}
+                                                <i class="fas fa-star text-warning "></i>
                                             </td>
                                             <td>
-                                                <a data-url="{{ route('brand.restore', $brand->id) }}"
-                                                    data-id="{{ $brand->id }}" class="btn btn-info sm restoreBrand">
+                                                @if ($review->status == 0)
+                                                    <a href="{{ route('review.changeStatus', $review->id) }}"
+                                                        class="btn btn-info">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('review.changeStatus', $review->id) }}"
+                                                        class="btn btn-warning">
+                                                        <i class="fas fa-eye-slash"></i>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>{{ $review->product_id }}</td>
+                                            <td>{{ $review->customer_id }}</td>
+                                            <td>
+                                                <a data-url="{{ route('review.restore', $review->id) }}"
+                                                    data-id="{{ $review->id }}" class="btn btn-info sm restoreReview">
                                                     <i class="fas fa-redo"></i>
                                                 </a>
-                                                <a data-url="{{ route('brand.forceDelete', $brand->id) }}"
-                                                    data-id="{{ $brand->id }}"
-                                                    class="btn btn-danger sm forceDeleteBrand">
+                                                <a data-url="{{ route('review.forceDelete', $review->id) }}"
+                                                    data-id="{{ $review->id }}"
+                                                    class="btn btn-danger sm forceDeleteReview">
                                                     <i class=" fas fa-trash-alt "></i>
                                                 </a>
                                             </td>
@@ -76,11 +91,11 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(function() {
-            $('.forceDeleteBrand').on('click', forceDeleteBrand);
-            $('.restoreBrand').on('click', restoreBrand);
+            $('.forceDeleteReview').on('click', forceDeleteReview);
+            $('.restoreReview').on('click', restoreReview);
         })
 
-        function restoreBrand(event) {
+        function restoreReview(event) {
             event.preventDefault();
             let url = $(this).data('url');
             let id = $(this).data('id');
@@ -120,9 +135,7 @@
                 })
         }
 
-
-
-        function forceDeleteBrand(event) {
+        function forceDeleteReview(event) {
             event.preventDefault();
             let url = $(this).data('url');
             let id = $(this).data('id');
