@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Services\Banner\BannerServiceInterface;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
 {
+    protected $bannerService;
+    function __construct(BannerServiceInterface $bannerService)
+    {
+        $this->bannerService = $bannerService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        return view('back-end.banner.index');
     }
 
     /**
@@ -24,7 +31,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('back-end.banner.add');
     }
 
     /**
@@ -35,7 +42,15 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->bannerService->create($request);
+        $notification = array(
+            'message' => 'Added banner successfully',
+            'alert-type' => 'success'
+        );
+        $params = [
+            'notification' => $notification
+        ];
+        return redirect()->route('banner.index')->with($notification);
     }
 
     /**
