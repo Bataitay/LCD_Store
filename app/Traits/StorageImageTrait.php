@@ -12,15 +12,13 @@ trait StorageImageTrait
     {
 
         if ($request->hasFile($fieldName)) {
-            $file = $request->$fieldName;
-            $fileNameOrigin = $file->getClientOriginalName();
-            $name_image = current(explode('.', $fileNameOrigin));
-            $fileNameHash = $name_image . rand(0, 99) . '.' . $file->getClientOriginalExtension();
-            $filePath = 'storage/' . $request->file($fieldName)->storeAs('public/' . $foderName . '', $fileNameHash);
-            $dataUploadTrait = [
-                'file_path' => Storage::url($filePath)
-            ];
-            return $dataUploadTrait;
+            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+            $path = 'storage/' . $request->file($fieldName)->storeAs('public/'.$foderName, $fileName);
+            $path = str_replace('public/', '',$path);
+            return $path;
         }
         return null;
 
