@@ -173,7 +173,11 @@
                                 @foreach ($roles as $role)
                                     <div class="form-check col-3">
                                         <input name="roles_id[]"
-                                            {{ $rolesChecked->contains('id', $role->id) ? 'checked' : '' }}
+                                        @if (old('roles_id'))
+                                            {{ in_array($role->id, old('roles_id')) ? 'checked' : '' }}
+                                        @else
+                                        {{ $rolesChecked->contains('id', $role->id) ? 'checked' : '' }}
+                                        @endif
                                             value="{{ $role->id }}" type="checkbox"
                                             class="form-check-input checkbox_childrent checkbox_all_childrent"
                                             id="roles{{ $role->id }}">
