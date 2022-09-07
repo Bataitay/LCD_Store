@@ -1,7 +1,4 @@
 @extends('back-end.master')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom/admin/order/show.css') }}">
-@endsection
 @section('content')
     <div class="container-fluid">
 
