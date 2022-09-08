@@ -12,4 +12,7 @@ class BannerService extends BaseService implements BannerServiceInterface{
     {
         $this->repository = $bannerRepositoryInterface;
     }
+    function update($request, $id, $status = null){
+        $this->repository->update($request, $id, $status);
+    }
 }

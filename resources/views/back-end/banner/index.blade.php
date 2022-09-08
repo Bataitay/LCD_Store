@@ -43,8 +43,14 @@
                                                     </a>
                                                     <div class="border border-top-0 p-4">
                                                         <div class="text-center align-items-center mt-2">
-                                                            <a href="#" class="btn btn-primary sm"><i
-                                                                    class="fas fa-eye{{ $banner->status ? '' : '-slash' }}"></i></a>
+                                                            <form
+                                                                action="{{ route('banner.update', ['id' => $banner->id, 'status' => $banner->status]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('put')
+                                                                <button class="btn btn-primary"><i
+                                                                        class="fas fa-eye{{ $banner->status ? '' : '-slash' }}"></i></button>
+                                                            </form>
                                                             <a href="{{ route('banner.edit', $banner->id) }}"
                                                                 class="btn btn-success ml-2"><i
                                                                     class="fas fa-edit "></i></a>

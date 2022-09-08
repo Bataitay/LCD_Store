@@ -90,9 +90,9 @@ class BannerController extends Controller
      * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $status = null)
     {
-        $this->bannerService->update($request, $id);
+        $this->bannerService->update($request, $id, $status);
         $notification = array(
             'message' => 'Update banner successfully',
             'alert-type' => 'success'
