@@ -22,4 +22,11 @@ class Product extends Model
     public function file_names(){
         return $this->hasMany(ProductImage::class);
     }
+    public function specification(){
+        return $this->hasOne(Specifications::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
 }

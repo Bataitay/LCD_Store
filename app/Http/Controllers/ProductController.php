@@ -23,7 +23,6 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-        $request = $request->search;
         $products = $this->productService->all($request);
         $params = [
             'products' => $products,
@@ -82,9 +81,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show( $id)
     {
-        //
+        $product = $this->productService->find($id);
+        return view('back-end.product.show',compact('product'));
     }
 
     /**
@@ -93,9 +93,18 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = $this->productService->find($id);
+        $categories = Category::get();
+        $brands = Brand::get();
+        $params = [
+            'categories' => $categories,
+            'brands' => $brands,
+            'product' => $product,
+        ];
+
+        return view('back-end.product.edit', $params);
     }
 
     /**
@@ -105,9 +114,25 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            // dd($data);
+            $this->productService->update($id, $data);
+            $notification = array(
+                'message' => 'Edited product successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('product.index')->with($notification);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Edited product faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**

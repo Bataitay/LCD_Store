@@ -379,7 +379,6 @@
                     <img class="rounded-circle header-profile-user"
                         src="{{ !empty(auth()->user()->avatar) ? asset(auth()->user()->avatar) : asset('assets/images/no_image.png') }}"
                          alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->name}}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">

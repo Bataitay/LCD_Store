@@ -27,7 +27,7 @@ Route::controller(UserController::class)->group(function(){
     Route::post('user/handelLogin','handelLogin')->name('user.handelLogin');
 });
 Route::middleware(['auth'])->group(function () {
-    
+
         Route::get('dashboard', function () {
             return view('back-end.dashboard.index');
         });
@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('product/index', 'index')->name('product.index');
             Route::get('product/create', 'create')->name('product.create');
             Route::post('product/store', 'store')->name('product.store');
+            Route::get('product/show/{id}', 'show')->name('product.show');
             Route::get('product/edit/{id}', 'edit')->name('product.edit');
             Route::put('product/update/{id}', 'update')->name('product.update');
             Route::delete('product/delete/{id}', 'destroy')->name('product.delete');

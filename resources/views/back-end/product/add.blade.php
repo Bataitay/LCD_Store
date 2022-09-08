@@ -173,8 +173,20 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="image">Main photo</label><br>
-                                    <input type="file" name="image" id="image"
-                                        class="form-control @error('image') is-invalid @enderror">
+                                    <div class="card_file_name">
+                                        <div class="form-group form_img">
+                                            <span class="inner">
+                                                Drag & drop image here or
+                                                <label for="file" class="choose">Browse</label>
+                                            </span>
+                                            <input type="file" name="image" id="file"
+                                                class="form-control file @error('image') is-invalid @enderror">
+                                        </div>
+                                        <div class="card-img">
+                                            <img id="showImage" class="rounded image_show w-100"
+                                            src="">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-8">
@@ -226,5 +238,16 @@
         </div>
         </form>
     </div>
-    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.file').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
+                    console.log(e);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            });
+        });
+    </script>
 @endsection

@@ -30,14 +30,15 @@
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="">
-                                            <input type="search" value="{{request()->search}}" name="search" id="form1" class="form-control" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light ">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
+                                        <form action="">
+                                            <input type="search" value="{{ request()->search }}" name="search"
+                                                id="form1" class="form-control" />
                                     </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -71,9 +72,10 @@
                                             <tr class="item-{{ $product->id }}">
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->name }}</td>
-                                                <td>{{ $product->price }}</td>
+                                                <td>{{ number_format($product->price) }}</td>
                                                 <td>{{ $product->quantity }}</td>
-                                                <td>{{ $product->sale_price }}</td>
+                                                <td>{{ number_format($product->price - ($product->sale_price / 100) * $product->price) }}
+                                                </td>
                                                 <td>{{ $product->status }}</td>
                                                 <td>
                                                     <a href="{{ route('product.edit', $product->id) }}"
@@ -84,7 +86,8 @@
                                                         id="{{ $product->id }}" class="btn btn-danger sm deleteIcon"><i
                                                             class=" fas fa-trash-alt "></i></a>
 
-                                                    <a href="" class="btn btn-primary sm ">
+                                                    <a href="{{ route('product.show', $product->id) }}"
+                                                        class="btn btn-primary sm ">
                                                         <i class="fas fa-eye-slash"></i>
                                                     </a>
                                                 </td>
