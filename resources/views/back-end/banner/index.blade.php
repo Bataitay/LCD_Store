@@ -43,16 +43,13 @@
                                                     <div class="border border-top-0 p-4">
                                                         <div class="align-items-center mt-2 d-flex justify-content-center">
                                                             <div>
-                                                                <form
-                                                                    action="{{ route('banner.update', ['id' => $banner->id, 'status' => $banner->status]) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('put')
-                                                                    <button class="btn btn-primary"><i
-                                                                            class="fas fa-eye{{ $banner->status ? '' : '-slash' }}"></i></button>
-                                                                </form>
-                                                            </div>
-                                                            <div>
+                                                                <a data-href="{{ route('banner.updatestatus', ['id' => $banner->id, 'status' => $banner->status]) }}"
+                                                                    id="{{ $banner->id }}"
+                                                                    data-status="{{ $banner->status }}"
+                                                                    class="btn btn-primary ml-2 updateStatus">
+                                                                    <i
+                                                                        class="fas iconStatus{{ $banner->id }} {{ $banner->status ? 'fa-eye' : 'fa-eye-slash' }}"></i>
+                                                                </a>
                                                                 <a href="{{ route('banner.edit', $banner->id) }}"
                                                                     class="btn btn-success ml-2"><i
                                                                         class="fas fa-edit "></i></a>
@@ -84,6 +81,48 @@
     <script src="{{ asset('assets/custom/banner/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/custom/banner/js/main.js') }}"></script>
     <script>
+        $(document).on('click', '.updateStatus', function(e) {
+            e.preventDefault();
+            let id = $(this).attr('id');
+            let href = $(this).data('href');
+            let status = $(this).data('status');
+            let csrf = '{{ csrf_token() }}';
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (status) {
+                    $(`.iconStatus${id}`).removeClass('fa-eye');
+                    $(`.iconStatus${id}`).addClass('fa-eye-slash');
+                } else {
+                    $(`.iconStatus${id}`).removeClass('fa-eye-slash');
+                    $(`.iconStatus${id}`).addClass('fa-eye');
+                }
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: href,
+                        method: 'post',
+                        data: {
+                            _token: csrf
+                        },
+                        success: function(res) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            // $('.item-' + id).remove();
+                            console.log(status, id, href)
+                        }
+                    });
+                }
+            })
+        });
         $(document).on('click', '.deleteIcon', function(e) {
             e.preventDefault();
             let id = $(this).attr('id');

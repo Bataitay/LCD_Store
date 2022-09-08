@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BannerStoreRequest;
+use App\Http\Requests\BannerUpdateRequest;
 use App\Models\Banner;
 use App\Services\Banner\BannerServiceInterface;
 use GuzzleHttp\Promise\Create;
@@ -44,7 +46,7 @@ class BannerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BannerStoreRequest $request)
     {
         $this->bannerService->create($request);
         $notification = array(
@@ -90,7 +92,7 @@ class BannerController extends Controller
      * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $status = null)
+    public function update(BannerUpdateRequest $request, $id, $status = null)
     {
         $this->bannerService->update($request, $id, $status);
         $notification = array(
@@ -98,6 +100,11 @@ class BannerController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('banner.index')->with($notification);
+    }
+    public function updateStatus($id, $status)
+    {
+        $this->bannerService->updateStatus($id, $status);
+        return redirect()->route('banner.index');
     }
 
     /**

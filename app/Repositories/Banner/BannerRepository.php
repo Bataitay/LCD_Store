@@ -20,18 +20,23 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
             'image' => $image,
         ]);
     }
-    function update($request, $id, $status = null) {
+    function update($request, $id) {
         $banner = $this->model->find($id);
         $banner->url = $request->path;
-        if($status == 1){
-            $banner->status = 0;
-        }elseif($status == 0){           
-            $banner->status = 1;
-        }
         if ($request->banner != null) {
             File::delete($banner->image);
             $image = $this->storageUpload($request, 'banner', 'banner');
             $banner->image = $image;
+        }
+        $banner->save();
+        return $banner;
+    }
+    function updateStatus($id, $status) {
+        $banner = $this->model->find($id);
+        if($status){
+            $banner->status = 0;
+        }else{           
+            $banner->status = 1;
         }
         $banner->save();
         return $banner;
