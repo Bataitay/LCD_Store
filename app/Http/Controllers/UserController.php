@@ -119,11 +119,14 @@ class UserController extends Controller
      */
     public function edit($id, Request $request)
     {
+        $user = $this->userService->find($id);
+        if($user->id == 1){
+            abort(403);
+        }
         $provinces = Province::get();
         $districts = District::get();
         $wards = Ward::get();
         $roles = $this->roleService->all($request);
-        $user = $this->userService->find($id);
         $rolesChecked = $user->roles;
         $params = [
             'roles' => $roles,
@@ -180,6 +183,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = $this->userService->delete($id);
+        if($user->id == 1){
+            abort(403);
+        }
         return response()->json($user);
     }
     public function getTrashed()

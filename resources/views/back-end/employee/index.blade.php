@@ -83,13 +83,17 @@
                                                     <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info sm">
                                                         <i class="fas fa-edit "></i>
                                                     </a>
-                                                    <a data-href="{{ route('user.delete', $user->id) }}"
-                                                        id="{{ $user->id }}" class="btn btn-danger sm deleteIcon"><i
-                                                            class=" fas fa-trash-alt "></i></a>
-
                                                     <a href="{{ route('user.show', $user->id)}}" class="btn btn-primary sm ">
                                                         <i class="fas fa-eye-slash"></i>
                                                     </a>
+                                                    @php
+                                                        if($user->id == 1){
+                                                            continue;
+                                                        }
+                                                    @endphp
+                                                    <a data-href="{{ route('user.delete', $user->id) }}"
+                                                        id="{{ $user->id }}" class="btn btn-danger sm deleteIcon"><i
+                                                            class=" fas fa-trash-alt "></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
