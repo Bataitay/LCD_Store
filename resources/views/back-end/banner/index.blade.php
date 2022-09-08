@@ -1,6 +1,5 @@
 @extends('back-end.master')
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('assets/custom/banner/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/custom/banner/css/style.css') }}">
 @endsection
@@ -42,22 +41,26 @@
                                                         </div>
                                                     </a>
                                                     <div class="border border-top-0 p-4">
-                                                        <div class="text-center align-items-center mt-2">
-                                                            <form
-                                                                action="{{ route('banner.update', ['id' => $banner->id, 'status' => $banner->status]) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('put')
-                                                                <button class="btn btn-primary"><i
-                                                                        class="fas fa-eye{{ $banner->status ? '' : '-slash' }}"></i></button>
-                                                            </form>
-                                                            <a href="{{ route('banner.edit', $banner->id) }}"
-                                                                class="btn btn-success ml-2"><i
-                                                                    class="fas fa-edit "></i></a>
-                                                            <a data-href="{{ route('banner.destroy', $banner->id) }}"
-                                                                id="{{ $banner->id }}"
-                                                                class="btn btn-danger sm deleteIcon"><i
-                                                                    class=" fas fa-trash-alt "></i></a>
+                                                        <div class="align-items-center mt-2 d-flex justify-content-center">
+                                                            <div>
+                                                                <form
+                                                                    action="{{ route('banner.update', ['id' => $banner->id, 'status' => $banner->status]) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('put')
+                                                                    <button class="btn btn-primary"><i
+                                                                            class="fas fa-eye{{ $banner->status ? '' : '-slash' }}"></i></button>
+                                                                </form>
+                                                            </div>
+                                                            <div>
+                                                                <a href="{{ route('banner.edit', $banner->id) }}"
+                                                                    class="btn btn-success ml-2"><i
+                                                                        class="fas fa-edit "></i></a>
+                                                                <a data-href="{{ route('banner.destroy', $banner->id) }}"
+                                                                    id="{{ $banner->id }}"
+                                                                    class="btn btn-danger sm deleteIcon"><i
+                                                                        class=" fas fa-trash-alt "></i></a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
