@@ -25,8 +25,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             PermissionSeeder::class,
+            RoleSeeder::class,
             UserSeeder::class,
-            ReviewSeeder::class,
+            //ReviewSeeder::class,
         ]);
     }
     function importBrand(){
