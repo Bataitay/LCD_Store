@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        if (Gate::denies('List_Product', 'List_Product')) {
+            abort(403);
+        }
     }
 
     /**
@@ -24,7 +27,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        if (Gate::denies('Add_Product', 'Add_Product')) {
+            abort(403);
+        }
     }
 
     /**
@@ -35,7 +40,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Gate::denies('Add_Product', 'Add_Product')) {
+            abort(403);
+        }
     }
 
     /**
@@ -46,7 +53,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        if (Gate::denies('Show_Product', 'Show_Product')) {
+            abort(403);
+        }
     }
 
     /**
@@ -57,7 +66,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        if (Gate::denies('Edit_Product', 'Edit_Product')) {
+            abort(403);
+        }
     }
 
     /**
@@ -69,7 +80,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        if (Gate::denies('Edit_Product', 'Edit_Product')) {
+            abort(403);
+        }
     }
 
     /**
@@ -80,6 +93,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if (Gate::denies('Delete_Product', 'Delete_Product')) {
+            abort(403);
+        }
     }
 }

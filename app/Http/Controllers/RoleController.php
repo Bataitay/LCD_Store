@@ -64,6 +64,9 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
+        if (Gate::denies('Add_Role', 'Add_Role')) {
+            abort(403);
+        }
         $this->roleService->create($request);
         $notification = array(
             'message' => 'Added role successfully',
@@ -94,6 +97,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('Edit_Role', 'Edit_Role')) {
+            abort(403);
+        }
         $role = $this->roleService->find($id);
         if($role->id == 1){
             abort(403);
@@ -117,6 +123,9 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id)
     {
+        if (Gate::denies('Edit_Role', 'Edit_Role')) {
+            abort(403);
+        }
         $this->roleService->update($id, $request);
         $notification = array(
             'message' => 'Updated role successfully',
@@ -133,6 +142,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('Delete_Role', 'Delete_Role')) {
+            abort(403);
+        }
         $role = $this->roleService->find($id);
         if($role->id == 1){
             abort(403);
@@ -146,6 +158,9 @@ class RoleController extends Controller
     }
     public function getTrashed()
     {
+        if (Gate::denies('List_Role', 'List_Role')) {
+            abort(403);
+        }
         $roles = $this->roleService->getTrashed();
         $params = [
             'roles' => $roles,
@@ -154,7 +169,9 @@ class RoleController extends Controller
     }
     public function restore($id)
     {
-        // dd($id);
+        if (Gate::denies('Delete_Role', 'Delete_Role')) {
+            abort(403);
+        }
         $this->roleService->restore($id);
         $notification = array(
             'message' => 'Restore role successfully',
@@ -163,6 +180,9 @@ class RoleController extends Controller
         return redirect()->route('role.getTrashed')->with($notification);
     }
     function force_destroy($id){
+        if (Gate::denies('Delete_Role', 'Delete_Role')) {
+            abort(403);
+        }
         $this->roleService->force_destroy($id);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CustomerController extends Controller
 {
@@ -14,7 +15,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        if (Gate::denies('List_Customer', 'List_Customer')) {
+            abort(403);
+        }
     }
 
     /**
@@ -24,7 +27,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        if (Gate::denies('Add_Customer', 'Add_Customer')) {
+            abort(403);
+        }
     }
 
     /**
@@ -35,7 +40,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Gate::denies('Add_Customer', 'Add_Customer')) {
+            abort(403);
+        }
     }
 
     /**
@@ -46,7 +53,9 @@ class CustomerController extends Controller
      */
     public function show(customer $customer)
     {
-        //
+        if (Gate::denies('Show_Customer', 'Show_Customer')) {
+            abort(403);
+        }
     }
 
     /**
@@ -57,7 +66,9 @@ class CustomerController extends Controller
      */
     public function edit(customer $customer)
     {
-        //
+        if (Gate::denies('Edit_Customer', 'Edit_Customer')) {
+            abort(403);
+        }
     }
 
     /**
@@ -69,7 +80,9 @@ class CustomerController extends Controller
      */
     public function update(Request $request, customer $customer)
     {
-        //
+        if (Gate::denies('Edit_Customer', 'Edit_Customer')) {
+            abort(403);
+        }
     }
 
     /**
@@ -80,6 +93,8 @@ class CustomerController extends Controller
      */
     public function destroy(customer $customer)
     {
-        //
+        if (Gate::denies('Delete_Customer', 'Delete_Customer')) {
+            abort(403);
+        }
     }
 }

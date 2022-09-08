@@ -12,6 +12,7 @@ use App\Services\User\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -30,6 +31,9 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
+        if (Gate::denies('List_Employee', 'List_Employee')) {
+            abort(403);
+        }
         $users = $this->userService->all($request);
         $param = [
             'users' => $users
@@ -44,6 +48,9 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
+        if (Gate::denies('Add_Employee', 'Add_Employee')) {
+            abort(403);
+        }
         $roles = $this->roleService->all($request);
         $provinces = Province::get();
         $params = [
@@ -74,6 +81,9 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        if (Gate::denies('Add_Employee', 'Add_Employee')) {
+            abort(403);
+        }
         try {
             $this->userService->create($request);
             $notification = array(
@@ -92,6 +102,9 @@ class UserController extends Controller
     }
     public function addAvatar(Request $request)
     {
+        if (Gate::denies('Add_Employee', 'Add_Employee')) {
+            abort(403);
+        }
         // dd($request->file('avatar'));
         $data = $request->file('avatar');
         $file = $this->userService->addAvatar($data);
@@ -107,6 +120,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        if (Gate::denies('Show_Employee', 'Show_Employee')) {
+            abort(403);
+        }
         $user = $this->userService->show($id);
         return view('back-end.employee.show', compact('user'));
     }
@@ -119,6 +135,9 @@ class UserController extends Controller
      */
     public function edit($id, Request $request)
     {
+        if (Gate::denies('Edit_Employee', 'Edit_Employee')) {
+            abort(403);
+        }
         $user = $this->userService->find($id);
         if($user->id == 1){
             abort(403);
@@ -148,6 +167,9 @@ class UserController extends Controller
      */
     public function updateAvatar(Request $request, $id)
     {
+        if (Gate::denies('Edit_Employee', 'Edit_Employee')) {
+            abort(403);
+        }
         // dd($request->file('avatar'));
         $data = $request->file('avatar');
         $file = $this->userService->updateAvatar($data, $id);
@@ -156,6 +178,9 @@ class UserController extends Controller
     }
     public function update(UpdateUserRequest $request, $id)
     {
+        if (Gate::denies('Edit_Employee', 'Edit_Employee')) {
+            abort(403);
+        }
         try {
             $data = $request->all();
             $this->userService->update($id, $request);
@@ -182,6 +207,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('Delete_Employee', 'Delete_Employee')) {
+            abort(403);
+        }
         $user = $this->userService->delete($id);
         if($user->id == 1){
             abort(403);
@@ -190,11 +218,17 @@ class UserController extends Controller
     }
     public function getTrashed()
     {
+        if (Gate::denies('List_Employee', 'List_Employee')) {
+            abort(403);
+        }
         $users = $this->userService->getTrashed();
         return view('back-end.employee.sorfDelete', compact('users'));
     }
     public function restore($id)
     {
+        if (Gate::denies('Delete_Employee', 'Delete_Employee')) {
+            abort(403);
+        }
         $this->userService->restore($id);
         $notification = array(
             'message' => 'Restore user successfully',
@@ -204,6 +238,9 @@ class UserController extends Controller
     }
     public function force_destroy($id)
     {
+        if (Gate::denies('Delete_Employee', 'Delete_Employee')) {
+            abort(403);
+        }
         $user = $this->userService->force_destroy($id);
         return response()->json($user);
     }

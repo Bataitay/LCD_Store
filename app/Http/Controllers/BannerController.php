@@ -8,6 +8,7 @@ use App\Models\Banner;
 use App\Services\Banner\BannerServiceInterface;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class BannerController extends Controller
 {
@@ -23,6 +24,9 @@ class BannerController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('List_Banner', 'List_Banner')) {
+            abort(403);
+        }
         $banners = $this->bannerService->all($request);
         $params = [
             'banners' => $banners,
@@ -37,6 +41,9 @@ class BannerController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('Add_Banner', 'Add_Banner')) {
+            abort(403);
+        }
         return view('back-end.banner.add');
     }
 
@@ -48,6 +55,9 @@ class BannerController extends Controller
      */
     public function store(BannerStoreRequest $request)
     {
+        if (Gate::denies('Add_Banner', 'Add_Banner')) {
+            abort(403);
+        }
         $this->bannerService->create($request);
         $notification = array(
             'message' => 'Added banner successfully',
@@ -67,7 +77,9 @@ class BannerController extends Controller
      */
     public function show(Banner $banner)
     {
-        //
+        if (Gate::denies('Show_Banner', 'Show_Banner')) {
+            abort(403);
+        }
     }
 
     /**
@@ -78,6 +90,9 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('Edit_Banner', 'Edit_Banner')) {
+            abort(403);
+        }
         $banner = $this->bannerService->find($id);
         $params = [
             'banner' => $banner,
@@ -94,6 +109,9 @@ class BannerController extends Controller
      */
     public function update(BannerUpdateRequest $request, $id, $status = null)
     {
+        if (Gate::denies('Edit_Banner', 'Edit_Banner')) {
+            abort(403);
+        }
         $this->bannerService->update($request, $id, $status);
         $notification = array(
             'message' => 'Update banner successfully',
@@ -103,6 +121,9 @@ class BannerController extends Controller
     }
     public function updateStatus($id, $status)
     {
+        if (Gate::denies('Edit_Banner', 'Edit_Banner')) {
+            abort(403);
+        }
         $this->bannerService->updateStatus($id, $status);
         return redirect()->route('banner.index');
     }
@@ -115,6 +136,9 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('Delete_Banner', 'Delete_Banner')) {
+            abort(403);
+        }
         $this->bannerService->delete($id);
     }
 }

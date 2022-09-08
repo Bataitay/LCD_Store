@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Services\Order\OrderServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
@@ -20,6 +21,9 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('List_Order', 'List_Order')) {
+            abort(403);
+        }
         $orders = $this->orderService->getAllWithPaginateLatest($request);
         $params = [
             'orders' => $orders,
@@ -34,7 +38,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

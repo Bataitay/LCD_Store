@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Services\Category\CategoryServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -20,6 +21,9 @@ class CategoryController extends Controller
     }
     public function index(Request $request)
     {
+        if (Gate::denies('List_Category', 'List_Category')) {
+            abort(403);
+        }
         $categories = $this->categoryService->all($request);
         return view('back-end.category.index',compact('categories'));
     }
@@ -31,7 +35,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        if (Gate::denies('Add_Category', 'Add_Category')) {
+            abort(403);
+        }
         return view('back-end.category.add');
     }
 
@@ -43,6 +49,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::denies('Add_Category', 'Add_Category')) {
+            abort(403);
+        }
         $data = $request->all();
         $this->categoryService->create($data);
         $notification = array(
@@ -61,7 +70,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        if (Gate::denies('Show_Category', 'Show_Category')) {
+            abort(403);
+        }
     }
 
     /**
@@ -72,6 +83,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::denies('Edit_Category', 'Edit_Category')) {
+            abort(403);
+        }
         $category = $this->categoryService->find($id);
         return view('back-end.category.edit',compact('category'));
     }
@@ -85,6 +99,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
+        if (Gate::denies('Edit_Category', 'Edit_Category')) {
+            abort(403);
+        }
         $data = $request->all();
         $this->categoryService->update( $id, $data);
         $notification = array(
@@ -103,15 +120,24 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('Delete_Category', 'Delete_Category')) {
+            abort(403);
+        }
         $category = $this->categoryService->delete( $id);
         return response()->json($category);
     }
     public function getTrashed(){
+        if (Gate::denies('List_Category', 'List_Category')) {
+            abort(403);
+        }
         $categories = $this->categoryService->getTrashed();
         return view('back-end.category.sorfDelete',compact('categories'));
 
     }
     public function restore($id){
+        if (Gate::denies('Delete_Category', 'Delete_Category')) {
+            abort(403);
+        }
         $this->categoryService->restore($id);
         $notification = array(
             'message' => 'Restore category successfully',
@@ -120,6 +146,9 @@ class CategoryController extends Controller
         return redirect()->route('category.getTrashed')->with($notification);
     }
     public function force_destroy($id){
+        if (Gate::denies('Delete_Category', 'Delete_Category')) {
+            abort(403);
+        }
         $category = $this->categoryService->force_destroy( $id);
         return response()->json($category);
     }

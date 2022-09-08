@@ -7,6 +7,7 @@ use App\Services\Review\ReviewService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class ReviewController extends Controller
@@ -20,6 +21,9 @@ class ReviewController extends Controller
 
     public function index(Request $request)
     {
+        if (Gate::denies('List_Review', 'List_Review')) {
+            abort(403);
+        }
         $reviews =  $this->reviewService->all($request);
         $params = ['reviews' => $reviews];
         return view('back-end.review.index', $params);
@@ -27,16 +31,23 @@ class ReviewController extends Controller
 
     public function create()
     {
-        //
+        if (Gate::denies('Add_Review', 'Add_Review')) {
+            abort(403);
+        }
     }
 
     public function store(Request $request)
     {
-        //
+        if (Gate::denies('Add_Review', 'Add_Review')) {
+            abort(403);
+        }
     }
 
     public function show($id)
     {
+        if (Gate::denies('Show_Review', 'Show_Review')) {
+            abort(403);
+        }
         $review =  $this->reviewService->find($id);
         $params = ['review' => $review];
         return view('back-end.review.show', $params);
@@ -44,7 +55,9 @@ class ReviewController extends Controller
 
     public function edit($id)
     {
-
+        if (Gate::denies('Edit_Review', 'Edit_Review')) {
+            abort(403);
+        }
         $review =  $this->reviewService->find($id);
         $params = ['review' => $review];
         return view('back-end.review.show', $params);
@@ -52,6 +65,9 @@ class ReviewController extends Controller
 
     public function update($id, Request $request)
     {
+        if (Gate::denies('Edit_Review', 'Edit_Review')) {
+            abort(403);
+        }
         try {
             $newReview =  $this->reviewService->find($id)->toArray();
             $newReview['status'] = $request->status;
@@ -74,6 +90,9 @@ class ReviewController extends Controller
 
     public function destroy(Request $request)
     {
+        if (Gate::denies('Delete_Review', 'Delete_Review')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $id = $request->id;
@@ -97,6 +116,9 @@ class ReviewController extends Controller
     }
     public function changeStatus($id)
     {
+        if (Gate::denies('Edit_Review', 'Edit_Review')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $review =  $this->reviewService->find($id)->toArray();
@@ -124,6 +146,9 @@ class ReviewController extends Controller
     }
     public function getTrash()
     {
+        if (Gate::denies('List_Review', 'List_Review')) {
+            abort(403);
+        }
         try {
             $reviews = $this->reviewService->getTrash();
             $params = ['reviews' => $reviews];
@@ -135,6 +160,9 @@ class ReviewController extends Controller
     }
     public function restore(Request $request)
     {
+        if (Gate::denies('Delete_Review', 'Delete_Review')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $id = $request->id;
@@ -158,6 +186,9 @@ class ReviewController extends Controller
 
     public function forceDelete(Request $request)
     {
+        if (Gate::denies('Delete_Review', 'Delete_Review')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $id = $request->id;

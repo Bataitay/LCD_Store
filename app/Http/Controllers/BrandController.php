@@ -8,6 +8,7 @@ use App\Services\Brand\BrandService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class BrandController extends Controller
@@ -21,6 +22,9 @@ class BrandController extends Controller
 
     public function index(Request $request)
     {
+        if (Gate::denies('List_Brand', 'List_Brand')) {
+            abort(403);
+        }
         try {
             $brands = $this->brandService->all($request);
             $params = [
@@ -35,11 +39,17 @@ class BrandController extends Controller
 
     public function create()
     {
+        if (Gate::denies('Add_Brand', 'Add_Brand')) {
+            abort(403);
+        }
         return view('back-end.brand.create');
     }
 
     public function store(BrandRequest $request)
     {
+        if (Gate::denies('Add_Brand', 'Add_Brand')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $this->brandService->create($request->all());
@@ -62,6 +72,9 @@ class BrandController extends Controller
 
     public function show($id)
     {
+        if (Gate::denies('Show_Brand', 'Show_Brand')) {
+            abort(403);
+        }
         try {
            $brand = $this->brandService->find($id);
            $params=[
@@ -76,6 +89,9 @@ class BrandController extends Controller
 
     public function edit($id)
     {
+        if (Gate::denies('Edit_Brand', 'Edit_Brand')) {
+            abort(403);
+        }
         try {
             $brand = $this->brandService->find($id);
             $params = [
@@ -90,6 +106,9 @@ class BrandController extends Controller
 
     public function update($id, UpdateBrandRequest $request)
     {
+        if (Gate::denies('Edit_Brand', 'Edit_Brand')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $this->brandService->update($id, $request->all());
@@ -112,6 +131,9 @@ class BrandController extends Controller
 
     public function destroy(Request $request)
     {
+        if (Gate::denies('Delete_Brand', 'Delete_Brand')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $id = $request->id;
@@ -136,6 +158,9 @@ class BrandController extends Controller
 
     public function getTrash()
     {
+        if (Gate::denies('List_Brand', 'List_Brand')) {
+            abort(403);
+        }
         try {
             $brands = $this->brandService->getTrash();
             $params = [
@@ -150,6 +175,9 @@ class BrandController extends Controller
 
     public function restore(Request $request)
     {
+        if (Gate::denies('Delete_Brand', 'Delete_Brand')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $id = $request->id;
@@ -173,6 +201,9 @@ class BrandController extends Controller
 
     public function forceDelete(Request $request)
     {
+        if (Gate::denies('Delete_Brand', 'Delete_Brand')) {
+            abort(403);
+        }
         try {
             DB::beginTransaction();
             $id = $request->id;
