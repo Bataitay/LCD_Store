@@ -18,10 +18,15 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $parentNameGroups = [
+            'Brand',
             'Category',
             'Product',
-            'User',
+            'Employee',
+            'Customer',
             'Role',
+            'Order',
+            'Review',
+            'Banner',
         ];
         foreach($parentNameGroups as $parentNameGroup){
             $parentGroup =  $this->permissionService->create([
