@@ -109,7 +109,7 @@ Route::controller(UserController::class)->group(function(){
         Route::post('banner/store', 'store')->name('banner.store');
         Route::get('banner/edit/{id}', 'edit')->name('banner.edit');
         Route::put('banner/update/{id}', 'update')->name('banner.update');
-        Route::post('banner/updatestatus/{id}/{status}', 'updateStatus')->name('banner.updatestatus');
+        Route::post('banner/updatestatus/{id}/{status?}', 'updateStatus')->name('banner.updatestatus');
         Route::delete('banner/destroy/{id}', 'destroy')->name('banner.destroy');
         // Route::get('banner/getTrashed', 'getTrashed')->name('banner.getTrashed');
         // Route::get('banner/restore/{id}', 'restore')->name('banner.restore');
