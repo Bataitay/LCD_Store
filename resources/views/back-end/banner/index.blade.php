@@ -33,15 +33,9 @@
                                 <div class="col-md-12">
                                     <div class="featured-carousel owl-carousel">
                                         @foreach ($banners as $banner)
-                                            <div class="item">
+                                            <div class="item item-{{ $banner->id }}">
                                                 <div class="blog-entry">
-                                                    {{-- <a href="#" class="block-20 d-flex align-items-start">
-                                                        <img src="{{ asset($banner->image) }}" alt="">
-                                                        <div class="meta-date text-center p-2">
-                                                            <span class="day">26</span>
-                                                        </div>
-                                                    </a> --}}
-                                                    <a href="#" class="block-20 d-flex align-items-start"
+                                                    <a href="" class="block-20 d-flex align-items-start"
                                                         style="background-image: url({{ asset($banner->image) }});">
                                                         <div class="meta-date text-center p-2">
                                                             <span class="day">#{{ $banner->id }}</span>
@@ -54,13 +48,10 @@
                                                             <a href="{{ route('banner.edit', $banner->id) }}"
                                                                 class="btn btn-success ml-2"><i
                                                                     class="fas fa-edit "></i></a>
-                                                            <form action="{{ route('banner.destroy', $banner->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button class="btn btn-danger sm ml-2"><i
-                                                                        class=" fas fa-trash-alt "></i></button>
-                                                            </form>
+                                                            <a data-href="{{ route('banner.destroy', $banner->id) }}"
+                                                                id="{{ $banner->id }}"
+                                                                class="btn btn-danger sm deleteIcon"><i
+                                                                    class=" fas fa-trash-alt "></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -79,13 +70,17 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endsection
+@section('js')
+    <script src="{{ asset('assets/custom/banner/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/custom/banner/js/main.js') }}"></script>
     <script>
         $(document).on('click', '.deleteIcon', function(e) {
             e.preventDefault();
             let id = $(this).attr('id');
             let href = $(this).data('href');
-            // alert(href)
             let csrf = '{{ csrf_token() }}';
+            console.log(href);
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -115,9 +110,4 @@
             })
         });
     </script>
-@endsection
-@section('js')
-    <script src="{{ asset('assets/custom/banner/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/custom/banner/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/custom/banner/js/main.js') }}"></script>
 @endsection

@@ -109,10 +109,5 @@ class BannerController extends Controller
     public function destroy($id)
     {
         $this->bannerService->delete($id);
-        $notification = array(
-            'message' => 'Delete banner successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('banner.index')->with($notification);
     }
 }
