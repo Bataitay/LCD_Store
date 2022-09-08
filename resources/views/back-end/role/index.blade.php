@@ -63,6 +63,11 @@
                                             <td>{{ $role->id }}</td>
                                             <td>{{ $role->name }}</td>
                                             <td>
+                                                @php
+                                                    if ($role->id == 1) {
+                                                        continue;
+                                                    }
+                                                @endphp
                                                 <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
                                                         class="fas fa-edit "></i></a>
                                                 <a data-href="{{ route('role.destroy', $role->id) }}"

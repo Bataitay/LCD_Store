@@ -95,6 +95,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = $this->roleService->find($id);
+        if($role->id == 1){
+            abort(403);
+        }
         $parentPermissions = $this->permissionService->getParentPermissions();
         $permissionChecked = $role->permissions;
         $params = [
@@ -131,6 +134,9 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = $this->roleService->find($id);
+        if($role->id == 1){
+            abort(403);
+        }
         $this->roleService->delete($id);
         $notification = array(
         'message' => 'Deleted role successfully',
