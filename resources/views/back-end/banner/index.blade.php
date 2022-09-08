@@ -43,7 +43,7 @@
                                                     <div class="border border-top-0 p-4">
                                                         <div class="align-items-center mt-2 d-flex justify-content-center">
                                                             <div>
-                                                                <a data-href="{{ route('banner.updatestatus', ['id' => $banner->id, 'status' => $banner->status]) }}"
+                                                                <a data-href="{{ route('banner.updatestatus', $banner->id) }}"
                                                                     id="{{ $banner->id }}"
                                                                     data-status="{{ $banner->status }}"
                                                                     class="btn btn-primary ml-2 updateStatus">
@@ -84,8 +84,8 @@
         $(document).on('click', '.updateStatus', function(e) {
             e.preventDefault();
             let id = $(this).attr('id');
-            let href = $(this).data('href');
             let status = $(this).data('status');
+            let href = $(this).data('href') + `/` + status;
             let csrf = '{{ csrf_token() }}';
             Swal.fire({
                 title: 'Are you sure?',
@@ -94,12 +94,14 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, update it!'
             }).then((result) => {
                 if (status) {
+                    $(this).data('status', 0);
                     $(`.iconStatus${id}`).removeClass('fa-eye');
                     $(`.iconStatus${id}`).addClass('fa-eye-slash');
                 } else {
+                    $(this).data('status', 1);
                     $(`.iconStatus${id}`).removeClass('fa-eye-slash');
                     $(`.iconStatus${id}`).addClass('fa-eye');
                 }
@@ -112,12 +114,10 @@
                         },
                         success: function(res) {
                             Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
+                                'Updated!',
+                                'Your file has been Updated.',
                                 'success'
                             )
-                            // $('.item-' + id).remove();
-                            console.log(status, id, href)
                         }
                     });
                 }
