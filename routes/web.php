@@ -28,7 +28,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('login','login')->name('login');
     Route::post('user/handelLogin','handelLogin')->name('user.handelLogin');
 });
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
         return view('back-end.dashboard.index');
     });
@@ -115,4 +115,4 @@ Route::controller(UserController::class)->group(function(){
         // Route::get('banner/restore/{id}', 'restore')->name('banner.restore');
         // Route::delete('banner/force_destroy/{id}', 'force_destroy')->name('banner.force_destroy');
     });
-// });
+});
