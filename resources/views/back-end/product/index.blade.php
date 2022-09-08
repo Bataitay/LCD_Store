@@ -39,6 +39,13 @@
                                     </button>
                                     </form>
                                 </div>
+                                <div class="md-3 title_cate">
+                                    <button href="" class="btn btn-primary  waves-effect waves-light"
+                                    data-bs-toggle="modal" data-bs-target="#searchModal"">
+                                        Advanced search
+                                    </button>
+                                    @include('back-end.product.advanceSearch')
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -76,7 +83,17 @@
                                                 <td>{{ $product->quantity }}</td>
                                                 <td>{{ number_format($product->price - ($product->sale_price / 100) * $product->price) }}
                                                 </td>
-                                                <td>{{ $product->status }}</td>
+                                                <td>
+                                                    @if ($product->status == 1)
+                                                        <a href="">
+                                                            <i class=" fas fa-chevron-circle-down text-success"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="">
+                                                            <i class=" far fa-times-circle text-danger"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <a href="{{ route('product.edit', $product->id) }}"
                                                         class="btn btn-info sm">

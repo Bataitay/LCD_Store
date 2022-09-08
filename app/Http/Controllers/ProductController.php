@@ -24,8 +24,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->productService->all($request);
+        $categories = Category::get();
         $params = [
             'products' => $products,
+            'categories' => $categories,
         ];
 
         return view('back-end.product.index', $params);
@@ -141,8 +143,40 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = $this->productService->delete($id);
+        return response()->json($product);
     }
+    public function getTrashed()
+    {
+        $products = $this->productService->getTrashed();
+        return view('back-end.product.softDelete', compact('products'));
+    }
+    public function restore($id)
+    {
+        $this->productService->restore($id);
+        $notification = array(
+            'message' => 'Restore product successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('product.getTrashed')->with($notification);
+    }
+    public function force_destroy($id)
+    {
+        try {
+
+        $product = $this->productService->force_destroy($id);
+        return response()->json($product);
+
+        }catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Deleted product faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
 }

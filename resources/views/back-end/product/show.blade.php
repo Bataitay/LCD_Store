@@ -1,6 +1,6 @@
 @extends('back-end.master')
 @section('content')
-<div class="card">
+    <div class="card">
         <a href="{{ route('product.index') }}" class="btn btn-danger btn-rounded waves-effect waves-light ">
             <i class=" fas fa-reply-all"></i>
             Back</a>
@@ -11,10 +11,11 @@
                     </div>
                     <div class="thumbnail_images">
                         <ul id="thumbnail">
-                            <li><img onclick="changeImage(this)"
-                                    @foreach ($product->file_names as $file_name)
-                                    src="{{ asset($file_name->file_name) }}" @endforeach
-                                    width="70">
+                            <li>
+                                @foreach ($product->file_names as $file_name)
+                                    <img onclick="changeImage(this)" src="{{ asset($file_name->file_name) }}"
+                                        width="70">
+                                @endforeach
                             </li>
                         </ul>
                     </div>
