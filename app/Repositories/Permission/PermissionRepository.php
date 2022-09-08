@@ -11,4 +11,7 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
     public function getParentPermissions(){
         return Permission::where('group_key', '=', 0)->get();
     }
+    public function getChildPermissions(){
+        return Permission::where('group_key', '!=', 0)->get();
+    }
 }

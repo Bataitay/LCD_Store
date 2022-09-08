@@ -15,4 +15,7 @@ class PermissionService extends BaseService implements PermissionServiceInterfac
     public function getParentPermissions(){
         return $this->repository->getParentPermissions();
     }
+    public function getChildPermissions(){
+        return $this->repository->getChildPermissions();
+    }
 }
