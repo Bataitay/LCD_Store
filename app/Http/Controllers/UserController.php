@@ -139,9 +139,6 @@ class UserController extends Controller
             abort(403);
         }
         $user = $this->userService->find($id);
-        if($user->id == 1){
-            abort(403);
-        }
         $provinces = Province::get();
         $districts = District::get();
         $wards = Ward::get();

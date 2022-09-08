@@ -159,39 +159,38 @@
                                     <label>Avatar Employee</label>
                                     <input type="file" name="avatar" id="filepond" class="img-fluid filepond "
                                         multiple>
-                                        <input type="hidden" name="file" id="avatar" value="">
+                                    <input type="hidden" name="file" id="avatar" value="">
                                 </div>
                             </div>
 
                         </div>
                         <br>
-                        <div class="row">
-                            <div class="mb-3">
-                                <label class="form-label">Role</label>
-                            </div>
-                            <div class="row d-flex">
-                                @foreach ($roles as $role)
-                                    <div class="form-check col-3">
-                                        <input name="roles_id[]"
-                                        @if (old('roles_id'))
-                                            {{ in_array($role->id, old('roles_id')) ? 'checked' : '' }}
+                        @if ($user->id != 1)
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label class="form-label">Role</label>
+                                </div>
+                                <div class="row d-flex">
+                                    @foreach ($roles as $role)
+                                        <div class="form-check col-3">
+                                            <input name="roles_id[]"
+                                                @if (old('roles_id')) {{ in_array($role->id, old('roles_id')) ? 'checked' : '' }}
                                         @else
-                                        {{ $rolesChecked->contains('id', $role->id) ? 'checked' : '' }}
-                                        @endif
-                                            value="{{ $role->id }}" type="checkbox"
-                                            class="form-check-input checkbox_childrent checkbox_all_childrent"
-                                            id="roles{{ $role->id }}">
-                                        <label for="roles{{ $role->id }}"
-                                            class="form-label">{{ $role->name }}</label>
-                                    </div>
-                                @endforeach
+                                        {{ $rolesChecked->contains('id', $role->id) ? 'checked' : '' }} @endif
+                                                value="{{ $role->id }}" type="checkbox"
+                                                class="form-check-input checkbox_childrent checkbox_all_childrent"
+                                                id="roles{{ $role->id }}">
+                                            <label for="roles{{ $role->id }}"
+                                                class="form-label">{{ $role->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <br>
                         <div class="form-group">
                             <div class="form-actions">
-                                <a class="btn btn-secondary float-right"
-                                href="{{ route('user.index')}}">Close</a>
+                                <a class="btn btn-secondary float-right" href="{{ route('user.index') }}">Close</a>
                                 <input type="submit" class="btn btn-info waves-effect waves-light"
                                     value="Edit Profile...">
                             </div>
