@@ -27,10 +27,7 @@ Route::controller(UserController::class)->group(function(){
     Route::post('user/handelLogin','handelLogin')->name('user.handelLogin');
 });
 Route::middleware(['auth'])->group(function () {
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('product/index', 'index');
-    });
-    Route::middleware(['auth'])->group(function () {
+    
         Route::get('dashboard', function () {
             return view('back-end.dashboard.index');
         });
@@ -94,4 +91,3 @@ Route::middleware(['auth'])->group(function () {
         Route::post('brands/trash/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
         Route::delete('brands/trash/force-delete/{id}', [BrandController::class, 'forceDelete'])->name('brand.forceDelete');
     });
-});

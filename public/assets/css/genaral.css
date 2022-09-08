@@ -29,3 +29,82 @@ body{
 #email_user{
     font-size: 11px;
 }
+/* upload multiple products */
+
+.card_file_name {
+    width: 665px;
+    height: 215px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
+    background: #fafbff;
+    margin-left: 5px;
+}
+.form_input{
+    width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	border: 2px dashed #d5d5e1;
+	color: #c8c9dd;
+	font-size: 0.9rem;
+	font-weight: 500;
+	position: relative;
+	background: #dfe3f259;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	user-select: none;
+	-webkit-user-select: none;
+	margin-top: -5px;
+}
+.form_input .select {
+    color: #5256ad;
+	margin-left: 5px;
+	cursor: pointer;
+	transition: 0.4s;
+}
+.form_input input {
+    display: none;
+}
+.container_image {
+	width: 100%;
+	height: 215px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap;
+    position: relative;
+	max-height: 200px;
+	overflow-y: auto;
+	margin-top: 20px;
+    display: flex;
+
+}
+.container_image .file_imgs {
+    width: 23%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    margin-right: 7px;
+}
+.container_image .file_imgs:nth-child(4n) {
+    margin-right: 0;
+}
+.container_image .file_imgs img {
+    width: 100%;
+	height: 100%;
+}
+.container_image .file_imgs span {
+    position: absolute;
+	top: -4px;
+	right: 5px;
+	font-size: 20px;
+	cursor: pointer;
+    color: #fff;
+}
+.container_image .file_imgs span:hover {
+    opacity: 0.8;
+}

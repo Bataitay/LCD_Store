@@ -47,9 +47,12 @@
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">Id</th>
+                                        <th width="7%">Id</th>
                                         <th>Name</th>
-                                        <th>The number of products</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Sale_Price</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -61,14 +64,17 @@
                                 <tbody id="myTable">
                                     @if (!$products->count())
                                         <tr>
-                                            <td colspan="4">No data yet...</td>
+                                            <td colspan="7">No data yet...</td>
                                         </tr>
                                     @else
                                         @foreach ($products as $product)
                                             <tr class="item-{{ $product->id }}">
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->name }}</td>
-                                                <td></td>
+                                                <td>{{ $product->price }}</td>
+                                                <td>{{ $product->quantity }}</td>
+                                                <td>{{ $product->sale_price }}</td>
+                                                <td>{{ $product->status }}</td>
                                                 <td>
                                                     <a href="{{ route('product.edit', $product->id) }}"
                                                         class="btn btn-info sm">

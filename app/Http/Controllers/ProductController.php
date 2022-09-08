@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Services\Product\ProductServiceInterface;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -12,9 +17,19 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    private $productService;
+    public function __construct(ProductServiceInterface $productService){
+        $this->productService = $productService;
+    }
+    public function index(Request $request)
     {
-        //
+        $request = $request->search;
+        $products = $this->productService->all($request);
+        $params = [
+            'products' => $products,
+        ];
+
+        return view('back-end.product.index', $params);
     }
 
     /**
@@ -24,7 +39,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::get();
+        $brands = Brand::get();
+        $params = [
+            'categories' => $categories,
+            'brands' => $brands,
+        ];
+
+        return view('back-end.product.add', $params);
     }
 
     /**
@@ -35,7 +57,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+            // dd($data);
+            $this->productService->create($data);
+            $notification = array(
+                'message' => 'Added product successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('product.index')->with($notification);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Added product faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
