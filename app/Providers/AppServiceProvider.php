@@ -8,8 +8,6 @@ use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Brand\BrandRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
-<<<<<<< HEAD
-
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Customer\CustomerRepository;
@@ -40,14 +38,6 @@ use App\Services\Review\ReviewService;
 use App\Services\Review\ReviewServiceInterface;
 use App\Services\Role\RoleService;
 use App\Services\Role\RoleServiceInterface;
-=======
-use App\Repositories\Permission\PermissionRepository;
-use App\Repositories\Permission\PermissionRepositoryInterface;
-use App\Services\Category\CategoryService;
-use App\Services\Category\CategoryServiceInterface;
-use App\Services\Permission\PermissionService;
-use App\Services\Permission\PermissionServiceInterface;
->>>>>>> 4320f80 (register permission service repository)
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -64,7 +54,6 @@ class AppServiceProvider extends ServiceProvider
             // register category
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(CategoryServiceInterface::class, CategoryService::class);
-<<<<<<< HEAD
             // register User
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
@@ -88,10 +77,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CustomerRepositoryInterface::class, CustomerRepository::class);
         $this->app->singleton(CustomerServiceInterface::class, CustomerService::class);
 
-=======
-        $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
-        $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
->>>>>>> 4320f80 (register permission service repository)
     }
 
     /**
