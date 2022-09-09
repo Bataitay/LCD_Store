@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            //ReviewSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
     function importBrand(){
