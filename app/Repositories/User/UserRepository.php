@@ -20,9 +20,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     }
     public function all($request)
     {
-        $search = $request->search;
         $users = $this->model->select('*');
-        if ($search) {
+        if (!empty($request->search)) {
+        $search = $request->search;
             $users = $users->where('name', 'like', '%' . $search . '%')
                 ->orWhere('phone', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%')

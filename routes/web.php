@@ -25,11 +25,12 @@ use App\Http\Controllers\UserController;
 
 
 
-Route::controller(UserController::class)->group(function(){
-    Route::get('login','login')->name('login');
-    Route::post('user/handelLogin','handelLogin')->name('user.handelLogin');
+Route::controller(UserController::class)->group(function () {
+    Route::get('login', 'login')->name('login');
+    Route::post('user/handelLogin', 'handelLogin')->name('user.handelLogin');
 });
 Route::middleware(['auth'])->group(function () {
+
     Route::get('dashboard', function () {
         return view('back-end.dashboard.index');
     });
@@ -49,11 +50,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('product/index', 'index')->name('product.index');
         Route::get('product/create', 'create')->name('product.create');
         Route::post('product/store', 'store')->name('product.store');
+        Route::get('product/show/{id}', 'show')->name('product.show');
         Route::get('product/edit/{id}', 'edit')->name('product.edit');
         Route::put('product/update/{id}', 'update')->name('product.update');
         Route::delete('product/delete/{id}', 'destroy')->name('product.delete');
         Route::get('product/getTrashed', 'getTrashed')->name('product.getTrashed');
         Route::get('product/restore/{id}', 'restore')->name('product.restore');
+        Route::get('product/showStatus/{id}', 'showStatus')->name('product.showStatus');
+        Route::get('product/hideStatus/{id}', 'hideStatus')->name('product.hideStatus');
         Route::delete('product/force_destroy/{id}', 'force_destroy')->name('product.force_destroy');
     });
     Route::controller(UserController::class)->group(function () {
@@ -83,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('role/getTrashed', 'getTrashed')->name('role.getTrashed');
         Route::get('role/restore/{id}', 'restore')->name('role.restore');
     });
-       //Order
+    //Order
     Route::controller(OrderController::class)->group(function () {
         Route::get('order/index', 'index')->name('order.index');
         Route::get('order/create', 'create')->name('order.create');
@@ -112,38 +116,27 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
- Route::resource('brand', BrandController::class);
- Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
- Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
- Route::delete('brands/trash/force-delete/{id}',[BrandController::class,'forceDelete'])->name('brand.forceDelete');
- Route::get('search_brand',[BrandController::class, 'searchByName'])->name('brand.searchKey');
- Route::get('searchBrand', [BrandController::class,'searchBrand'])->name('brand.search');
+    Route::resource('brand', BrandController::class);
+    Route::get('brands/trash', [BrandController::class, 'getTrash'])->name('brand.trash');
+    Route::post('brands/trash/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
+    Route::delete('brands/trash/force-delete/{id}', [BrandController::class, 'forceDelete'])->name('brand.forceDelete');
+    Route::get('search_brand', [BrandController::class, 'searchByName'])->name('brand.searchKey');
+    Route::get('searchBrand', [BrandController::class, 'searchBrand'])->name('brand.search');
 
- //Review
- Route::resource('review', ReviewController::class);
- Route::get('changeStatus/{id}',[ ReviewController::class,'changeStatus'])->name('review.changeStatus');
- Route::get('reviews/trash',[ReviewController::class,'getTrash'])->name('review.trash');
- Route::post('reviews/trash/restore/{id}',[ReviewController::class,'restore'])->name('review.restore');
- Route::delete('reviews/trash/force-delete/{id}',[ReviewController::class,'forceDelete'])->name('review.forceDelete');
- Route::get('searchReviews',[ReviewController::class, 'searchByName'])->name('review.searchKey');
- Route::get('searchReview', [ReviewController::class,'searchReview'])->name('review.search');
+    //Review
+    Route::resource('review', ReviewController::class);
+    Route::get('changeStatus/{id}', [ReviewController::class, 'changeStatus'])->name('review.changeStatus');
+    Route::get('reviews/trash', [ReviewController::class, 'getTrash'])->name('review.trash');
+    Route::post('reviews/trash/restore/{id}', [ReviewController::class, 'restore'])->name('review.restore');
+    Route::delete('reviews/trash/force-delete/{id}', [ReviewController::class, 'forceDelete'])->name('review.forceDelete');
+    Route::get('searchReviews', [ReviewController::class, 'searchByName'])->name('review.searchKey');
+    Route::get('searchReview', [ReviewController::class, 'searchReview'])->name('review.search');
 
- //Customer
- Route::resource('customer', CustomerController::class);
- Route::get('customers/trash',[CustomerController::class,'getTrash'])->name('customer.trash');
- Route::post('customers/trash/restore/{id}',[CustomerController::class,'restore'])->name('customer.restore');
- Route::delete('customers/trash/force-delete/{id}',[CustomerController::class,'forceDelete'])->name('customer.forceDelete');
- Route::get('searchCustomers',[CustomerController::class, 'searchByName'])->name('customer.searchKey');
- Route::get('searchCustomer', [CustomerController::class,'searchCustomer'])->name('customer.search');
+    //Customer
+    Route::resource('customer', CustomerController::class);
+    Route::get('customers/trash', [CustomerController::class, 'getTrash'])->name('customer.trash');
+    Route::post('customers/trash/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
+    Route::delete('customers/trash/force-delete/{id}', [CustomerController::class, 'forceDelete'])->name('customer.forceDelete');
+    Route::get('searchCustomers', [CustomerController::class, 'searchByName'])->name('customer.searchKey');
+    Route::get('searchCustomer', [CustomerController::class, 'searchCustomer'])->name('customer.search');
 });
-
-
-
-
-
-
-
-
-
-
-

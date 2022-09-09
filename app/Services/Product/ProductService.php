@@ -1,29 +1,20 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\Product;
 
-use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
 use App\Services\BaseService;
 
-class UserService extends BaseService implements UserServiceInterface {
+class ProductService extends BaseService implements ProductServiceInterface {
 
     public $repository;
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
-        $this->repository = $userRepository;
+        $this->repository = $productRepository;
     }
     public function all($request)
     {
         return $this->repository->all($request);
-    }
-    public function addAvatar($request){
-        return $this->repository->addAvatar($request);
-    }
-    public function updateAvatar($request, $id){
-        return $this->repository->addAvatar($request);
-    }
-    public function show($id){
-        return $this->repository->find($id);
     }
     public function update($id, $data){
         return $this->repository->update($id, $data);

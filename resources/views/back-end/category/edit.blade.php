@@ -20,7 +20,7 @@
                                         <br><br>
                                         <a class="btn btn-danger waves-effect waves-light"
                                             href="{{ route('category.index') }}">Close</a>
-                                        <input type="submit" class="btn btn-info waves-effect waves-light" value="Edit...">
+                                        <input type="submit" class="btn btn-info waves-effect waves-light" value="Update Category...">
                                     </div>
                                 </div>
                             </form>

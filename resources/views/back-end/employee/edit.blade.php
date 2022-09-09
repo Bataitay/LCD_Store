@@ -192,7 +192,7 @@
                             <div class="form-actions">
                                 <a class="btn btn-secondary float-right" href="{{ route('user.index') }}">Close</a>
                                 <input type="submit" class="btn btn-info waves-effect waves-light"
-                                    value="Edit Profile...">
+                                    value="Update Profile...">
                             </div>
                         </div>
                     </div>

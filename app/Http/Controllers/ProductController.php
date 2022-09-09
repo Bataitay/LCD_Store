@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Services\Product\ProductServiceInterface;
+use Exception;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Gate;
+=======
+use Illuminate\Support\Facades\Log;
+>>>>>>> product
 
 class ProductController extends Controller
 {
@@ -13,11 +21,26 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    private $productService;
+    public function __construct(ProductServiceInterface $productService){
+        $this->productService = $productService;
+    }
+    public function index(Request $request)
     {
+<<<<<<< HEAD
         if (Gate::denies('List_Product', 'List_Product')) {
             abort(403);
         }
+=======
+        $products = $this->productService->all($request);
+        $categories = Category::all();
+        $params = [
+            'products' => $products,
+            'categories' => $categories,
+        ];
+
+        return view('back-end.product.index', $params);
+>>>>>>> product
     }
 
     /**
@@ -27,9 +50,20 @@ class ProductController extends Controller
      */
     public function create()
     {
+<<<<<<< HEAD
         if (Gate::denies('Add_Product', 'Add_Product')) {
             abort(403);
         }
+=======
+        $categories = Category::get();
+        $brands = Brand::get();
+        $params = [
+            'categories' => $categories,
+            'brands' => $brands,
+        ];
+
+        return view('back-end.product.add', $params);
+>>>>>>> product
     }
 
     /**
@@ -40,8 +74,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         if (Gate::denies('Add_Product', 'Add_Product')) {
             abort(403);
+=======
+        try {
+            $data = $request->all();
+            // dd($data);
+            $this->productService->create($data);
+            $notification = array(
+                'message' => 'Added product successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('product.index')->with($notification);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Added product faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+>>>>>>> product
         }
     }
 
@@ -51,11 +104,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show( $id)
     {
+<<<<<<< HEAD
         if (Gate::denies('Show_Product', 'Show_Product')) {
             abort(403);
         }
+=======
+        $product = $this->productService->find($id);
+        return view('back-end.product.show',compact('product'));
+>>>>>>> product
     }
 
     /**
@@ -64,11 +122,24 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
+<<<<<<< HEAD
         if (Gate::denies('Edit_Product', 'Edit_Product')) {
             abort(403);
         }
+=======
+        $product = $this->productService->find($id);
+        $categories = Category::get();
+        $brands = Brand::get();
+        $params = [
+            'categories' => $categories,
+            'brands' => $brands,
+            'product' => $product,
+        ];
+
+        return view('back-end.product.edit', $params);
+>>>>>>> product
     }
 
     /**
@@ -78,10 +149,29 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         if (Gate::denies('Edit_Product', 'Edit_Product')) {
             abort(403);
+=======
+        try {
+            $data = $request->all();
+            // dd($data);
+            $this->productService->update($id, $data);
+            $notification = array(
+                'message' => 'Edited product successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('product.index')->with($notification);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Edited product faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+>>>>>>> product
         }
     }
 
@@ -91,10 +181,62 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+<<<<<<< HEAD
         if (Gate::denies('Delete_Product', 'Delete_Product')) {
             abort(403);
         }
+=======
+        $product = $this->productService->delete($id);
+        return response()->json($product);
+>>>>>>> product
     }
+    public function getTrashed()
+    {
+        $products = $this->productService->getTrashed();
+        return view('back-end.product.softDelete', compact('products'));
+    }
+    public function restore($id)
+    {
+        $this->productService->restore($id);
+        $notification = array(
+            'message' => 'Restore product successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('product.getTrashed')->with($notification);
+    }
+    public function force_destroy($id)
+    {
+        try {
+
+        $product = $this->productService->force_destroy($id);
+        return response()->json($product);
+
+        }catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Deleted product faill',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+    public function showStatus($id){
+
+        $product = Product::findOrFail($id);
+        $product->status = '1';
+        if ($product->save()) {
+            return redirect()->back();
+        }
+    }
+    public function hideStatus($id){
+
+        $product = Product::findOrFail($id);
+        $product->status = '0';
+        if ($product->save()) {
+            return redirect()->back();
+        }
+    }
+
 }

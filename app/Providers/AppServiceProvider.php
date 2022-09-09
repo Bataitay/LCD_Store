@@ -20,6 +20,8 @@ use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use App\Repositories\Permission\PermissionRepository;
 use App\Repositories\Permission\PermissionRepositoryInterface;
+use App\Repositories\Product\ProductRepository;
+use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
@@ -34,8 +36,13 @@ use App\Services\Customer\CustomerService;
 use App\Services\Customer\CustomerServiceInterface;
 use App\Services\Permission\PermissionService;
 use App\Services\Permission\PermissionServiceInterface;
+<<<<<<< HEAD
 use App\Services\Review\ReviewService;
 use App\Services\Review\ReviewServiceInterface;
+=======
+use App\Services\Product\ProductService;
+use App\Services\Product\ProductServiceInterface;
+>>>>>>> product
 use App\Services\Role\RoleService;
 use App\Services\Role\RoleServiceInterface;
 use Illuminate\Pagination\Paginator;
@@ -57,6 +64,9 @@ class AppServiceProvider extends ServiceProvider
             // register User
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
+            // register User
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->bind(ProductServiceInterface::class, ProductService::class);
         // register brand
         $this->app->singleton(BrandRepositoryInterface::class, BrandRepository::class);
         $this->app->singleton(BrandServiceInterface::class, BrandService::class);

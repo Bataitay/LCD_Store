@@ -9,7 +9,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Product</h2>
+                                    <h2 for="example-text-input" class="form-label"> Products Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -30,14 +30,22 @@
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="">
-                                            <input type="search" value="{{request()->search}}" name="search" id="form1" class="form-control" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light ">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
+                                        <form action="">
+                                            <input type="search" value="{{ request()->search }}" name="search"
+                                                id="form1" class="form-control" />
                                     </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </form>
+                                </div>
+                                <div class="md-3 title_cate">
+                                    <button href="" class="btn btn-primary  waves-effect waves-light"
+                                    data-bs-toggle="modal" data-bs-target="#searchModal"">
+                                        Advanced search
+                                    </button>
+                                    @include('back-end.product.advanceSearch')
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -47,9 +55,12 @@
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th width="17%">Id</th>
+                                        <th width="7%">Id</th>
                                         <th>Name</th>
-                                        <th>The number of products</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Sale_Price</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -61,14 +72,28 @@
                                 <tbody id="myTable">
                                     @if (!$products->count())
                                         <tr>
-                                            <td colspan="4">No data yet...</td>
+                                            <td colspan="7">No data yet...</td>
                                         </tr>
                                     @else
                                         @foreach ($products as $product)
                                             <tr class="item-{{ $product->id }}">
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->name }}</td>
-                                                <td></td>
+                                                <td>{{ number_format($product->price) }}</td>
+                                                <td>{{ $product->quantity }}</td>
+                                                <td>{{ number_format($product->price - ($product->sale_price / 100) * $product->price) }}
+                                                </td>
+                                                <td>
+                                                    @if ($product->status == 1)
+                                                        <a href="{{ route('product.hideStatus', $product->id)}}">
+                                                            <i class=" fas fa-chevron-circle-down text-success"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('product.showStatus', $product->id)}}">
+                                                            <i class=" far fa-times-circle text-danger"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <a href="{{ route('product.edit', $product->id) }}"
                                                         class="btn btn-info sm">
@@ -78,7 +103,8 @@
                                                         id="{{ $product->id }}" class="btn btn-danger sm deleteIcon"><i
                                                             class=" fas fa-trash-alt "></i></a>
 
-                                                    <a href="" class="btn btn-primary sm ">
+                                                    <a href="{{ route('product.show', $product->id) }}"
+                                                        class="btn btn-primary sm ">
                                                         <i class="fas fa-eye-slash"></i>
                                                     </a>
                                                 </td>
