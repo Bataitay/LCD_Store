@@ -15,12 +15,6 @@
                                 <h2></h2>
                             </div>
                             <div class="col-md-12 d-flex">
-                                <div class="md-3 title_cate">
-                                    <a href=""
-                                        class="btn btn-danger btn-rounded waves-effect waves-light ">
-                                        <i class=" fas fa-trash-alt"></i>
-                                        Trash</a>
-                                </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
                                         <form action="">
