@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashBoardServer;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
@@ -31,9 +32,7 @@ Route::controller(UserController::class)->group(function () {
 });
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('dashboard', function () {
-        return view('back-end.dashboard.index');
-    });
+    Route::get('/dashboard',DashBoardServer::class)->name('dashboard');
 
     Route::controller(CategoryController::class)->group(function () {
         Route::get('category/index', 'index')->name('category.index');

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->importBrand();
+        // $this->importBrand();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -31,16 +31,17 @@ class DatabaseSeeder extends Seeder
 
             CustomerSeeder::class,
             ReviewSeeder::class,
+            Category_Brand_Product_Seeder::class,
 
         ]);
     }
-    function importBrand(){
-        for($i=1;$i<=5;$i++){
+    // function importBrand(){
+    //     for($i=1;$i<=5;$i++){
 
-            DB::table('brands')->insert([
-                'name' => Str::random(10).$i,
-                'logo' => Str::random(10).$i,
-            ]);
-        }
-    }
+    //         DB::table('brands')->insert([
+    //             'name' => Str::random(10).$i,
+    //             'logo' => Str::random(10).$i,
+    //         ]);
+    //     }
+    // }
 }

@@ -27,14 +27,14 @@
                                 <label class="form-label" for="name">Price range
                                 </label>
                                 <input type="number" value="{{ request()->startPrice }}" class="form-control"
-                                    name="startPrice" id="startPrice" placeholder="$ Từ">
+                                    name="startPrice" id="startPrice" placeholder="$ From">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-2">
                                 <label class="form-label" for="name">.</label>
                                 <input type="text" value="{{ request()->endPrice }}" class="form-control" name="endPrice"
-                                    id="endPrice" placeholder="$ Đến">
+                                    id="endPrice" placeholder="$ To">
                             </div>
                         </div>
                         <div class="col-lg-6">

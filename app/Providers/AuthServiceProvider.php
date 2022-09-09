@@ -4,7 +4,9 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Order;
 use App\Models\Permission;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -36,5 +38,16 @@ class AuthServiceProvider extends ServiceProvider
                 });
             }
         }
+        view()->composer('*', function ($view)
+        {
+            // $products = Product::all();
+            // $oders = Order::all();
+
+            // $view->with([
+            //     'products'=> $products,
+            //     'oders' => $oders,
+
+            // ]);
+        });
     }
 }
