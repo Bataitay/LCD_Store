@@ -36,13 +36,10 @@ use App\Services\Customer\CustomerService;
 use App\Services\Customer\CustomerServiceInterface;
 use App\Services\Permission\PermissionService;
 use App\Services\Permission\PermissionServiceInterface;
-<<<<<<< HEAD
 use App\Services\Review\ReviewService;
 use App\Services\Review\ReviewServiceInterface;
-=======
 use App\Services\Product\ProductService;
 use App\Services\Product\ProductServiceInterface;
->>>>>>> product
 use App\Services\Role\RoleService;
 use App\Services\Role\RoleServiceInterface;
 use Illuminate\Pagination\Paginator;
