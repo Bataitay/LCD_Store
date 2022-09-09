@@ -186,7 +186,7 @@
                                                 Drag & drop image here or
                                                 <label for="file" class="choose">Browse</label>
                                             </span>
-                                            <input type="file" name="image" id="file" value="{{ asset($product->image) }}"
+                                            <input type="file" name="image" id="file" value="{{ ($product->image) }}"
                                                 class="form-control file @error('image') is-invalid @enderror">
                                         </div>
                                         <div class="card-img">

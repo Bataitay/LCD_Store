@@ -8,7 +8,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Employee</h2>
+                                    <h2 for="example-text-input" class="form-label">HR Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">

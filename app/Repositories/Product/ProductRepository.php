@@ -20,13 +20,23 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         $products = $this->model->where('created_at', '>', now()->subMonths(3));
         if (!empty($request->search)) {
-        $search = $request->search;
-            $products = $products->where('name', 'like', '%' . $search . '%')
-                ->orWhere('price', 'like', '%' . $search . '%')
-                ->orWhere('sale_price', 'like', '%' . $search . '%')
-                ->orWhere('status', 'like', '%' . $search . '%')
-                ->orWhere('quantity', 'like', '%' . $search . '%');
+            $search = $request->search;
+            $products = $products->search($search);
         }
+        if (!empty($request->category_id)) {
+        $products->nameCate($request)
+            ->filterPrice(request(['startPrice', 'endPrice']))
+            ->filterDate(request(['start_date', 'end_date']))
+            ->status($request)
+            ;
+        }
+
+        $products->filterPrice(request(['startPrice', 'endPrice']));
+        $products->filterDate(request(['start_date', 'end_date']));
+        $products->status($request);
+
+
+
         return $products->orderBy('id', 'DESC')->paginate(10);
     }
     public function create($data)
@@ -84,6 +94,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
     public function update($id, $data)
     {
+
         try {
             //create product
             $product = $this->model->find($id);
@@ -106,15 +117,15 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
             $product->save();
             //create specifications
-            $specifications = new Specifications();
-            $specifications->product_id = $product->id;
-            $specifications->cpu = $data['cpu'];
-            $specifications->ram = $data['ram'];
-            $specifications->rom = $data['rom'];
-            $specifications->display = $data['display'];
-            $specifications->battery = $data['battery'];
-            $specifications->color = $data['color'];
-            $specifications->save();
+            $specification = new Specifications();
+            // // $specification = Specifications::find($id);
+            $specification->cpu = $data['cpu'];
+            $specification->ram = $data['ram'];
+            $specification->rom = $data['rom'];
+            $specification->display = $data['display'];
+            $specification->battery = $data['battery'];
+            $specification->color = $data['color'];
+            $product->specification->update($specification->toArray());
 
             //create product_images
             if ($data['file_names']) {

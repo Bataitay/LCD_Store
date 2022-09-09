@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->productService->all($request);
-        $categories = Category::get();
+        $categories = Category::all();
         $params = [
             'products' => $products,
             'categories' => $categories,
@@ -176,6 +176,22 @@ class ProductController extends Controller
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
+        }
+    }
+    public function showStatus($id){
+
+        $product = Product::findOrFail($id);
+        $product->status = '1';
+        if ($product->save()) {
+            return redirect()->back();
+        }
+    }
+    public function hideStatus($id){
+
+        $product = Product::findOrFail($id);
+        $product->status = '0';
+        if ($product->save()) {
+            return redirect()->back();
         }
     }
 

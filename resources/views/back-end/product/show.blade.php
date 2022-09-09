@@ -14,7 +14,7 @@
                             <li>
                                 @foreach ($product->file_names as $file_name)
                                     <img onclick="changeImage(this)" src="{{ asset($file_name->file_name) }}"
-                                        width="70">
+                                        width="110px">
                                 @endforeach
                             </li>
                         </ul>

@@ -9,7 +9,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Product</h2>
+                                    <h2 for="example-text-input" class="form-label"> Products Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -85,11 +85,11 @@
                                                 </td>
                                                 <td>
                                                     @if ($product->status == 1)
-                                                        <a href="">
+                                                        <a href="{{ route('product.hideStatus', $product->id)}}">
                                                             <i class=" fas fa-chevron-circle-down text-success"></i>
                                                         </a>
                                                     @else
-                                                        <a href="">
+                                                        <a href="{{ route('product.showStatus', $product->id)}}">
                                                             <i class=" far fa-times-circle text-danger"></i>
                                                         </a>
                                                     @endif

@@ -9,7 +9,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage category</h2>
+                                    <h2 for="example-text-input" class="form-label"> Categories Management </h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -68,7 +68,7 @@
                                             <tr class="item-{{ $category->id }}">
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->name }}</td>
-                                                <td></td>
+                                                <td>{{ $category->products->count()}}</td>
                                                 <td>
                                                     <a href="{{ route('category.edit', $category->id) }}"
                                                         class="btn btn-info sm">
