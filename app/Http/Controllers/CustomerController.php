@@ -16,14 +16,14 @@ class CustomerController extends Controller
 
     public function __construct(CustomerServiceInterface $customerService)
     {
-        if (Gate::denies('List_Customer', 'List_Customer')) {
-            abort(403);
-        }
         $this->customerService = $customerService;
     }
 
     public function index(Request $request)
     {
+        if (Gate::denies('List_Customer', 'List_Customer')) {
+            abort(403);
+        }
         $customers =  $this->customerService->all($request);
         $params = ['customers' => $customers];
         return view('back-end.customer.index', $params);
