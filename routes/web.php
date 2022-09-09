@@ -3,11 +3,8 @@
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
-<<<<<<< HEAD
 use App\Http\Controllers\OrderController;
-=======
 use App\Http\Controllers\CustomerController;
->>>>>>> feature_customer
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
@@ -86,14 +83,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('role/getTrashed', 'getTrashed')->name('role.getTrashed');
         Route::get('role/restore/{id}', 'restore')->name('role.restore');
     });
-    //brand
-<<<<<<< HEAD
-    Route::resource('brand', BrandController::class);
-    Route::resource('review', ReviewController::class);
-    Route::get('brands/trash', [BrandController::class, 'getTrash'])->name('brand.trash');
-    Route::post('brands/trash/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
-    Route::delete('brands/trash/force-delete/{id}', [BrandController::class, 'forceDelete'])->name('brand.forceDelete');
-    //Order
+       //Order
     Route::controller(OrderController::class)->group(function () {
         Route::get('order/index', 'index')->name('order.index');
         Route::get('order/create', 'create')->name('order.create');
@@ -120,8 +110,8 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('banner/restore/{id}', 'restore')->name('banner.restore');
         // Route::delete('banner/force_destroy/{id}', 'force_destroy')->name('banner.force_destroy');
     });
-});
-=======
+
+
  Route::resource('brand', BrandController::class);
  Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
  Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
@@ -156,4 +146,4 @@ Route::middleware(['auth'])->group(function () {
 
 
 
->>>>>>> feature_customer
+
