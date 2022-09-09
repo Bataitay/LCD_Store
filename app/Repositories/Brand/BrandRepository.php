@@ -4,6 +4,7 @@ namespace App\Repositories\Brand;
 
 use App\Models\Brand;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Route;
 
 use function PHPUnit\Framework\isNull;
 
@@ -14,7 +15,11 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     {
         return Brand::class;
     }
-    //
+
+    public function all($request)
+    {
+        return $this->model->latest()->paginate(8);
+    }
     public function create($data)
     {
         if ($data['logo']) {
@@ -47,7 +52,7 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     }
     public function getTrash()
     {
-        return  $this->model->onlyTrashed()->get();
+        return  $this->model->onlyTrashed()->paginate(8);
     }
     public function restore($id){
         return  $this->model->withTrashed()->where('id', $id)->restore();
@@ -58,8 +63,13 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
 
     }
     public function searchBrand($name){
-        return  $this->model::where('name', 'like', '%' . $name . '%')->get();
+        $brands =  $this->model::where('name', 'like', '%' . $name . '%')
+        ->orWhere('logo', 'like', '%' . $name . '%');
+        if(Route::currentRouteName() =='brand.searchKey'){
+            return  $brands->get();
+          }
+          return  $brands->paginate(8);
     }
-  
+
 
 }

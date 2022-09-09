@@ -1,35 +1,12 @@
 @extends('back-end.master')
 @section('content')
 <style>
-    .title_cate {
-        margin-left: 30px;
-    }
-
-    .autocomplete-suggestions {
-        border: 1px solid #999;
-        background: #FFF;
-        overflow: auto;
-    }
-
-    .autocomplete-suggestion {
-        padding: 2px 5px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .autocomplete-selected {
-        background: #F0F0F0;
-    }
-
+     .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-selected { background: #F0F0F0; }
     /*.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }*/
-    .autocomplete-group {
-        padding: 2px 5px;
-    }
-
-    .autocomplete-group strong {
-        display: block;
-        border-bottom: 1px solid #000;
-    }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 </style>
     <div class="container-fluid">
         <div class="row">
@@ -39,29 +16,32 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Review</h2>
+                                    <h2 for="example-text-input" class="form-label">Manage Customer</h2>
                                 </div>
                             </div>
+                            <div class="col-md-8">
+                                <h2></h2>
+                            </div><br><br><br>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    {{-- <a href="{{ route('category.create') }}"
+                                    <a href="{{ route('customer.create') }}"
                                         class="btn btn-secondary btn-rounded waves-effect waves-light ">
                                         <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Category</a> --}}
+                                        Add Customer</a>
                                 </div>
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('review.trash') }}"
+                                    <a href="{{ route('customer.trash') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
                                         <i class=" fas fa-trash-alt"></i>
                                         Trash</a>
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="{{route('review.search')}}" >
+                                            <form action="{{route('customer.search')}}">
                                                 <input class="form-control" id="keyword" type="text" placeholder="Search"
                                                 aria-label="Search" name="keySearch">
                                         </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light searchReview">
+                                        <button type="submit" class="btn btn-primary  waves-effect waves-light ">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </form>
@@ -76,68 +56,58 @@
                                 <thead>
                                     <tr>
                                         <th width="17%">#</th>
-                                        <th>Content </th>
-                                        <th>Vote </th>
-                                        <th>Status</th>
-                                        <th>Product ID</th>
-                                        <th>Customer ID</th>
+                                        <th>Full Name</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
+                                        <th>Email</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @if (empty($reviews))
-                                    Empty list
+
+                                <tbody id="addRow" class="addRow">
+
+                                </tbody>
+
+                                <tbody id="myTable">
+                                    @if (!$customers->count())
+                                        <tr>
+                                            <td colspan="4">Empty List...</td>
+                                        </tr>
                                     @else
+                                        @foreach ($customers as $customer)
+                                            <tr class="item-{{ $customer->id }}">
+                                                <td>{{ $customer->id }}</td>
+                                                <td><a href="{{route('customer.show',$customer->id)}}">{{ $customer->name }}</a></td>
+                                                <td>{{ $customer->phone }}</td>
+                                                <td>{{ $customer->address }}</td>
+                                                <td>{{ $customer->email }}</td>
 
+                                                <td>
+                                                    <a href="{{ route('customer.edit', $customer->id) }}"
+                                                        class="btn btn-info sm">
+                                                        <i class="fas fa-edit "></i>
+                                                    </a>
+                                                    <a data-url="{{ route('customer.destroy', $customer->id) }}"
+                                                        data-id="{{ $customer->id }}" class="btn btn-danger sm deleteCustomer"><i
+                                                            class=" fas fa-trash-alt "></i></a>
 
-                                    @foreach ($reviews as $review)
-                                        <tr class="review{{$review->id}}">
-                                            <td>{{ $review->id }}</td>
-                                            <td><a href="{{ route('review.show', $review->id) }}">{{ $review->content }}</a></td>
-                                            <td>{{ $review->vote }}
-                                                <i class="fas fa-star text-warning "></i>
-                                            </td>
-                                            <td>
-                                                @if ($review->status == 0)
-                                                    <a href="{{ route('review.changeStatus', $review->id) }}"
-                                                        class="btn btn-info">
+                                                    <a href="{{route('customer.show',$customer->id)}}" class="btn btn-primary sm ">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                @else
-                                                    <a href="{{ route('review.changeStatus', $review->id) }}"
-                                                        class="btn btn-warning">
-                                                        <i class="fas fa-eye-slash"></i>
-                                                    </a>
-                                                @endif
-                                            </td>
-                                            <td>{{ $review->product_id }}</td>
-                                            <td>{{ $review->customer_id }}</td>
-                                            <td>
-                                                <a href="{{ route('review.show', $review->id) }}"
-                                                    class="btn btn-primary sm ">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{{ route('review.edit', $review->id) }}" class="btn btn-info sm">
-                                                    <i class="fas fa-edit "></i>
-                                                </a>
-                                                <a data-url="{{ route('review.destroy', $review->id) }}"
-                                                    data-id="{{ $review->id }}" class="btn btn-warning sm deleteReview">
-                                                    <i class=" fas fa-trash-alt "></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endif
                                 </tbody>
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Show {{ $reviews->perPage() }} - {{ $reviews->currentPage() }} of
-                                    {{ $reviews->lastPage() }}
+                                    Show {{ $customers->perPage() }} - {{ $customers->currentPage() }} of
+                                    {{ $customers->lastPage() }}
                                 </div>
                                 <div class="col-5">
                                     <div class="btn-group float-end">
-                                        {{ $reviews->appends(request()->all())->links() }}
+                                        {{ $customers->appends(request()->all())->links() }}
                                     </div>
                                 </div>
                             </div>
@@ -147,13 +117,13 @@
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(function() {
-            $('.deleteReview').on('click', deleteReview)
+            $('.deleteCustomer').on('click', deleteCustomer)
+
         })
 
-        function deleteReview(event) {
+        function deleteCustomer(event) {
             event.preventDefault();
             let url = $(this).data('url');
             let id = $(this).data('id');
@@ -179,7 +149,7 @@
                                     swal("Poof! Your imaginary file has been deleted!", {
                                         icon: "success",
                                     })
-                                    $('.review' + id).remove()
+                                  $('.item-'+id).remove()
                                 }
                                 if (data.status === 0) {
                                     alert(data.messages)
@@ -195,9 +165,10 @@
     <script>
         $(function() {
             $("#keyword").autocomplete({
-                serviceUrl: 'searchReviews',
+                serviceUrl: 'searchCustomers',
                 paramName: "keyword",
                 onSelect: function(suggestion) {
+                    console.log(suggestion);
                     $("#keyword").val(suggestion.value);
                 },
                 transformResult: function(response) {
@@ -205,7 +176,7 @@
                         suggestions: $.map($.parseJSON(response), function(item) {
                             console.log(item);
                             return {
-                                value: item.content
+                                value: item.name,
                             };
                         })
                     };
@@ -214,4 +185,5 @@
             });
         })
     </script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endsection

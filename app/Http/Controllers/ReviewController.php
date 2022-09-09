@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
-use App\Services\Review\ReviewService;
+use App\Services\Review\ReviewServiceInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +13,7 @@ class ReviewController extends Controller
 {
     protected $reviewService;
 
-    public function __construct(ReviewService $reviewService)
+    public function __construct(ReviewServiceInterface $reviewService)
     {
         $this->reviewService = $reviewService;
     }
@@ -111,7 +110,7 @@ class ReviewController extends Controller
             return response()->json([
                 'messages' => $messages,
                 'status' => 0
-            ], 200);
+            ], 500);
         }
     }
     public function changeStatus($id)
@@ -180,7 +179,7 @@ class ReviewController extends Controller
             return response()->json([
                 'messages' => $messages,
                 'status' => 0
-            ], 200);
+            ], 500);
         }
     }
 
@@ -206,7 +205,7 @@ class ReviewController extends Controller
             return response()->json([
                 'messages' => $messages,
                 'status' => 0
-            ], 200);
+            ], 500);
         }
     }
 

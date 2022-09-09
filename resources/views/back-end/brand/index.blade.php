@@ -3,6 +3,9 @@
 <<<<<<< HEAD
 =======
     <style>
+        .image_photo{
+            height: 50px;
+        }
         .title_cate {
             margin-left: 30px;
         }
@@ -53,7 +56,7 @@
                                     <a href="{{ route('brand.create') }}"
                                         class="btn btn-secondary btn-rounded waves-effect waves-light ">
                                         <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Category</a>
+                                        Add Brand</a>
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <form action="{{route('brand.search')}}" >
@@ -92,8 +95,14 @@
                                     </tr>
                                 </thead>
                                 <tbody id="myTbody">
+                                    @if (empty($brands))
+
+                                    <h5>Empty list</h5>
+
+                                    @else
+
                                     @foreach ($brands as $brand)
-                                        <tr class="list-brand">
+                                    <tr class="list-brand">
                                             <td>{{ $brand->id }}</td>
                                             <td>
                                                 <a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a>
@@ -118,8 +127,21 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
+
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-7">
+                                    Show {{ $brands->perPage() }} - {{ $brands->currentPage() }} of
+                                    {{ $brands->lastPage() }}
+                                </div>
+                                <div class="col-5">
+                                    <div class="btn-group float-end">
+                                        {{ $brands->appends(request()->all())->links() }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -176,7 +198,7 @@
     <script>
         $(function() {
             $("#keyword").autocomplete({
-                serviceUrl: 'search',
+                serviceUrl: 'search_brand',
                 paramName: "keyword",
                 onSelect: function(suggestion) {
                     $("#keyword").val(suggestion.value);
@@ -185,7 +207,7 @@
                     return {
                         suggestions: $.map($.parseJSON(response), function(item) {
                             return {
-                                value: item.name,
+                                value: item.logo,
                             };
                         })
                     };

@@ -23,14 +23,14 @@
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label ">Logo</label>
                                     <div class="form-group col-sm-10">
-                                        <input name="logo" value="{{ $brand->logo }}" type="input"
+                                        <input name="logo" value="{{ $brand->logo }}" type="file"
                                         class="form-control @error('logo') is-invalid @enderror" id="
                                         ">
                                     <span class="text-danger">{{ $errors->first('logo') }}</span>
                                         <br><br>
                                         <a class="btn btn-danger waves-effect waves-light"
                                             href="{{ route('brand.index') }}">Close</a>
-                                        <input type="submit" class="btn btn-info waves-effect waves-light" value="Add...">
+                                        <input type="submit" class="btn btn-info waves-effect waves-light" value="Update...">
                                     </div>
                                 </div>
                             </form>

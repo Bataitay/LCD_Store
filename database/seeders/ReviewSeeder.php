@@ -21,8 +21,8 @@ class ReviewSeeder extends Seeder
             'content' => Str::random(100),
             'vote' => 5,
             'status' => 0,
-            'product_id' => $i,
-            'customer_id' => $i++,
+            'product_id' =>  DB::table('products')->pluck('id'),
+            'customer_id' =>  DB::table('customers')->pluck('id'),
         ]);
     }
     }

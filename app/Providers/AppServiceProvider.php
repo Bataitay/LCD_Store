@@ -8,8 +8,11 @@ use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Brand\BrandRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
+
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\Customer\CustomerRepository;
+use App\Repositories\Customer\CustomerRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Category\CategoryService;
@@ -26,8 +29,14 @@ use App\Services\Banner\BannerService;
 use App\Services\Banner\BannerServiceInterface;
 use App\Services\Order\OrderService;
 use App\Services\Order\OrderServiceInterface;
+use App\Services\Brand\BrandService;
+use App\Services\Brand\BrandServiceInterface;
+use App\Services\Customer\CustomerService;
+use App\Services\Customer\CustomerServiceInterface;
 use App\Services\Permission\PermissionService;
 use App\Services\Permission\PermissionServiceInterface;
+use App\Services\Review\ReviewService;
+use App\Services\Review\ReviewServiceInterface;
 use App\Services\Role\RoleService;
 use App\Services\Role\RoleServiceInterface;
 use Illuminate\Pagination\Paginator;
@@ -51,7 +60,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserServiceInterface::class, UserService::class);
         // register brand
         $this->app->singleton(BrandRepositoryInterface::class, BrandRepository::class);
-        $this->app->singleton(BrandRepositoryInterface::class, BrandRepository::class);
+        $this->app->singleton(BrandServiceInterface::class, BrandService::class);
         //need cmt
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
         $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
@@ -61,10 +70,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrderServiceInterface::class, OrderService::class);
         //Review
         $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);
-        $this->app->singleton(ReviewRepositoryInterface::class, ReviewRepository::class);
+        $this->app->singleton(ReviewServiceInterface::class, ReviewService::class);
         //Banner
         $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
         $this->app->bind(BannerServiceInterface::class, BannerService::class);
+        //Customer
+        $this->app->singleton(CustomerRepositoryInterface::class, CustomerRepository::class);
+        $this->app->singleton(CustomerServiceInterface::class, CustomerService::class);
+
     }
 
     /**
