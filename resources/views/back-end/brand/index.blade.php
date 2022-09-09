@@ -1,7 +1,6 @@
 @extends('back-end.master')
 @section('content')
-<<<<<<< HEAD
-=======
+
     <style>
         .image_photo{
             height: 50px;
@@ -39,7 +38,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
->>>>>>> 88517c39999c64668c340b1e013667c385fd6d8e
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
