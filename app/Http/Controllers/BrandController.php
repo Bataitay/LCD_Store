@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
-use App\Services\Brand\BrandService;
+use App\Services\Brand\BrandServiceInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +14,7 @@ class BrandController extends Controller
 {
     protected $brandService;
 
-    public function __construct(BrandService $brandService)
+    public function __construct(BrandServiceInterface $brandService)
     {
         $this->brandService = $brandService;
     }
@@ -196,22 +196,30 @@ class BrandController extends Controller
 
     public function searchByName(Request $request)
     {
-        $keyword = $request->input('keyword');
-        $cakes = $this->brandService->searchBrand($keyword);
-        return response()->json($cakes);
+        $brands=[];
+        try {
+                   $keyword = $request->input('keyword');
+        $brands = $this->brandService->searchBrand($keyword);
+        return response()->json($brands,200);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . 'getLine' . $e->getLine());
+            return response()->json($brands,500);
+        }
+
     }
     public function searchBrand(Request $request)
     {
+        $brands=[];
         try {
-              $keySearch=$request->keySearch;
-        $brands =$this->brandService->searchBrand($keySearch);
+            $keySearch=$request->keySearch;
+            $brands =$this->brandService->searchBrand($keySearch);
         $params = [
             'brands' => $brands
         ];
         return  view('back-end.brand.index', $params);
         } catch (Exception $e) {
             Log::error('errors' . $e->getMessage() . 'getLine' . $e->getLine());
-            abort(404);
+            return response()->json(['brands' => $brands],500);
         }
 
     }

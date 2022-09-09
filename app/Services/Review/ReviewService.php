@@ -12,6 +12,10 @@ class ReviewService extends BaseService implements ReviewServiceInterface {
     {
         $this->repository = $brandRepository;
     }
+    public function all($request)
+    {
+        return $this->repository->all($request);
+    }
     public function changeStatus($id, $data)
     {
         return $this->repository->changeStatus($id,$data);

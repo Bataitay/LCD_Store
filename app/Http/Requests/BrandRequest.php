@@ -25,7 +25,7 @@ class BrandRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'logo'=>'required'
+            'logo'=>'required|image'
         ];
     }
 }

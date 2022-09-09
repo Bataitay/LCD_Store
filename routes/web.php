@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
@@ -76,8 +77,7 @@ Route::middleware(['auth'])->group(function () {
  Route::get('brands/trash',[BrandController::class,'getTrash'])->name('brand.trash');
  Route::post('brands/trash/restore/{id}',[BrandController::class,'restore'])->name('brand.restore');
  Route::delete('brands/trash/force-delete/{id}',[BrandController::class,'forceDelete'])->name('brand.forceDelete');
- Route::get('search',[BrandController::class, 'searchByName']);
-
+ Route::get('search_brand',[BrandController::class, 'searchByName'])->name('brand.searchKey');
  Route::get('searchBrand', [BrandController::class,'searchBrand'])->name('brand.search');
 
  //Review
@@ -86,8 +86,16 @@ Route::middleware(['auth'])->group(function () {
  Route::get('reviews/trash',[ReviewController::class,'getTrash'])->name('review.trash');
  Route::post('reviews/trash/restore/{id}',[ReviewController::class,'restore'])->name('review.restore');
  Route::delete('reviews/trash/force-delete/{id}',[ReviewController::class,'forceDelete'])->name('review.forceDelete');
- Route::get('searchReviews',[ReviewController::class, 'searchByName']);
+ Route::get('searchReviews',[ReviewController::class, 'searchByName'])->name('review.searchKey');
  Route::get('searchReview', [ReviewController::class,'searchReview'])->name('review.search');
+
+ //Customer
+ Route::resource('customer', CustomerController::class);
+ Route::get('customers/trash',[CustomerController::class,'getTrash'])->name('customer.trash');
+ Route::post('customers/trash/restore/{id}',[CustomerController::class,'restore'])->name('customer.restore');
+ Route::delete('customers/trash/force-delete/{id}',[CustomerController::class,'forceDelete'])->name('customer.forceDelete');
+ Route::get('searchCustomers',[CustomerController::class, 'searchByName'])->name('customer.searchKey');
+ Route::get('searchCustomer', [CustomerController::class,'searchCustomer'])->name('customer.search');
 });
 
 

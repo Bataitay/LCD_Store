@@ -180,7 +180,6 @@
         );
         const inputElement = document.getElementById('filepond');
         const pond = FilePond.create(inputElement);
-        console.log(pond);
         FilePond.setOptions({
             server: {
                 url: '{{ route('user.addAvatar') }}',

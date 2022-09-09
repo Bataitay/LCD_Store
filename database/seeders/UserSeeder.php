@@ -64,6 +64,18 @@ class UserSeeder extends Seeder
             'phone' => '0368563954',
             'password' => bcrypt('123456789'),
         ]);
+        $employee = User::create([
+            'email' => 'saluy@admin.com',
+            'name' => 'Saluy',
+            'address' => '38 Lý thường Kiệt',
+            'gender' => 1,
+            'province_id' => '1',
+            'district_id' => '2',
+            'ward_id' => '17',
+            'avatar' => '',
+            'phone' => '0368563954',
+            'password' => bcrypt('12345678'),
+        ]);
         // $admin_role = Role::create([
         //     'name' => 'Super Admin',
         // ]);

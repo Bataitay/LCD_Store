@@ -3,13 +3,18 @@ namespace App\Repositories\Review;
 
 use App\Models\Review;
 use App\Repositories\BaseRepository;
-
+use Illuminate\Support\Facades\Route;
 
 class ReviewRepository extends BaseRepository implements ReviewRepositoryInterface
 {
     function getModel()
     {
         return Review::class;
+    }
+    public function all($request)
+    {
+        // $reviews = $this->model->select('*');
+        return $this->model->latest()->paginate(5);
     }
     public function changeStatus($id,$data){
         $object = $this->model->find($id);
@@ -29,10 +34,13 @@ class ReviewRepository extends BaseRepository implements ReviewRepositoryInterfa
 
     }
     public function searchReview($name){
-        return  $this->model::where('content', 'like', '%' . $name . '%')
+        $reviews =  $this->model::where('content', 'like', '%' . $name . '%')
         ->orWhere('vote',$name)
         ->orWhere('product_id',$name)
-        ->orWhere('customer_id',$name)
-        ->get();
+        ->orWhere('customer_id',$name);
+        if(Route::currentRouteName() =='review.searchKey'){
+            return  $reviews   ->get();
+          }
+          return  $reviews   ->paginate(8);
     }
 }
