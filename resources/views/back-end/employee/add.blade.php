@@ -188,7 +188,7 @@
     </div>
     <script type="text/javascript">
         $(function() {
-            $(document).on('change', '.province_id, .add_user', function() {
+            $(document).on('change', '.province_id', function() {
                 var province_id = $(this).val();
                 var district_name = $('.district_id').find('option:selected').text();
                 $.ajax({
@@ -212,7 +212,7 @@
         });
 
         $(function() {
-            $(document).on('change', '#district_id, .add_user', function() {
+            $(document).on('change', '#district_id', function() {
                 var district_id = $(this).val();
                 var ward_id = $(this).val();
                 $.ajax({

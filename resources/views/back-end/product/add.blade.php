@@ -65,17 +65,6 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Quantity</label>
-                                    <input name="quantity" type="number" value="{{ old('quantity') }}"
-                                        id="example-text-input"
-                                        class="form-control @error('quantity') is-invalid @enderror">
-                                    @error('quantity')
-                                        <div class="text text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
                                     <label for="exampleInputEmail1">Sale_Price</label>
                                     <input name="sale_price" type="number" value="{{ old('sale_price') }}"
                                         id="example-text-input"
@@ -93,6 +82,24 @@
                                     @error('price')
                                         <div class="text text-danger">{{ $message }}</div>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Quantity</label>
+                                    <input name="quantity" type="number" value="{{ old('quantity') }}"
+                                        id="example-text-input"
+                                        class="form-control @error('quantity') is-invalid @enderror">
+                                    @error('quantity')
+                                        <div class="text text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group"><br><br>
+                                    <input name="hot" type="checkbox" value="1"
+                                    id="example-text-input" >
+                                    <label for="exampleInputEmail1">Hot</label>
                                 </div>
                             </div>
                         </div>
