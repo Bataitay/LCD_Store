@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -24,9 +26,9 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-        if (Gate::denies('List_Product', 'List_Product')) {
-            abort(403);
-        }
+        // if (Gate::denies('List_Product', 'List_Product')) {
+        //     abort(403);
+        // }
         $products = $this->productService->all($request);
         $categories = Category::all();
         $params = [
@@ -44,9 +46,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('Add_Product', 'Add_Product')) {
-            abort(403);
-        }
+        // if (Gate::denies('Add_Product', 'Add_Product')) {
+        //     abort(403);
+        // }
         $categories = Category::get();
         $brands = Brand::get();
         $params = [
@@ -63,10 +65,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        if (Gate::denies('Add_Product', 'Add_Product')) {
-            abort(403);
+        // if (Gate::denies('Add_Product', 'Add_Product')) {
+        //     abort(403);
+        // }
         try {
             $data = $request->all();
             // dd($data);
@@ -84,7 +87,7 @@ class ProductController extends Controller
             );
             return redirect()->back()->with($notification);
         }
-    }
+
 }
 
     /**
@@ -132,7 +135,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
         if (Gate::denies('Edit_Product', 'Edit_Product')) {
             abort(403);
