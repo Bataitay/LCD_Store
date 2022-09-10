@@ -2,35 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-<<<<<<< HEAD:BackEnd/app/Http/Controllers/Api/OrderController.php
 use App\Http\Controllers\Controller;
-use App\Services\Order\OrderServiceInterface;
-=======
-use App\Models\Role;
-use App\Services\Permission\PermissionServiceInterface;
-use App\Services\Role\RoleServiceInterface;
->>>>>>> 719174e (controller role create and store):app/Http/Controllers/RoleController.php
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-<<<<<<< HEAD:BackEnd/app/Http/Controllers/Api/OrderController.php
-    protected $orderService;
-    function __construct(OrderServiceInterface $orderService)
-    {
-        $this->orderService = $orderService;
-=======
-    protected $permissionService;
-    protected $roleService;
-    public function __construct(
-        PermissionServiceInterface $permissionService, 
-        RoleServiceInterface $roleService
-        )
-        {
-        $this->permissionService = $permissionService;
-        $this->roleService = $roleService;
->>>>>>> 719174e (controller role create and store):app/Http/Controllers/RoleController.php
-    }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('back-end.role.index');
+        //
     }
 
     /**
@@ -48,11 +24,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $ParentPermissions = $this->permissionService->getParentPermissions();
-        $params = [
-            'ParentPermissions' => $ParentPermissions,
-        ];
-        return view('back-end.role.add', $params);
+        //
     }
 
     /**
@@ -63,8 +35,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->roleService->create($request);
-        return  redirect()->route('role.index');
+        //
     }
 
     /**
