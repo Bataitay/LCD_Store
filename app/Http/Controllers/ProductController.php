@@ -8,11 +8,8 @@ use App\Models\Product;
 use App\Services\Product\ProductServiceInterface;
 use Exception;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Gate;
-=======
 use Illuminate\Support\Facades\Log;
->>>>>>> product
 
 class ProductController extends Controller
 {
@@ -27,11 +24,9 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-<<<<<<< HEAD
         if (Gate::denies('List_Product', 'List_Product')) {
             abort(403);
         }
-=======
         $products = $this->productService->all($request);
         $categories = Category::all();
         $params = [
@@ -40,7 +35,6 @@ class ProductController extends Controller
         ];
 
         return view('back-end.product.index', $params);
->>>>>>> product
     }
 
     /**
@@ -50,11 +44,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
         if (Gate::denies('Add_Product', 'Add_Product')) {
             abort(403);
         }
-=======
         $categories = Category::get();
         $brands = Brand::get();
         $params = [
@@ -63,7 +55,6 @@ class ProductController extends Controller
         ];
 
         return view('back-end.product.add', $params);
->>>>>>> product
     }
 
     /**
@@ -74,10 +65,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
         if (Gate::denies('Add_Product', 'Add_Product')) {
             abort(403);
-=======
+        }
         try {
             $data = $request->all();
             // dd($data);
@@ -94,7 +84,6 @@ class ProductController extends Controller
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
->>>>>>> product
         }
     }
 
@@ -106,14 +95,11 @@ class ProductController extends Controller
      */
     public function show( $id)
     {
-<<<<<<< HEAD
         if (Gate::denies('Show_Product', 'Show_Product')) {
             abort(403);
         }
-=======
         $product = $this->productService->find($id);
         return view('back-end.product.show',compact('product'));
->>>>>>> product
     }
 
     /**
@@ -124,11 +110,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-<<<<<<< HEAD
         if (Gate::denies('Edit_Product', 'Edit_Product')) {
             abort(403);
         }
-=======
         $product = $this->productService->find($id);
         $categories = Category::get();
         $brands = Brand::get();
@@ -139,7 +123,6 @@ class ProductController extends Controller
         ];
 
         return view('back-end.product.edit', $params);
->>>>>>> product
     }
 
     /**
@@ -151,10 +134,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
         if (Gate::denies('Edit_Product', 'Edit_Product')) {
             abort(403);
-=======
+        }
         try {
             $data = $request->all();
             // dd($data);
@@ -171,7 +153,6 @@ class ProductController extends Controller
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
->>>>>>> product
         }
     }
 
@@ -183,14 +164,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD
         if (Gate::denies('Delete_Product', 'Delete_Product')) {
             abort(403);
         }
-=======
         $product = $this->productService->delete($id);
         return response()->json($product);
->>>>>>> product
     }
     public function getTrashed()
     {
