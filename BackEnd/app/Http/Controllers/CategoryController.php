@@ -52,7 +52,9 @@ class CategoryController extends Controller
         if (Gate::denies('Add_Category', 'Add_Category')) {
             abort(403);
         }
-        $data = $request->all();
+        $data = $request->validate([
+            'name' => 'required|unique:categories|min:6|max:255',
+        ]);
         $this->categoryService->create($data);
         $notification = array(
             'message' => 'Added category successfully',
@@ -102,7 +104,9 @@ class CategoryController extends Controller
         if (Gate::denies('Edit_Category', 'Edit_Category')) {
             abort(403);
         }
-        $data = $request->all();
+        $data = $request->validate([
+            'name' => 'required|unique:categories|min:6|max:255',
+        ]);
         $this->categoryService->update( $id, $data);
         $notification = array(
             'message' => 'Edited category successfully',

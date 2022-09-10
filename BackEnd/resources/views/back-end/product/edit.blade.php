@@ -111,7 +111,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Cpu</label>
                                     <input name="cpu" type="text" id="" placeholder="Enter cpu"
-                                        value="{{ old('cpu') ?? $product->specification->cpu }}"
+                                        value="{{  $product->specification->cpu ?? ''}}"
                                         class="form-control @error('cpu') is-invalid @enderror">
                                     @error('cpu')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -122,7 +122,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Ram</label>
                                     <input name="ram" type="text" id="" placeholder="Enter ram"
-                                        value="{{ old('ram') ?? $product->specification->ram }}"
+                                        value="{{  $product->specification->ram ?? ''}}"
                                         class="form-control @error('ram') is-invalid @enderror">
                                     @error('ram')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -133,7 +133,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Rom</label>
                                     <input name="rom" type="text" id="" placeholder="Enter rom"
-                                        value="{{ old('rom') ?? $product->specification->rom }}"
+                                        value="{{  $product->specification->rom ?? ''}}"
                                         class="form-control @error('rom') is-invalid @enderror">
                                     @error('rom')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -146,7 +146,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Display</label>
                                     <input name="display" type="text" id="" placeholder="Enter display"
-                                        value="{{ old('display') ?? $product->specification->display }}"
+                                        value="{{  $product->specification->display ?? ''}}"
                                         class="form-control @error('display') is-invalid @enderror">
                                     @error('display')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -157,7 +157,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Battery</label>
                                     <input name="battery" type="text" id="" placeholder="Enter battery"
-                                        value="{{ old('battery') ?? $product->specification->battery }}"
+                                        value="{{  $product->specification->battery ?? ''}}"
                                         class="form-control @error('battery') is-invalid @enderror">
                                     @error('battery')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -168,7 +168,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Color</label>
                                     <input name="color" type="text" id="" placeholder="Enter color"
-                                        value="{{ old('color') ?? $product->specification->color }}"
+                                        value="{{ $product->specification->color ?? ''}}"
                                         class="form-control @error('color') is-invalid @enderror">
                                     @error('color')
                                         <div class="text text-danger">{{ $message }}</div>
