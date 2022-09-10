@@ -2,9 +2,10 @@
 @section('content')
 
     <style>
-        .image_photo{
+        .image_photo {
             height: 50px;
         }
+
         .title_cate {
             margin-left: 30px;
         }
@@ -47,27 +48,30 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Brand</h2>
+                                    <h2 for="example-text-input" class="form-label">Brand Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('brand.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Brand</a>
+                                    @can('Add_Brand', 'Add_Brand')
+                                        <a href="{{ route('brand.create') }}"
+                                            class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                            <i class="mdi mdi-plus-circle addeventmore "></i>
+                                            Add Brand</a>
+                                    @endcan
                                 </div>
                                 <div class="md-3 title_cate d-flex">
-                                    <form action="{{route('brand.search')}}" >
+                                    <form action="{{ route('brand.search') }}">
 
                                         <div class="form-outline">
                                             <div class="form-group">
-                                                <input class="form-control" id="keyword" type="text" placeholder="Search"
-                                                    aria-label="Search" name="keySearch">
+                                                <input class="form-control" id="keyword" type="text"
+                                                    placeholder="Search" aria-label="Search" name="keySearch">
                                             </div>
 
                                         </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light searchBrand">
+                                        <button type="submit"
+                                            class="btn btn-primary  waves-effect waves-light searchBrand">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </form>
@@ -95,37 +99,43 @@
                                 </thead>
                                 <tbody id="myTbody">
                                     @if (empty($brands))
-
-                                    <h5>Empty list</h5>
-
+                                        <h5>Empty list</h5>
                                     @else
+                                        @foreach ($brands as $brand)
+                                            <tr class="list-brand">
+                                                <td>{{ $brand->id }}</td>
+                                                <td>
+                                                    <a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a>
+                                                </td>
+                                                <td> @empty($brand->logo)
+                                                        <p>not yet update logo</p>
+                                                    @endempty
+                                                    <img src="{{ asset($brand->logo) }}" alt="" class="image_photo">
 
-                                    @foreach ($brands as $brand)
-                                    <tr class="list-brand">
-                                            <td>{{ $brand->id }}</td>
-                                            <td>
-                                                <a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a>
-                                            </td>
-                                            <td> @empty($brand->logo)
-                                                    <p>not yet update logo</p>
-                                                @endempty
-                                                <img src="{{ asset($brand->logo) }}" alt="" class="image_photo">
+                                                </td>
+                                                <td>
+                                                    @can('Show_Brand', 'Show_Brand')
+                                                        <a href="{{ route('brand.show', $brand->id) }}"
+                                                            class="btn btn-primary sm ">
+                                                            <i class="fas fa-eye-slash"></i>
+                                                        </a>
+                                                    @endcan
 
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('brand.show', $brand->id) }}" class="btn btn-primary sm ">
-                                                    <i class="fas fa-eye-slash"></i>
-                                                </a>
-                                                <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-info sm">
-                                                    <i class="fas fa-edit "></i>
-                                                </a>
-                                                <a data-url="{{ route('brand.destroy', $brand->id) }}"
-                                                    data-id="{{ $brand->id }}" class="btn btn-warning sm deleteBrand">
-                                                    <i class=" fas fa-trash-alt "></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                    @can('Edit_Brand', 'Edit_Brand')
+                                                        <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-info sm">
+                                                            <i class="fas fa-edit "></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Delete_Brand', 'Delete_Brand')
+                                                        <a data-url="{{ route('brand.destroy', $brand->id) }}"
+                                                            data-id="{{ $brand->id }}"
+                                                            class="btn btn-warning sm deleteBrand">
+                                                            <i class=" fas fa-trash-alt "></i>
+                                                        </a>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endif
 
                                 </tbody>

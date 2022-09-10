@@ -1,13 +1,32 @@
 @extends('back-end.master')
 @section('content')
-<style>
-     .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
-    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-    .autocomplete-selected { background: #F0F0F0; }
-    /*.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }*/
-    .autocomplete-group { padding: 2px 5px; }
-    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
-</style>
+    <style>
+        .autocomplete-suggestions {
+            border: 1px solid #999;
+            background: #FFF;
+            overflow: auto;
+        }
+
+        .autocomplete-suggestion {
+            padding: 2px 5px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .autocomplete-selected {
+            background: #F0F0F0;
+        }
+
+        /*.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }*/
+        .autocomplete-group {
+            padding: 2px 5px;
+        }
+
+        .autocomplete-group strong {
+            display: block;
+            border-bottom: 1px solid #000;
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -16,7 +35,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Customer</h2>
+                                    <h2 for="example-text-input" class="form-label"> Customer Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -24,10 +43,12 @@
                             </div><br><br><br>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('customer.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Customer</a>
+                                    @can('Add_Customer', 'Add_Customer')
+                                        <a href="{{ route('customer.create') }}"
+                                            class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                            <i class="mdi mdi-plus-circle addeventmore "></i>
+                                            Add Customer</a>
+                                    @endcan
                                 </div>
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('customer.trash') }}"
@@ -37,15 +58,15 @@
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="{{route('customer.search')}}">
-                                                <input class="form-control" id="keyword" type="text" placeholder="Search"
+                                        <form action="{{ route('customer.search') }}">
+                                            <input class="form-control" id="keyword" type="text" placeholder="Search"
                                                 aria-label="Search" name="keySearch">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light ">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
                                     </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -77,23 +98,32 @@
                                         @foreach ($customers as $customer)
                                             <tr class="item-{{ $customer->id }}">
                                                 <td>{{ $customer->id }}</td>
-                                                <td><a href="{{route('customer.show',$customer->id)}}">{{ $customer->name }}</a></td>
+                                                <td><a
+                                                        href="{{ route('customer.show', $customer->id) }}">{{ $customer->name }}</a>
+                                                </td>
                                                 <td>{{ $customer->phone }}</td>
                                                 <td>{{ $customer->address }}</td>
                                                 <td>{{ $customer->email }}</td>
 
                                                 <td>
-                                                    <a href="{{ route('customer.edit', $customer->id) }}"
-                                                        class="btn btn-info sm">
-                                                        <i class="fas fa-edit "></i>
-                                                    </a>
-                                                    <a data-url="{{ route('customer.destroy', $customer->id) }}"
-                                                        data-id="{{ $customer->id }}" class="btn btn-danger sm deleteCustomer"><i
-                                                            class=" fas fa-trash-alt "></i></a>
-
-                                                    <a href="{{route('customer.show',$customer->id)}}" class="btn btn-primary sm ">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
+                                                    @can('Edit_Customer', 'Edit_Customer')
+                                                        <a href="{{ route('customer.edit', $customer->id) }}"
+                                                            class="btn btn-info sm">
+                                                            <i class="fas fa-edit "></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Delete_Customer', 'Delete_Customer')
+                                                        <a data-url="{{ route('customer.destroy', $customer->id) }}"
+                                                            data-id="{{ $customer->id }}"
+                                                            class="btn btn-danger sm deleteCustomer"><i
+                                                                class=" fas fa-trash-alt "></i></a>
+                                                    @endcan
+                                                    @can('Show_Customer', 'Show_Customer')
+                                                        <a href="{{ route('customer.show', $customer->id) }}"
+                                                            class="btn btn-primary sm ">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -149,7 +179,7 @@
                                     swal("Poof! Your imaginary file has been deleted!", {
                                         icon: "success",
                                     })
-                                  $('.item-'+id).remove()
+                                    $('.item-' + id).remove()
                                 }
                                 if (data.status === 0) {
                                     alert(data.messages)
@@ -185,5 +215,5 @@
             });
         })
     </script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endsection

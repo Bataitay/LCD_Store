@@ -1,36 +1,36 @@
 @extends('back-end.master')
 @section('content')
-<style>
-    .title_cate {
-        margin-left: 30px;
-    }
+    <style>
+        .title_cate {
+            margin-left: 30px;
+        }
 
-    .autocomplete-suggestions {
-        border: 1px solid #999;
-        background: #FFF;
-        overflow: auto;
-    }
+        .autocomplete-suggestions {
+            border: 1px solid #999;
+            background: #FFF;
+            overflow: auto;
+        }
 
-    .autocomplete-suggestion {
-        padding: 2px 5px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+        .autocomplete-suggestion {
+            padding: 2px 5px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-    .autocomplete-selected {
-        background: #F0F0F0;
-    }
+        .autocomplete-selected {
+            background: #F0F0F0;
+        }
 
-    /*.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }*/
-    .autocomplete-group {
-        padding: 2px 5px;
-    }
+        /*.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }*/
+        .autocomplete-group {
+            padding: 2px 5px;
+        }
 
-    .autocomplete-group strong {
-        display: block;
-        border-bottom: 1px solid #000;
-    }
-</style>
+        .autocomplete-group strong {
+            display: block;
+            border-bottom: 1px solid #000;
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -39,7 +39,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Manage Review</h2>
+                                    <h2 for="example-text-input" class="form-label">Review Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-12 d-flex">
@@ -57,15 +57,15 @@
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="{{route('review.search')}}" >
-                                                <input class="form-control" id="keyword" type="text" placeholder="Search"
+                                        <form action="{{ route('review.search') }}">
+                                            <input class="form-control" id="keyword" type="text" placeholder="Search"
                                                 aria-label="Search" name="keySearch">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light searchReview">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
                                     </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light searchReview">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -86,47 +86,55 @@
                                 </thead>
                                 <tbody>
                                     @if (empty($reviews))
-                                    Empty list
+                                        Empty list
                                     @else
-
-
-                                    @foreach ($reviews as $review)
-                                        <tr class="review{{$review->id}}">
-                                            <td>{{ $review->id }}</td>
-                                            <td><a href="{{ route('review.show', $review->id) }}">{{ $review->content }}</a></td>
-                                            <td>{{ $review->vote }}
-                                                <i class="fas fa-star text-warning "></i>
-                                            </td>
-                                            <td>
-                                                @if ($review->status == 0)
-                                                    <a href="{{ route('review.changeStatus', $review->id) }}"
-                                                        class="btn btn-info">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('review.changeStatus', $review->id) }}"
-                                                        class="btn btn-warning">
-                                                        <i class="fas fa-eye-slash"></i>
-                                                    </a>
-                                                @endif
-                                            </td>
-                                            <td>{{ $review->product_id }}</td>
-                                            <td>{{ $review->customer_id }}</td>
-                                            <td>
-                                                <a href="{{ route('review.show', $review->id) }}"
-                                                    class="btn btn-primary sm ">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{{ route('review.edit', $review->id) }}" class="btn btn-info sm">
-                                                    <i class="fas fa-edit "></i>
-                                                </a>
-                                                <a data-url="{{ route('review.destroy', $review->id) }}"
-                                                    data-id="{{ $review->id }}" class="btn btn-warning sm deleteReview">
-                                                    <i class=" fas fa-trash-alt "></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                        @foreach ($reviews as $review)
+                                            <tr class="review{{ $review->id }}">
+                                                <td>{{ $review->id }}</td>
+                                                <td><a
+                                                        href="{{ route('review.show', $review->id) }}">{{ $review->content }}</a>
+                                                </td>
+                                                <td>{{ $review->vote }}
+                                                    <i class="fas fa-star text-warning "></i>
+                                                </td>
+                                                <td>
+                                                    @if ($review->status == 0)
+                                                        <a href="{{ route('review.changeStatus', $review->id) }}"
+                                                            class="btn btn-info">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('review.changeStatus', $review->id) }}"
+                                                            class="btn btn-warning">
+                                                            <i class="fas fa-eye-slash"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $review->product_id }}</td>
+                                                <td>{{ $review->customer_id }}</td>
+                                                <td>
+                                                    @can('Show_Review', 'Show_Review')
+                                                        <a href="{{ route('review.show', $review->id) }}"
+                                                            class="btn btn-primary sm ">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Edit_Review', 'Edit_Review')
+                                                        <a href="{{ route('review.edit', $review->id) }}"
+                                                            class="btn btn-info sm">
+                                                            <i class="fas fa-edit "></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Delete_Review', 'Delete_Review')
+                                                        <a data-url="{{ route('review.destroy', $review->id) }}"
+                                                            data-id="{{ $review->id }}"
+                                                            class="btn btn-warning sm deleteReview">
+                                                            <i class=" fas fa-trash-alt "></i>
+                                                        </a>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endif
                                 </tbody>
                             </table>

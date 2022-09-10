@@ -16,10 +16,12 @@
                             </div><br><br><br>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('user.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Employee</a>
+                                    @can('Add_Employee', 'Add_Employee')
+                                        <a href="{{ route('user.create') }}"
+                                            class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                            <i class="mdi mdi-plus-circle addeventmore "></i>
+                                            Add Employee</a>
+                                    @endcan
                                 </div>
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('user.getTrashed') }}"
@@ -30,7 +32,8 @@
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
                                         <form action="">
-                                            <input type="search" name="search" id="form1" value="{{ request()->search }}" class="form-control" />
+                                            <input type="search" name="search" id="form1"
+                                                value="{{ request()->search }}" class="form-control" />
                                     </div>
                                     <button type="submit" class="btn btn-primary  waves-effect waves-light ">
                                         <i class="fas fa-search"></i>
@@ -69,31 +72,39 @@
                                                 <td>{{ $user->id }}</td>
                                                 <td class="d-flex align-items-center ">
                                                     <div class="rounded-circle ">
-                                                        <img class=" image_photo rounded-circle " src="{{ !empty($user->avatar) ? asset($user->avatar) : asset('assets/images/no_image.png') }}">
+                                                        <img class=" image_photo rounded-circle "
+                                                            src="{{ !empty($user->avatar) ? asset($user->avatar) : asset('assets/images/no_image.png') }}">
                                                     </div>
                                                     &nbsp;
                                                     <div>
-                                                        <span >{{ $user->name }}</span><br>
+                                                        <span>{{ $user->name }}</span><br>
                                                         <span id="email_user">{{ $user->email }}</span>
                                                     </div>
                                                 </td>
                                                 <td>{{ $user->phone }}</td>
                                                 <td>{{ $user->address }}</td>
                                                 <td>
-                                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info sm">
-                                                        <i class="fas fa-edit "></i>
-                                                    </a>
-                                                    <a href="{{ route('user.show', $user->id)}}" class="btn btn-primary sm ">
-                                                        <i class="fas fa-eye-slash"></i>
-                                                    </a>
+                                                    @can('Edit_Employee', 'Edit_Employee')
+                                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info sm">
+                                                            <i class="fas fa-edit "></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Show_Employee', 'Show_Employee')
+                                                        <a href="{{ route('user.show', $user->id) }}"
+                                                            class="btn btn-primary sm ">
+                                                            <i class="fas fa-eye-slash"></i>
+                                                        </a>
+                                                    @endcan
                                                     @php
-                                                        if($user->id == 1){
+                                                        if ($user->id == 1) {
                                                             continue;
                                                         }
                                                     @endphp
-                                                    <a data-href="{{ route('user.delete', $user->id) }}"
-                                                        id="{{ $user->id }}" class="btn btn-danger sm deleteIcon"><i
-                                                            class=" fas fa-trash-alt "></i></a>
+                                                    @can('Delete_Employee', 'Delete_Employee')
+                                                        <a data-href="{{ route('user.delete', $user->id) }}"
+                                                            id="{{ $user->id }}" class="btn btn-danger sm deleteIcon"><i
+                                                                class=" fas fa-trash-alt "></i></a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

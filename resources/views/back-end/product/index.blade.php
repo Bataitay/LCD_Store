@@ -9,7 +9,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label"> Products Management</h2>
+                                    <h2 for="example-text-input" class="form-label"> Product Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -17,10 +17,12 @@
                             </div><br><br><br>
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
-                                    <a href="{{ route('product.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add product</a>
+                                    @can('Add_Product', 'Add_Product')
+                                        <a href="{{ route('product.create') }}"
+                                            class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                            <i class="mdi mdi-plus-circle addeventmore "></i>
+                                            Add product</a>
+                                    @endcan
                                 </div>
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('product.getTrashed') }}"
@@ -41,7 +43,7 @@
                                 </div>
                                 <div class="md-3 title_cate">
                                     <button href="" class="btn btn-primary  waves-effect waves-light"
-                                    data-bs-toggle="modal" data-bs-target="#searchModal"">
+                                        data-bs-toggle="modal" data-bs-target="#searchModal"">
                                         Advanced search
                                     </button>
                                     @include('back-end.product.advanceSearch')
@@ -84,29 +86,36 @@
                                                 <td>{{ number_format($product->price - ($product->sale_price / 100) * $product->price) }}
                                                 </td>
                                                 <td>
-                                                    @if ($product->status == 1)
-                                                        <a href="{{ route('product.hideStatus', $product->id)}}">
-                                                            <i class=" fas fa-chevron-circle-down text-success"></i>
-                                                        </a>
-                                                    @else
-                                                        <a href="{{ route('product.showStatus', $product->id)}}">
-                                                            <i class=" far fa-times-circle text-danger"></i>
-                                                        </a>
-                                                    @endif
+                                                    @can('Edit_Product', 'Edit_Product')
+                                                        @if ($product->status == 1)
+                                                            <a href="{{ route('product.hideStatus', $product->id) }}">
+                                                                <i class=" fas fa-chevron-circle-down text-success"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('product.showStatus', $product->id) }}">
+                                                                <i class=" far fa-times-circle text-danger"></i>
+                                                            </a>
+                                                        @endif
+                                                    @endcan
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('product.edit', $product->id) }}"
-                                                        class="btn btn-info sm">
-                                                        <i class="fas fa-edit "></i>
-                                                    </a>
-                                                    <a data-href="{{ route('product.delete', $product->id) }}"
-                                                        id="{{ $product->id }}" class="btn btn-danger sm deleteIcon"><i
-                                                            class=" fas fa-trash-alt "></i></a>
-
-                                                    <a href="{{ route('product.show', $product->id) }}"
-                                                        class="btn btn-primary sm ">
-                                                        <i class="fas fa-eye-slash"></i>
-                                                    </a>
+                                                    @can('Edit_Product', 'Edit_Product')
+                                                        <a href="{{ route('product.edit', $product->id) }}"
+                                                            class="btn btn-info sm">
+                                                            <i class="fas fa-edit "></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Delete_Product', 'Delete_Product')
+                                                        <a data-href="{{ route('product.delete', $product->id) }}"
+                                                            id="{{ $product->id }}" class="btn btn-danger sm deleteIcon"><i
+                                                                class=" fas fa-trash-alt "></i></a>
+                                                    @endcan
+                                                    @can('Show_Product', 'Show_Product')
+                                                        <a href="{{ route('product.show', $product->id) }}"
+                                                            class="btn btn-primary sm ">
+                                                            <i class="fas fa-eye-slash"></i>
+                                                        </a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

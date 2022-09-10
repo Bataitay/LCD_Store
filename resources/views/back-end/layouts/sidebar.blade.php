@@ -28,46 +28,61 @@
                 </li>
 
                 <li>
+                    @can('List_Banner', 'List_Banner')
                     <a href="{{ route('banner.index') }}" class=" waves-effect">
                         <i class="ri-calendar-2-line"></i>
                         <span>Banners</span>
                     </a>
+                    @endcan
                 </li>
                 <li>
+                    @can('List_Category', 'List_Category')
                     <a href="{{route('category.index')}}" class=" waves-effect">
                         <i class="ri-calendar-2-line"></i>
                         <span>Categories</span>
                     </a>
+                    @endcan
                 </li>
                 <li>
+                    @can('List_Product', 'List_Product')
                     <a href="{{ route('product.index')}}" class=" waves-effect">
                         <i class="ri-pencil-ruler-2-line"></i>
                         <span>Products</span>
                     </a>
+                    @endcan
                 </li>
                 <li>
+                    @can('List_Review', 'List_Review')
                     <a href="{{route('review.index')}}" class=" waves-effect">
                         <i class="ri-vip-crown-2-line"></i>
                         <span>Review</span>
                     </a>
+                    @endcan
                 </li>
                 <li>
+                    @can('List_Brand', 'List_Brand')
                     <a href="{{route('brand.index')}}" class=" waves-effect">
                         <i class="ri-vip-crown-2-line"></i>
                         <span>Brands</span>
                     </a>
+                    @endcan
                 </li>
-
-
-
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-profile-line"></i>
                         <span>Roles</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('role.index') }}">Roles</a></li>
-                        <li><a href="{{ route('user.index')}}">Employee</a></li>
+                        <li>
+                            @can('List_Role', 'List_Role')
+                            <a href="{{ route('role.index') }}">Roles</a>
+                            @endcan
+                        </li>
+                        <li>
+                            @can('List_Employee', 'List_Employee')
+                            <a href="{{ route('user.index')}}">Employee</a>
+                            @endcan
+                        </li>
                     </ul>
                 </li>
                 <li class="menu-title">Web</li>
@@ -78,7 +93,11 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="auth-login.html">Login</a></li>
-                        <li><a href="{{route('customer.index')}}">List</a></li>
+                        <li>
+                            @can('List_Customer', 'List_Customer')
+                            <a href="{{route('customer.index')}}">List</a>
+                            @endcan
+                        </li>
                         <li><a href="auth-register.html">Register</a></li>
                         <li><a href="auth-recoverpw.html">Recover Password</a></li>
                         <li><a href="auth-lock-screen.html">Lock Screen</a></li>
@@ -91,7 +110,11 @@
                         <span>Orders</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('order.index') }}">Orders</a></li>
+                        <li>
+                            @can('List_Order', 'List_Order')
+                            <a href="{{ route('order.index') }}">Orders</a>
+                            @endcan
+                        </li>
                     </ul>
                 </li>
 

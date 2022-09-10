@@ -19,12 +19,14 @@
                                 <h2></h2>
                             </div>
                             <div class="col-md-12 d-flex">
-                                <div class="md-3 title_cate">
-                                    <a href="{{ route('banner.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Banner</a>
-                                </div>
+                                @can('Add_Banner', 'Add_Banner')
+                                    <div class="md-3 title_cate">
+                                        <a href="{{ route('banner.create') }}"
+                                            class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                            <i class="mdi mdi-plus-circle addeventmore "></i>
+                                            Add Banner</a>
+                                    </div>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -43,20 +45,24 @@
                                                     <div class="border border-top-0 p-4">
                                                         <div class="align-items-center mt-2 d-flex justify-content-center">
                                                             <div>
-                                                                <a data-href="{{ route('banner.updatestatus', $banner->id) }}"
-                                                                    id="{{ $banner->id }}"
-                                                                    data-status="{{ $banner->status }}"
-                                                                    class="btn btn-primary ml-2 updateStatus">
-                                                                    <i
-                                                                        class="fas iconStatus{{ $banner->id }} {{ $banner->status ? 'fa-eye' : 'fa-eye-slash' }}"></i>
-                                                                </a>
-                                                                <a href="{{ route('banner.edit', $banner->id) }}"
-                                                                    class="btn btn-success ml-2"><i
-                                                                        class="fas fa-edit "></i></a>
-                                                                <a data-href="{{ route('banner.destroy', $banner->id) }}"
-                                                                    id="{{ $banner->id }}"
-                                                                    class="btn btn-danger sm deleteIcon"><i
-                                                                        class=" fas fa-trash-alt "></i></a>
+                                                                @can('Edit_Banner', 'Edit_Banner')
+                                                                    <a data-href="{{ route('banner.updatestatus', $banner->id) }}"
+                                                                        id="{{ $banner->id }}"
+                                                                        data-status="{{ $banner->status }}"
+                                                                        class="btn btn-primary ml-2 updateStatus">
+                                                                        <i
+                                                                            class="fas iconStatus{{ $banner->id }} {{ $banner->status ? 'fa-eye' : 'fa-eye-slash' }}"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('banner.edit', $banner->id) }}"
+                                                                        class="btn btn-success ml-2"><i
+                                                                            class="fas fa-edit "></i></a>
+                                                                @endcan
+                                                                @can('Delete_Banner', 'Delete_Banner')
+                                                                    <a data-href="{{ route('banner.destroy', $banner->id) }}"
+                                                                        id="{{ $banner->id }}"
+                                                                        class="btn btn-danger sm deleteIcon"><i
+                                                                            class=" fas fa-trash-alt "></i></a>
+                                                                @endcan
                                                             </div>
                                                         </div>
                                                     </div>

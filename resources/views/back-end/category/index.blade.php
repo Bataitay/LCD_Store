@@ -16,12 +16,14 @@
                                 <h2></h2>
                             </div><br><br><br>
                             <div class="col-md-12 d-flex">
-                                <div class="md-3 title_cate">
-                                    <a href="{{ route('category.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Category</a>
-                                </div>
+                                @can('Add_Category', 'Add_Category')
+                                    <div class="md-3 title_cate">
+                                        <a href="{{ route('category.create') }}"
+                                            class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                            <i class="mdi mdi-plus-circle addeventmore "></i>
+                                            Add Category</a>
+                                    </div>
+                                @endcan
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('category.getTrashed') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
@@ -30,14 +32,15 @@
                                 </div>
                                 <div class="md-3 title_cate d-flex">
                                     <div class="form-outline">
-                                            <form action="">
-                                            <input type="search" value="{{request()->search}}" name="search" id="form1" class="form-control" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary  waves-effect waves-light ">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
+                                        <form action="">
+                                            <input type="search" value="{{ request()->search }}" name="search"
+                                                id="form1" class="form-control" />
                                     </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -68,19 +71,24 @@
                                             <tr class="item-{{ $category->id }}">
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->name }}</td>
-                                                <td>{{ $category->products->count()}}</td>
+                                                <td>{{ $category->products->count() }}</td>
                                                 <td>
-                                                    <a href="{{ route('category.edit', $category->id) }}"
-                                                        class="btn btn-info sm">
-                                                        <i class="fas fa-edit "></i>
-                                                    </a>
-                                                    <a data-href="{{ route('category.delete', $category->id) }}"
-                                                        id="{{ $category->id }}" class="btn btn-danger sm deleteIcon"><i
-                                                            class=" fas fa-trash-alt "></i></a>
-
-                                                    <a href="" class="btn btn-primary sm ">
-                                                        <i class="fas fa-eye-slash"></i>
-                                                    </a>
+                                                    @can('Edit_Category', 'Edit_Category')
+                                                        <a href="{{ route('category.edit', $category->id) }}"
+                                                            class="btn btn-info sm">
+                                                            <i class="fas fa-edit "></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Delete_Category', 'Delete_Category')
+                                                        <a data-href="{{ route('category.delete', $category->id) }}"
+                                                            id="{{ $category->id }}" class="btn btn-danger sm deleteIcon"><i
+                                                                class=" fas fa-trash-alt "></i></a>
+                                                    @endcan
+                                                    @can('Show_Category', 'Show_Category')
+                                                        <a href="" class="btn btn-primary sm ">
+                                                            <i class="fas fa-eye-slash"></i>
+                                                        </a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

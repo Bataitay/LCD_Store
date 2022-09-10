@@ -8,7 +8,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label">Roles</h2>
+                                    <h2 for="example-text-input" class="form-label">Role Management</h2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -16,12 +16,12 @@
                             </div>
                             <div class="col-md-12 d-flex">
                                 @can('Add_Role', 'Add_Role')
-                                <div class="md-3 title_cate">
-                                    <a href="{{ route('role.create') }}"
-                                        class="btn btn-secondary btn-rounded waves-effect waves-light ">
-                                        <i class="mdi mdi-plus-circle addeventmore "></i>
-                                        Add Role</a>
-                                </div>
+                                    <div class="md-3 title_cate">
+                                        <a href="{{ route('role.create') }}"
+                                            class="btn btn-secondary btn-rounded waves-effect waves-light ">
+                                            <i class="mdi mdi-plus-circle addeventmore "></i>
+                                            Add Role</a>
+                                    </div>
                                 @endcan
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('role.getTrashed') }}"
@@ -70,12 +70,16 @@
                                                         continue;
                                                     }
                                                 @endphp
-                                                <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
-                                                        class="fas fa-edit "></i></a>
-                                                <a data-href="{{ route('role.destroy', $role->id) }}"
-                                                    id="{{ $role->id }}" class="btn btn-danger sm deleteIcon"><i
-                                                        class=" fas fa-trash-alt "></i>
-                                                </a>
+                                                @can('Edit_Role', 'Edit_Role')
+                                                    <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
+                                                            class="fas fa-edit "></i></a>
+                                                @endcan
+                                                @can('Delete_Role', 'Delete_Role')
+                                                    <a data-href="{{ route('role.destroy', $role->id) }}"
+                                                        id="{{ $role->id }}" class="btn btn-danger sm deleteIcon"><i
+                                                            class=" fas fa-trash-alt "></i>
+                                                    </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

@@ -84,7 +84,7 @@
         </g>
     </svg>
     <h1>You are not allowed to enter here</h1>
-    <h2>Go <a target="_blank" href="https://www.youtube.com/watch?v=JccW-mLdNe0">Home!</a></h2>
+    <h2>Go <a target="_blank" href="{{ route('dashboard') }}">Home!</a></h2>
 </body>
 <script>
     var root = document.documentElement;
