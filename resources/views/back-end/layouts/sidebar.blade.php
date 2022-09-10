@@ -21,7 +21,7 @@
                 <li class="menu-title">Admin</li>
 
                 <li>
-                    <a href="index.html" class="waves-effect">
+                    <a href="{{ route('dashboard')}}" class="waves-effect">
                         <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
                         <span>Dashboard</span>
                     </a>
@@ -67,7 +67,6 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('role.index') }}">Roles</a></li>
-                        <li><a href="pages-timeline.html">Permission</a></li>
                         <li><a href="{{ route('user.index')}}">Employee</a></li>
                     </ul>
                 </li>
@@ -93,7 +92,6 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('order.index') }}">Orders</a></li>
-                        <li><a href="ui-buttons.html">Orders detail</a></li>
                     </ul>
                 </li>
 

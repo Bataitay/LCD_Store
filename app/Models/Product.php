@@ -33,6 +33,9 @@ class Product extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
+    public function oderDetails(){
+        return $this->hasMany(OrderDetail::class, 'product_id', 'id');
+    }
     public function scopeSearch($query, $term)
     {
         if ($term) {
