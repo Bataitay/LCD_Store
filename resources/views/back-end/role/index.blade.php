@@ -15,12 +15,14 @@
                                 <h2></h2>
                             </div>
                             <div class="col-md-12 d-flex">
+                                @can('Add_Role', 'Add_Role')
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('role.create') }}"
                                         class="btn btn-secondary btn-rounded waves-effect waves-light ">
                                         <i class="mdi mdi-plus-circle addeventmore "></i>
                                         Add Role</a>
                                 </div>
+                                @endcan
                                 <div class="md-3 title_cate">
                                     <a href="{{ route('role.getTrashed') }}"
                                         class="btn btn-danger btn-rounded waves-effect waves-light ">
