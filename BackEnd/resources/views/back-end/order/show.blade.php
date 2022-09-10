@@ -58,14 +58,14 @@
                                             </div>
                                         </td>
                                         <td>{{ $orderDetail->product_quantity }}</td>
-                                        <td class="text-end">{{ $orderDetail->product_price }}</td>
+                                        <td class="text-end">{{ number_format($orderDetail->product_price) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr class="fw-bold">
                                         <td colspan="2">TOTAL</td>
-                                        <td class="text-end">{{ $order->order_total_price }}</td>
+                                        <td class="text-end">{{ number_format($order->order_total_price) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
