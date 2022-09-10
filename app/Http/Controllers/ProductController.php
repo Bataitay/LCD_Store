@@ -24,9 +24,9 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-        if (Gate::denies('List_Product', 'List_Product')) {
-            abort(403);
-        }
+        // if (Gate::denies('List_Product', 'List_Product')) {
+        //     abort(403);
+        // }
         $products = $this->productService->all($request);
         $categories = Category::all();
         $params = [
@@ -44,9 +44,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('Add_Product', 'Add_Product')) {
-            abort(403);
-        }
+        // if (Gate::denies('Add_Product', 'Add_Product')) {
+        //     abort(403);
+        // }
         $categories = Category::get();
         $brands = Brand::get();
         $params = [
@@ -65,8 +65,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::denies('Add_Product', 'Add_Product')) {
-            abort(403);
+        // if (Gate::denies('Add_Product', 'Add_Product')) {
+        //     abort(403);
+    // }
         try {
             $data = $request->all();
             // dd($data);
@@ -85,7 +86,7 @@ class ProductController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-}
+
 
     /**
      * Display the specified resource.
