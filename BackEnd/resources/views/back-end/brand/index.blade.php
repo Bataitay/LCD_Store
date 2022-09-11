@@ -4,6 +4,7 @@
     <style>
         .image_photo {
             height: 50px;
+            width: 200px;
         }
 
         .title_cate {
@@ -107,11 +108,12 @@
                                                 <td>
                                                     <a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a>
                                                 </td>
-                                                <td> @empty($brand->logo)
+                                                <td>
+                                                    @if(!$brand->logo)
                                                         <p>not yet update logo</p>
-                                                    @endempty
+                                                    @else
                                                     <img src="{{ asset($brand->logo) }}" alt="" class="image_photo">
-
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     @can('Show_Brand', 'Show_Brand')
