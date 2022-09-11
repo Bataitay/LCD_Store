@@ -42,6 +42,9 @@
                                         <td class="text-end">Price</td>
                                     </tr>
                                     @foreach ($orderDetails as $orderDetail)
+                                    @php
+                                    //  dd($orderDetail->products);
+                                    @endphp
                                     <tr>
                                         <td>
                                             <div class="d-flex mb-2">
@@ -51,7 +54,7 @@
                                                 </div>
                                                 <div class="flex-lg-grow-1 ms-3">
                                                     <h6 class="small mb-0">
-                                                        <a href="#" class="text-reset">{{ $orderDetail->product->name }}</a>
+                                                        <a href="#" class="text-reset">{{ $orderDetail->products->name }}</a>
                                                     </h6>
                                                     <span class="small">Color: Black</span>
                                                 </div>

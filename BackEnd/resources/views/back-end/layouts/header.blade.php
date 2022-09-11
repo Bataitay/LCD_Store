@@ -1,4 +1,4 @@
-<header id="page-topbar">
+<header id="page-topbar" style="background-color: #081828">
     <div class="navbar-header">
         <div class="d-flex">
             <!-- LOGO -->

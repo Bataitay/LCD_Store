@@ -41,7 +41,6 @@
                                         <th>Total Price</th>
                                         <th>Created At</th>
                                         <th>Updated At</th>
-                                        <th>Delete At</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -60,7 +59,6 @@
                                             <td>{{ $order->order_total_price }}</td>
                                             <td>{{ $order->created_at }}</td>
                                             <td>{{ $order->updated_at }}</td>
-                                            <td>{{ $order->deleted_at }}</td>
                                             <td>
                                                 @if($order->status)
                                                     <i class="bi bi-check-circle text-success"></i>
@@ -71,21 +69,13 @@
                                             <td>
                                                 <a href="{{ route('order.show', $order->id) }}"><i class="fas fa-eye text-primary"></i></a>
                                             </td>
-                                            {{-- <td>
-                                                <a href="{{ route('role.edit', $role->id) }}" class="btn btn-primary"><i
-                                                        class="fas fa-edit "></i></a>
-                                                <a data-href="{{ route('role.destroy', $role->id) }}"
-                                                    id="{{ $role->id }}" class="btn btn-danger sm deleteIcon"><i
-                                                        class=" fas fa-trash-alt "></i>
-                                                </a>
-                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Hiển thị {{ $orders->perPage() }} - {{ $orders->currentPage() }} của
+                                    Show {{ $orders->perPage() }} - {{ $orders->currentPage() }} of
                                     {{ $orders->lastPage() }}
                                 </div>
                                 <div class="col-5">
