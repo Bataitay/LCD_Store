@@ -87,7 +87,7 @@
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Hiển thị {{ $roles->perPage() }} - {{ $roles->currentPage() }} của
+                                    Show {{ $roles->perPage() }} - {{ $roles->currentPage() }} of
                                     {{ $roles->lastPage() }}
                                 </div>
                                 <div class="col-5">

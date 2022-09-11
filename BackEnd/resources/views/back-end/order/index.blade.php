@@ -85,7 +85,7 @@
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Hiển thị {{ $orders->perPage() }} - {{ $orders->currentPage() }} của
+                                    Show {{ $orders->perPage() }} - {{ $orders->currentPage() }} of
                                     {{ $orders->lastPage() }}
                                 </div>
                                 <div class="col-5">
