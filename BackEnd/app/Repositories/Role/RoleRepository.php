@@ -11,9 +11,9 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
         return Role::class;
     }
     function getAllWithPaginateLatest($request){
-        $roles = $this->model->latest()->paginate(1);
+        $roles = $this->model->latest()->paginate(10);
         if(isset($request->search)){
-            $roles = $this->model->where('name', 'LIKE', '%'.request()->search.'%')->paginate(1);
+            $roles = $this->model->where('name', 'LIKE', '%'.request()->search.'%')->paginate(10);
         }
         return $roles;
     }
@@ -40,7 +40,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
     {
         $query = $this->model->onlyTrashed();
         $query->orderBy('id', 'desc');
-        $roles = $query->paginate(1);
+        $roles = $query->paginate(10);
         return $roles;
     }
     public function restore($id)

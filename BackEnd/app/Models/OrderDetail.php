@@ -10,6 +10,9 @@ class OrderDetail extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+    protected $fillable = [
+        'product_price','product_quantity','product_id','order_id'
+    ];
     function products(){
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }

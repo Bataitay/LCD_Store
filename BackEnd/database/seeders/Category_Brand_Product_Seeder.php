@@ -173,5 +173,6 @@ class Category_Brand_Product_Seeder extends Seeder
             'image' => '1',
 
         ]);
+        
     }
 }
