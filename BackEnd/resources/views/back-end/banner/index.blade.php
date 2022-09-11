@@ -49,19 +49,22 @@
                                                                     <a data-href="{{ route('banner.updatestatus', $banner->id) }}"
                                                                         id="{{ $banner->id }}"
                                                                         data-status="{{ $banner->status }}"
-                                                                        class="btn btn-primary ml-2 updateStatus">
+                                                                        style="background-color: #0f9cf3;"
+                                                                        class="btn ml-2 updateStatus">
                                                                         <i
-                                                                            class="fas iconStatus{{ $banner->id }} {{ $banner->status ? 'fa-eye' : 'fa-eye-slash' }}"></i>
+                                                                            class="fas text-white iconStatus{{ $banner->id }} {{ $banner->status ? 'fa-eye' : 'fa-eye-slash' }}"></i>
                                                                     </a>
                                                                     <a href="{{ route('banner.edit', $banner->id) }}"
-                                                                        class="btn btn-success ml-2"><i
-                                                                            class="fas fa-edit "></i></a>
+                                                                        style="background-color:#0097a7;"
+                                                                        class="btn ml-2"><i
+                                                                            class="fas text-white fa-edit "></i></a>
                                                                 @endcan
                                                                 @can('Delete_Banner', 'Delete_Banner')
                                                                     <a data-href="{{ route('banner.destroy', $banner->id) }}"
                                                                         id="{{ $banner->id }}"
-                                                                        class="btn btn-danger sm deleteIcon"><i
-                                                                            class=" fas fa-trash-alt "></i></a>
+                                                                        style="background-color:#f32f53;"
+                                                                        class="btn ml-2 btn-danger sm deleteIcon"><i
+                                                                            class=" fas text-white fa-trash-alt "></i></a>
                                                                 @endcan
                                                             </div>
                                                         </div>
