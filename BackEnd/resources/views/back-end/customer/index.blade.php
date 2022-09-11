@@ -106,12 +106,12 @@
                                                 <td>{{ $customer->email }}</td>
 
                                                 <td>
-                                                    @can('Edit_Customer', 'Edit_Customer')
+                                                    {{-- @can('Edit_Customer', 'Edit_Customer')
                                                         <a href="{{ route('customer.edit', $customer->id) }}"
                                                             class="btn btn-info sm">
                                                             <i class="fas fa-edit "></i>
                                                         </a>
-                                                    @endcan
+                                                    @endcan --}}
                                                     @can('Delete_Customer', 'Delete_Customer')
                                                         <a data-url="{{ route('customer.destroy', $customer->id) }}"
                                                             data-id="{{ $customer->id }}"

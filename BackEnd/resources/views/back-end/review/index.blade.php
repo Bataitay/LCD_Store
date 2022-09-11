@@ -71,7 +71,7 @@
                         <div class="card-body">
 
                             <table
-                                class="table table-bordered dt-responsive nowrap text-center align-middle dataTable no-footer dtr-inline"
+                                class="table table-bordered dt-responsive nowrap text-center align-middle"
                                 style="border-color: #ddd; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
