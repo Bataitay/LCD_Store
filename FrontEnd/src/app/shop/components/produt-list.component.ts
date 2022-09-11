@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ShopService } from '../shop.service';
 
 @Component({
   selector: 'app-produt-list',
@@ -6,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProdutListComponent implements OnInit {
 
-  constructor() { }
+  products: any[] =[]
+  constructor(private shopService: ShopService,
+    private route: ActivatedRoute,
+    private _Router: Router) { }
 
   ngOnInit(): void {
+    this.getAllPro();
+  }
+
+  public getAllPro(){
+    this.shopService.getAllPro().subscribe(res => {
+      this.products = res;
+      console.log(this.products);
+    })
   }
 
 }
