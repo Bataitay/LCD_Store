@@ -83,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('role/edit/{id}', 'edit')->name('role.edit');
         Route::put('role/update/{id}', 'update')->name('role.update');
         Route::delete('role/destroy/{id}', 'destroy')->name('role.destroy');
+        Route::delete('role/force_destroy/{id}', 'force_destroy')->name('role.force_destroy');
         Route::get('role/getTrashed', 'getTrashed')->name('role.getTrashed');
         Route::get('role/restore/{id}', 'restore')->name('role.restore');
     });
