@@ -14,13 +14,8 @@ export class HomeComponent implements OnInit {
     private _Router: Router) { }
 
   ngOnInit(): void {
-    this.getAllPro();
+
   }
 
-  public getAllPro(){
-    this.shopService.getAllPro().subscribe(res => {
-      this.products = res;
-      console.log(this.products);
-    })
-  }
+
 }

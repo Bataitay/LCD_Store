@@ -18,5 +18,10 @@ class FeProductRepository extends BaseRepository implements FeProductRepositoryI
        $products = $this->model->all();
        return $products;
     }
+    public function find($id){
+        $product = $this->model->find($id);
+        return $product;
+    }
+
 
 }

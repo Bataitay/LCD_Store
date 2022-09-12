@@ -2,16 +2,23 @@ import { Injectable } from '@angular/core';
 import { Product } from './shop';
 import { HttpClient,HttpErrorResponse  } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
   product : Product[] =[];
-  getAllProducts = 'http://127.0.0.1:8000/api/getProduct';
-  constructor(private http: HttpClient,) { }
+  getAllProducts:string ='';
+  constructor(private http: HttpClient,) {
+    this.getAllProducts = environment.getAllProducts;
+   }
 
-  getAllPro():Observable<Product[]> {
+  product_list():Observable<Product[]> {
     return this.http.get<Product[]>(this.getAllProducts);
   }
+  product_detail(id:any):Observable<Product[]> {
+    return this.http.get<Product[]>(environment.getIdProduct+'/'+id);
+  }
+
 }

@@ -12,9 +12,13 @@ class FeProductController extends Controller
     public function __construct(FeProductServiceInterface $FeproductService){
         $this->FeproductService = $FeproductService;
     }
-    public function getAll(){
+    public function product_list(){
        $products = $this->FeproductService->getAll();
 
         return response()->json($products, 200);
+    }
+    public function product_detail($id){
+        $product = $this->FeproductService->find($id);
+        return response()->json($product, 200);
     }
 }

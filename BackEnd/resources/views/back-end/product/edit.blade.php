@@ -27,10 +27,8 @@
                                         aria-label="Default select example" data-toggle="select2">
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
-                                                @if ($product->category_id == $category->id)
-                                                selected
-                                                @endif
-                                                >{{ $category->name }}</option>
+                                                @if ($product->category_id == $category->id) selected @endif>{{ $category->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('category_id')
@@ -45,10 +43,8 @@
                                         aria-label="Default select example" data-toggle="select2">
                                         @foreach ($brands as $brand)
                                             <option value="{{ $brand->id }}"
-                                                @if ($product->brand_id == $brand->id)
-                                                selected
-                                                @endif
-                                                >{{ $brand->name }}</option>
+                                                @if ($product->brand_id == $brand->id) selected @endif>{{ $brand->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('brand')
@@ -59,8 +55,8 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name Product</label>
-                                    <input name="name" type="text" value="{{ old('name') ?? $product->name }}" id="example-text-input"
-                                        class="form-control @error('name') is-invalid @enderror">
+                                    <input name="name" type="text" value="{{ old('name') ?? $product->name }}"
+                                        id="example-text-input" class="form-control @error('name') is-invalid @enderror">
                                     @error('name')
                                         <div class="text text-danger">{{ $message }}</div>
                                     @enderror
@@ -73,8 +69,8 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Quantity</label>
-                                    <input name="quantity" type="number" value="{{ old('quantity') ?? $product->quantity }}"
-                                        id="example-text-input"
+                                    <input name="quantity" type="number"
+                                        value="{{ old('quantity') ?? $product->quantity }}" id="example-text-input"
                                         class="form-control @error('quantity') is-invalid @enderror">
                                     @error('quantity')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -84,8 +80,8 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Sale_Price</label>
-                                    <input name="sale_price" type="number" value="{{ old('sale_price') ?? $product->sale_price}}"
-                                        id="example-text-input"
+                                    <input name="sale_price" type="number"
+                                        value="{{ old('sale_price') ?? $product->sale_price }}" id="example-text-input"
                                         class="form-control @error('sale_price') is-invalid @enderror">
                                     @error('sale_price')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -111,7 +107,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Cpu</label>
                                     <input name="cpu" type="text" id="" placeholder="Enter cpu"
-                                        value="{{  $product->specification->cpu }}"
+                                        value="{{ $product->specification->cpu }}"
                                         class="form-control @error('cpu') is-invalid @enderror">
                                     @error('cpu')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -122,7 +118,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Ram</label>
                                     <input name="ram" type="text" id="" placeholder="Enter ram"
-                                        value="{{  $product->specification->ram }}"
+                                        value="{{ $product->specification->ram }}"
                                         class="form-control @error('ram') is-invalid @enderror">
                                     @error('ram')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -133,7 +129,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Rom</label>
                                     <input name="rom" type="text" id="" placeholder="Enter rom"
-                                        value="{{  $product->specification->rom }}"
+                                        value="{{ $product->specification->rom }}"
                                         class="form-control @error('rom') is-invalid @enderror">
                                     @error('rom')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -146,7 +142,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Display</label>
                                     <input name="display" type="text" id="" placeholder="Enter display"
-                                        value="{{  $product->specification->display }}"
+                                        value="{{ $product->specification->display }}"
                                         class="form-control @error('display') is-invalid @enderror">
                                     @error('display')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -157,7 +153,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Battery</label>
                                     <input name="battery" type="text" id="" placeholder="Enter battery"
-                                        value="{{  $product->specification->battery }}"
+                                        value="{{ $product->specification->battery }}"
                                         class="form-control @error('battery') is-invalid @enderror">
                                     @error('battery')
                                         <div class="text text-danger">{{ $message }}</div>
@@ -186,12 +182,13 @@
                                                 Drag & drop image here or
                                                 <label for="file" class="choose">Browse</label>
                                             </span>
-                                            <input type="file" name="image" id="file" value="{{ ($product->image) }}"
+                                            <input type="file" name="image" id="file"
+                                                value="{{ $product->image }}"
                                                 class="form-control file @error('image') is-invalid @enderror">
                                         </div>
                                         <div class="card-img">
                                             <img id="showImage" class="rounded image_show w-100"
-                                            src=" {{ asset($product->image)  }}">
+                                                src=" {{ asset($product->image) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -204,10 +201,7 @@
                                             Drag & drop image here or
                                             <span class="select">Browse</span>
                                         </span>
-                                        <input type="file" name="file_names[]" id="file_name" multiple
-                                        @foreach ($product->file_names as $file_name)
-                                        value="{{ asset($file_name->file_name) }}"
-                                        @endforeach
+                                        <input type="file" name="file_names[]" id="file_name" multiple value=""
                                             class="form-control files @error('file_name') is-invalid @enderror">
                                     </div>
                                     <div class="container_image">
@@ -225,7 +219,7 @@
                                         <div class="card-body">
 
                                             <h4 class="card-title">Description</h4>
-                                            <textarea id="elm1" name="description"> {{  old('description') ?? $product->description}} </textarea>
+                                            <textarea id="elm1" name="description"> {{ old('description') ?? $product->description }} </textarea>
 
                                         </div>
                                     </div>

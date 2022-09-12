@@ -7,6 +7,7 @@ use App\Models\ProductImage;
 use App\Models\Specifications;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
@@ -37,7 +38,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
 
 
-        return $products->orderBy('id', 'DESC')->paginate(10);
+        return $products->orderBy('id', 'DESC')->paginate(5);
     }
     public function create($data)
     {
@@ -106,7 +107,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $product->brand_id = $data['brand_id'];
             $product->description = $data['description'];
             $product->created_by = Auth::user()->id;
-            if ($data['image']) {
+            if (!empty($data['image'])) {
                 $file = $data['image'];
                 $filenameWithExt = $file->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -118,7 +119,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $product->save();
             //create specifications
             $specification = new Specifications();
-            // // $specification = Specifications::find($id);
             $specification->cpu = $data['cpu'];
             $specification->ram = $data['ram'];
             $specification->rom = $data['rom'];
@@ -130,9 +130,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             //create product_images
             if ($data['file_names']) {
                 foreach ($data['file_names'] as $file_detail) {
+                    // File::delete($product->file_names()->file_name);
                     $detail_path = 'storage/' . $file_detail->store('/products', 'public');
                     $product->file_names()->saveMany([
                         new ProductImage([
+                            'product_id' => $product->id,
                             'file_name' => $detail_path,
                         ]),
                     ]);
