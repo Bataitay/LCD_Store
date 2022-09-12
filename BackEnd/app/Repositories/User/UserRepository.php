@@ -112,7 +112,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user = $this->model->find($id);
         $user->name = $data['name'];
         $user->gender = $data['gender'];
-        $user->password = bcrypt($data['password']);
         $user->gender = $data['gender'];
         $user->address = $data['address'];
         $user->email = $data['email'];

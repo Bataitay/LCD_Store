@@ -74,6 +74,8 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
         Route::get('user/restore/{id}', 'restore')->name('user.restore');
         Route::delete('user/force_destroy/{id}', 'force_destroy')->name('user.force_destroy');
         Route::post('user/logout', 'logout')->name('user.logout');
+        Route::get('user/changePassword', 'changePassword')->name('user.changePassword');
+        Route::post('user/updatePassword', 'updatePassword')->name('user.updatePassword');
     });
     Route::controller(RoleController::class)->group(function () {
         Route::get('role/index', 'index')->name('role.index');

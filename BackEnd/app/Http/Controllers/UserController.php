@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\District;
 use App\Models\Province;
+use App\Models\User;
 use App\Models\Ward;
 use App\Services\Role\RoleServiceInterface;
 use App\Services\User\UserServiceInterface;
@@ -13,7 +14,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -173,7 +176,7 @@ class UserController extends Controller
         //   dd($file);
         return response()->json(['file' => $file], 200);
     }
-    public function update(UpdateUserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         if (Gate::denies('Edit_Employee', 'Edit_Employee')) {
             abort(403);
@@ -208,7 +211,7 @@ class UserController extends Controller
             abort(403);
         }
         $user = $this->userService->delete($id);
-        if($user->id == 1){
+        if ($user->id == 1) {
             abort(403);
         }
         return response()->json($user);
@@ -251,16 +254,19 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        try {
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboard');
+            } else {
+                Session::flash('message','login failled !!!');
 
-            return redirect()->intended('dashboard');
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            return redirect()->back();
         }
-        $notification = array(
-            'message' => 'The provided credentials do not match our records.',
-            'alert-type' => 'error'
-        );
-        return back()->with($notification);
     }
     public function logout(Request $request)
     {
@@ -274,5 +280,43 @@ class UserController extends Controller
         header("Pragma: no-cache");
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         return redirect()->route('login');
+    }
+    public function changePassword()
+    {
+        return view('back-end.employee.changePassword');
+    }
+    public function updatepassword(Request $request)
+    {
+        $validation = $request->validate([
+            'old_password' => 'required|min:6',
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+        $hashedPassword = Auth::user()->password;
+        try {
+            if (Hash::check($request->old_password, $hashedPassword)) {
+                $users = User::find(Auth::id());
+                $users->password = Hash::make($request->new_password);
+                $users->save();
+                $notification = array(
+                    'message' => 'Change Password successFully.',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('user.index')->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'old password false.',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'Change Password Faill.',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }

@@ -132,26 +132,6 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="form-group">
-                                    <label>Password<noscript></noscript></label>
-                                    <input name="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" id=""
-                                        placeholder="Enter Password" value="{{ old('password') ?? $user->password }}">
-                                    @error('password')
-                                        <div class="text text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label>Confirm Password</label>
-                                    <input name="confirm_password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" id=""
-                                        placeholder="Nhập Confirm Password"
-                                        value="{{ old('confirm_password') ?? $user->password }}">
-                                    @error('password')
-                                        <div class="text text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
                             </div>
 
                             <div class="col-lg-3">

@@ -27,8 +27,6 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|max:255|min:6',
             'phone' => 'required|min:10|max:15',
             'email' => 'required|email',
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password',
             'address' => 'required',
             'province_id' => 'required',
             'district_id' => 'required',

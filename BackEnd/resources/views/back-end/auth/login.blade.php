@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
 </head>
 
 <body>
@@ -24,6 +26,9 @@
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                     <div class="w-full">
                         <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">Login</h1>
+                      @if (Session::has('message'))
+                      <span class="text text-red-400">{{ Session::get('message')}} </span>
+                      @endif
                         <form action="{{ route('user.handelLogin') }}" method="POST">
                             @csrf
                             <label class="block text-sm">
@@ -82,5 +87,25 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script>
+    @if (Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}"
+        switch (type) {
+            case 'info':
+                toastr.info(" {{ Session::get('message') }} ");
+                break;
+            case 'success':
+                toastr.success(" {{ Session::get('message') }} ");
+                break;
+            case 'warning':
+                toastr.warning(" {{ Session::get('message') }} ");
+                break;
+            case 'error':
+                toastr.error(" {{ Session::get('message') }} ");
+                break;
+        }
+    @endif
+</script>
 </html>
