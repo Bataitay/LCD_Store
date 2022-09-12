@@ -16,13 +16,13 @@ class ReviewSeeder extends Seeder
      */
     public function run()
     {
-        for($i=1;$i<=10;$i++){
+        for($i=1;$i<=8;$i++){
         DB::table('reviews')->insert([
             'content' => 'màu sắc, hình ảnh đẹp',
             'vote' => 5,
             'status' => 0,
-            'product_id' =>  DB::table('products')->pluck('id'),
-            'customer_id' =>  DB::table('customers')->pluck('id'),
+            'product_id' =>  mt_rand(1,8),
+            'customer_id' =>  mt_rand(1,5),
         ]);
     }
     }

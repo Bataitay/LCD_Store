@@ -105,7 +105,7 @@
                                                     <a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a>
                                                 </td>
                                                 <td>
-                                                    @if (!$brand->logo)
+                                                    @if (empty($brand->logo))
                                                         <p>not yet update logo</p>
                                                     @else
                                                         <img src="{{ asset($brand->logo) }}" alt=""
