@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('sale_price');
             $table->integer('quantity');
             $table->tinyInteger('status')->default('0')->comment('0=Hide, 1=Show');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('category_id')->constrained('categories');
