@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Api\Product;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Api\BaseRepository;
 use Illuminate\Support\Facades\Log;
@@ -15,13 +16,14 @@ class FeProductRepository extends BaseRepository implements FeProductRepositoryI
     }
     public function getAll()
     {
-       $products = $this->model->all();
+       $products = $this->model->take(18)->get();
        return $products;
     }
     public function find($id){
-        $product = $this->model->find($id);
+        $product = $this->model->with('specification')->with('file_names')->find($id);
         return $product;
     }
+
 
 
 }

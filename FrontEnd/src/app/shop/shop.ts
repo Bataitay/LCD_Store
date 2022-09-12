@@ -6,3 +6,6 @@ export interface Product {
   image:{ url: string};
   description: any;
 }
+export interface Category {
+  name: any;
+}

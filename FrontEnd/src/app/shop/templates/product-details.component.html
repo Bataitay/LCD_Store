@@ -4,14 +4,14 @@
       <div class="row align-items-center">
           <div class="col-lg-6 col-md-6 col-12">
               <div class="breadcrumbs-content">
-                  <h1 class="page-title">Single Product</h1>
+                  <h1 class="page-title">Details Product</h1>
               </div>
           </div>
           <div class="col-lg-6 col-md-6 col-12">
               <ul class="breadcrumb-nav">
-                  <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                  <li><a href="index.html">Shop</a></li>
-                  <li>Single Product</li>
+                  <li><a routerLink="/home"><i class="lni lni-home"></i> Home</a></li>
+                  <li><a [routerLink]="['/product-list']">Shop</a></li>
+                  <li>Details Product</li>
               </ul>
           </div>
       </div>
@@ -30,11 +30,9 @@
                               <img [src]="url+product.image" id="current" alt="#">
                           </div>
                           <div class="images">
-                              <img src="assets/images/product-details/01.jpg" class="img" alt="#">
-                              <img src="assets/images/product-details/02.jpg" class="img" alt="#">
-                              <img src="assets/images/product-details/03.jpg" class="img" alt="#">
-                              <img src="assets/images/product-details/04.jpg" class="img" alt="#">
-                              <img src="assets/images/product-details/05.jpg" class="img" alt="#">
+                            <!-- <ng-container *ngFor="let product.file_names.lenght of file_names; let i =index"> -->
+                              <img [src]="url+product.file_names[0].file_name" class="img" alt="#">
+                            <!-- </ng-container> -->
                           </div>
                       </main>
                   </div>
@@ -47,26 +45,11 @@
                       <h3 class="price">{{ product.price }}<span>{{ product.sale_price }}</span></h3>
                       <div class="row">
                           <div class="col-lg-4 col-md-4 col-12">
-                              <div class="form-group color-option">
-                                  <label class="title-label" for="size"> Color</label>
-                                  <div class="single-checkbox checkbox-style-1">
-                                      <input type="checkbox" id="checkbox-1" checked>
-                                      <label for="checkbox-1"><span></span></label>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-12">
-                              <div class="form-group">
-                                  <label for="color">Battery capacity</label>
-                                  <span></span>
-                              </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-12">
-                              <div class="form-group quantity">
-                                  <label for="color">Quantity</label>
-                                  <span>{{ product.quantity }}</span>
-                              </div>
-                          </div>
+                            <div class="form-group quantity">
+                                <label for="color">Color</label>
+                                <span>{{ product.specification.color }}</span>
+                            </div>
+                        </div>
                       </div>
                       <div class="bottom-content">
                           <div class="row align-items-end">
@@ -97,25 +80,18 @@
                   <div class="col-lg-6 col-12">
                       <div class="info-body custom-responsive-margin">
                           <h4>Details</h4>
-                          <p>{{ product.description}}</p>
+                          <p>{{ product.description }}</p>
                       </div>
                   </div>
                   <div class="col-lg-6 col-12">
                       <div class="info-body">
                           <h4>Specifications</h4>
                           <ul class="normal-list">
-                              <li><span>Weight:</span> 35.5oz (1006g)</li>
-                              <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-                              <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-                              <li><span>Operating Frequency:</span> 2.4GHz</li>
-                              <li><span>Manufacturer:</span> GoPro, USA</li>
-                          </ul>
-                          <h4>Shipping Options:</h4>
-                          <ul class="normal-list">
-                              <li><span>Courier:</span> 2 - 4 days, $22.50</li>
-                              <li><span>Local Shipping:</span> up to one week, $10.00</li>
-                              <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
-                              <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
+                              <li><span>Cpu:</span> {{ product.specification.cpu }} </li>
+                              <li><span>Ram:</span>{{ product.specification.ram }}</li>
+                              <li><span>Rom:</span> {{ product.specification.rom }}</li>
+                              <li><span>Display:</span>{{ product.specification.display }}</li>
+                              <li><span>Battery:</span> {{ product.specification.battery }}</li>
                           </ul>
                       </div>
                   </div>
@@ -180,7 +156,7 @@
                           <h4 class="title">Latest Reviews</h4>
 
                           <div class="single-review">
-                              <img src="assets/images/blog/comment1.jpg" alt="#">
+                              <img src="" alt="#">
                               <div class="review-info">
                                   <h4>Awesome quality for the price
                                       <span>Jacob Hammond
@@ -200,7 +176,7 @@
 
 
                           <div class="single-review">
-                              <img src="assets/images/blog/comment2.jpg" alt="#">
+                              <img src="" alt="#">
                               <div class="review-info">
                                   <h4>My husband love his new...
                                       <span>Alex Jaza
@@ -220,7 +196,7 @@
 
 
                           <div class="single-review">
-                              <img src="assets/images/blog/comment3.jpg" alt="#">
+                              <img src="" alt="#">
                               <div class="review-info">
                                   <h4>I love the built quality...
                                       <span>Jacob Hammond

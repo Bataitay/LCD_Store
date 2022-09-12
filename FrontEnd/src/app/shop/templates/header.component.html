@@ -183,31 +183,9 @@
                   <div class="mega-category-menu">
                       <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
                       <ul class="sub-category">
-                          <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
-                              <ul class="inner-sub-category">
-                                  <li><a href="product-grids.html">Digital Cameras</a></li>
-                                  <li><a href="product-grids.html">Camcorders</a></li>
-                                  <li><a href="product-grids.html">Camera Drones</a></li>
-                                  <li><a href="product-grids.html">Smart Watches</a></li>
-                                  <li><a href="product-grids.html">Headphones</a></li>
-                                  <li><a href="product-grids.html">MP3 Players</a></li>
-                                  <li><a href="product-grids.html">Microphones</a></li>
-                                  <li><a href="product-grids.html">Chargers</a></li>
-                                  <li><a href="product-grids.html">Batteries</a></li>
-                                  <li><a href="product-grids.html">Cables & Adapters</a></li>
-                              </ul>
-                          </li>
-                          <li><a href="product-grids.html">accessories</a></li>
-                          <li><a href="product-grids.html">Televisions</a></li>
-                          <li><a href="product-grids.html">best selling</a></li>
-                          <li><a href="product-grids.html">top 100 offer</a></li>
-                          <li><a href="product-grids.html">sunglass</a></li>
-                          <li><a href="product-grids.html">watch</a></li>
-                          <li><a href="product-grids.html">man’s product</a></li>
-                          <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                          <li><a href="product-grids.html">Computers & Tablets </a></li>
-                          <li><a href="product-grids.html">Video Games </a></li>
-                          <li><a href="product-grids.html">Home Appliances </a></li>
+                        <ng-container *ngFor="let category of categories ">
+                          <li><a href="product-grids.html">{{ category.name }}</a></li>
+                        </ng-container>
                       </ul>
                   </div>
 
@@ -226,17 +204,7 @@
                                   <a [routerLink]="['home']" class="active" aria-label="Toggle navigation">Home</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                      data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
-                                      aria-expanded="false" aria-label="Toggle navigation">Pages</a>
-                                  <ul class="sub-menu collapse" id="submenu-1-2">
-                                      <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                      <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                      <li class="nav-item"><a href="login.html">Login</a></li>
-                                      <li class="nav-item"><a href="register.html">Register</a></li>
-                                      <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                      <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                  </ul>
+                                  <a  [routerLink]="['product-list']" class="active" aria-label="Toggle navigation">Shop</a>
                               </li>
                               <li class="nav-item">
                                   <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
