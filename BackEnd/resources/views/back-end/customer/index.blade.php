@@ -44,10 +44,10 @@
                             <div class="col-md-12 d-flex">
                                 <div class="md-3 title_cate">
                                     @can('Add_Customer', 'Add_Customer')
-                                        <a href="{{ route('customer.create') }}"
+                                        {{-- <a href="{{ route('customer.create') }}"
                                             class="btn btn-secondary btn-rounded waves-effect waves-light ">
                                             <i class="mdi mdi-plus-circle addeventmore "></i>
-                                            Add Customer</a>
+                                            Add Customer</a> --}}
                                     @endcan
                                 </div>
                                 <div class="md-3 title_cate">
