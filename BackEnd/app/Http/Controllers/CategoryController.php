@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Services\Category\CategoryServiceInterface;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -153,7 +155,16 @@ class CategoryController extends Controller
         if (Gate::denies('Delete_Category', 'Delete_Category')) {
             abort(403);
         }
-        $category = $this->categoryService->force_destroy( $id);
-        return response()->json($category);
+        try {
+            $category = $this->categoryService->force_destroy( $id);
+            return response()->json($category);
+        } catch (Exception $e) {
+            Log::error('errors' . $e->getMessage() . ' getLine' . $e->getLine());
+            $notification = array(
+                'message' => 'No delete because in category have Product',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('category.getTrashed')->with($notification);
+        }
     }
 }
