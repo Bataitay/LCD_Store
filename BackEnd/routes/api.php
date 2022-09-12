@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\FeProductController;
+use App\Http\Controllers\Api\ReviewApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('getProduct',[FeProductController::class,'getAll']);
+
+//review
+Route::apiResource('review',ReviewApiController::class);
+
