@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Api\Product\FeProductRepository;
+use App\Repositories\Api\Product\FeProductRepositoryInterface;
 use App\Repositories\Banner\BannerRepository;
 use App\Repositories\Banner\BannerRepositoryInterface;
 use App\Repositories\Brand\BrandRepository;
@@ -26,6 +28,8 @@ use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
+use App\Services\Api\Product\FeProductService;
+use App\Services\Api\Product\FeProductServiceInterface;
 use App\Services\Banner\BannerService;
 use App\Services\Banner\BannerServiceInterface;
 use App\Services\Order\OrderService;
@@ -61,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
             // register User
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
-            // register User
+            // register product
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(ProductServiceInterface::class, ProductService::class);
         // register brand
@@ -83,7 +87,10 @@ class AppServiceProvider extends ServiceProvider
         //Customer
         $this->app->singleton(CustomerRepositoryInterface::class, CustomerRepository::class);
         $this->app->singleton(CustomerServiceInterface::class, CustomerService::class);
-
+        //FrontEnd
+    // register Feproduct
+    $this->app->bind(FeProductRepositoryInterface::class, FeProductRepository::class);
+    $this->app->bind(FeProductServiceInterface::class, FeProductService::class);
     }
 
     /**
