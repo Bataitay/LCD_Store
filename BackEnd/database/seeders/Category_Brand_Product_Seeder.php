@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Specifications;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -176,6 +177,87 @@ class Category_Brand_Product_Seeder extends Seeder
             'created_by' => '4',
             'image' => '1',
 
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '1',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '1',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '2',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '3',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '4',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '5',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '6',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '7',
+        ]);
+        $specifications = Specifications::create([
+            'cpu' => 'Apple M2100GB/s',
+            'ram' => '8 GB',
+            'rom' => '256 GB SSD',
+            'display' => '13.3"Retina (2560 x 1600)',
+            'battery' => 'Khoảng 10 tiếng',
+            'color' => 'gray',
+            'product_id' => '8',
         ]);
 
     }
