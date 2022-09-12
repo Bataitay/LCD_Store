@@ -119,7 +119,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->province_id = $data['province_id'];
         $user->district_id = $data['district_id'];
         $user->ward_id = $data['ward_id'];
-        $user->avatar = $data['file'];
+        if($data['file']){
+            $user->avatar = $data['file'];
+        }
         if($id != 1){
             $user->roles()->sync($data->roles_id);
         }
