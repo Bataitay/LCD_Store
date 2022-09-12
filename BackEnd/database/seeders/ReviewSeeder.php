@@ -18,7 +18,7 @@ class ReviewSeeder extends Seeder
     {
         for($i=1;$i<=10;$i++){
         DB::table('reviews')->insert([
-            'content' => Str::random(100),
+            'content' => 'màu sắc, hình ảnh đẹp',
             'vote' => 5,
             'status' => 0,
             'product_id' =>  DB::table('products')->pluck('id'),
