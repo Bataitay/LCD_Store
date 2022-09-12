@@ -92,15 +92,15 @@
                         <span>Customers</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="auth-login.html">Login</a></li>
+                        {{-- <li><a href="auth-login.html">Login</a></li> --}}
                         <li>
                             @can('List_Customer', 'List_Customer')
-                            <a href="{{route('customer.index')}}">List</a>
+                            <a href="{{route('customer.index')}}">List Customer</a>
                             @endcan
                         </li>
-                        <li><a href="auth-register.html">Register</a></li>
+                        {{-- <li><a href="auth-register.html">Register</a></li>
                         <li><a href="auth-recoverpw.html">Recover Password</a></li>
-                        <li><a href="auth-lock-screen.html">Lock Screen</a></li>
+                        <li><a href="auth-lock-screen.html">Lock Screen</a></li> --}}
                     </ul>
                 </li>
 
