@@ -13,14 +13,8 @@
                                     <div class="form-group col-sm-10">
                                         <input name="name" class="form-control @error('name') is-invalid @enderror" type="text"
                                             value="{{ old('name') }}">
-<<<<<<< HEAD
-
-                                        @error('name')
-                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
-=======
                                             @error('name')
                                             <div class="text text-danger">{{ $message }}</div>
->>>>>>> Feature-Order
                                         @enderror
                                         <br><br>
                                         <a class="btn btn-danger waves-effect waves-light"
