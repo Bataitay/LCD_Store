@@ -30,8 +30,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('login', 'login')->name('login');
     Route::post('user/handelLogin', 'handelLogin')->name('user.handelLogin');
 });
-Route::middleware(['auth'])->group(function () {
-
+Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::get('/dashboard',DashBoardServer::class)->name('dashboard');
 
     Route::controller(CategoryController::class)->group(function () {
