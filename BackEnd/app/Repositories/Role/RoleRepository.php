@@ -5,6 +5,8 @@ use App\Models\PermissionRole;
 use App\Models\Role;
 use App\Models\UserRole;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Log;
+use PhpParser\Node\Stmt\TryCatch;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
     function getModel(){
@@ -34,6 +36,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
         $role = $this->find($id);
         // $role->permissions()->detach();
         PermissionRole::where('role_id', '=', $id)->delete();
+        UserRole::where('role_id', '=', $id)->delete();
         $role->delete();
     }
     public function getTrashed()
@@ -48,14 +51,19 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
         $role = $this->model->withTrashed()->findOrFail($id);
         $role->restore();
         PermissionRole::where('role_id', '=', $id)->withTrashed()->restore();
+        UserRole::where('role_id', '=', $id)->withTrashed()->restore();
         return $role;
     }
     public function force_destroy($id)
     {
-        UserRole::where('role_id', '=', $id)->onlyTrashed()->forceDelete();
-        PermissionRole::where('role_id', '=', $id)->onlyTrashed()->forceDelete();
-        $role = $this->model->onlyTrashed()->findOrFail($id);
-        $role->forceDelete();
-        return $role;
+        try{
+            UserRole::where('role_id', '=', $id)->onlyTrashed()->forceDelete();
+            PermissionRole::where('role_id', '=', $id)->onlyTrashed()->forceDelete();
+            $role = $this->model->onlyTrashed()->findOrFail($id);
+            $role->forceDelete();
+            return $role;
+        }catch(\Exception $e){
+            Log::error('error: ' . $e->getMessage() . 'line: ' . $e->getLine(). 'file: ' . $e->getFile());
+        }
     }
 }
