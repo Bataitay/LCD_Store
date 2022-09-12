@@ -54,18 +54,22 @@ class Category_Brand_Product_Seeder extends Seeder
         $macbook = Brand::create([
             'id' => 1,
             'name' => 'MacBook ',
+            'logo' => 'MacBook ',
         ]);
         $asus = Brand::create([
             'id' => 2,
             'name' => 'Asus',
+            'logo' => 'MacBook ',
         ]);
         $dell = Brand::create([
             'id' => 3,
             'name' => 'Dell',
+            'logo' => 'MacBook ',
         ]);
         $acer = Brand::create([
             'id' => 4,
             'name' => 'Acer',
+            'logo' => 'MacBook ',
         ]);
 
         //products
@@ -173,6 +177,6 @@ class Category_Brand_Product_Seeder extends Seeder
             'image' => '1',
 
         ]);
-        
+
     }
 }
