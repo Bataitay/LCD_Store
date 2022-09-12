@@ -4,6 +4,7 @@
     <style>
         .image_photo {
             height: 50px;
+            width: 200px;
         }
 
         .title_cate {
@@ -51,37 +52,33 @@
                                     <h2 for="example-text-input" class="form-label">Brand Management</h2>
                                 </div>
                             </div>
+
                             <div class="col-md-12 d-flex">
-                                <div class="md-3 title_cate">
-                                    @can('Add_Brand', 'Add_Brand')
+                                @can('Add_Brand', 'Add_Brand')
+                                    <div class="md-3 title_cate">
                                         <a href="{{ route('brand.create') }}"
                                             class="btn btn-secondary btn-rounded waves-effect waves-light ">
                                             <i class="mdi mdi-plus-circle addeventmore "></i>
                                             Add Brand</a>
-                                    @endcan
+                                    </div>
+                                @endcan
+                                <div class="md-3 title_cate">
+                                    <a href="{{ route('brand.trash') }}"
+                                        class="btn btn-danger btn-rounded waves-effect waves-light ">
+                                        <i class=" fas fa-trash-alt"></i>
+                                        Trash</a>
                                 </div>
                                 <div class="md-3 title_cate d-flex">
-                                    <form action="{{ route('brand.search') }}">
-
-                                        <div class="form-outline">
-                                            <div class="form-group">
-                                                <input class="form-control" id="keyword" type="text"
+                                    <div class="form-outline">
+                                        <form action="{{ route('brand.search') }}">
+                                            <input class="form-control" id="keyword" type="text"
                                                     placeholder="Search" aria-label="Search" name="keySearch">
-                                            </div>
-
-                                        </div>
-                                        <button type="submit"
-                                            class="btn btn-primary  waves-effect waves-light searchBrand">
-                                            <i class="fas fa-search"></i>
-                                        </button>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary  waves-effect waves-light ">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="md-3 title_cate">
-                                <a href="{{ route('brand.trash') }}"
-                                    class="btn btn-danger btn-rounded waves-effect waves-light ">
-                                    <i class=" fas fa-trash-alt"></i>
-                                    Trash</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -107,11 +104,13 @@
                                                 <td>
                                                     <a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a>
                                                 </td>
-                                                <td> @empty($brand->logo)
+                                                <td>
+                                                    @if (!$brand->logo)
                                                         <p>not yet update logo</p>
-                                                    @endempty
-                                                    <img src="{{ asset($brand->logo) }}" alt="" class="image_photo">
-
+                                                    @else
+                                                        <img src="{{ asset($brand->logo) }}" alt=""
+                                                            class="image_photo">
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     @can('Show_Brand', 'Show_Brand')

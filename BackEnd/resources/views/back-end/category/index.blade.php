@@ -9,7 +9,7 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 <div class="md-3">
-                                    <h2 for="example-text-input" class="form-label"> Categories Management </h2>
+                                    <h3 for="example-text-input" class="form-label"> Categories Management </h3>
                                 </div>
                             </div>
                             <div class="col-md-8">

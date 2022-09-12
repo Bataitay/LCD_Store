@@ -27,8 +27,9 @@ class RoleSeeder extends Seeder
             array_push($childPermissions_id, $childPermission->id);
         }
         $role = Role::create([
-            'name' => 'Super Admin',
+            'name' => 'SuperAdmin',
         ]);
+        $role->permissions()->attach($childPermissions_id);
         $role = Role::create([
             'name' => 'Writer',
         ]);
@@ -38,6 +39,5 @@ class RoleSeeder extends Seeder
         $role = Role::create([
             'name' => 'Admin',
         ]);
-        $role->permissions()->attach($childPermissions_id);
     }
 }

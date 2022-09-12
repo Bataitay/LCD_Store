@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -26,9 +25,9 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-        // if (Gate::denies('List_Product', 'List_Product')) {
-        //     abort(403);
-        // }
+        if (Gate::denies('List_Product', 'List_Product')) {
+            abort(403);
+        }
         $products = $this->productService->all($request);
         $categories = Category::all();
         $params = [
@@ -46,9 +45,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // if (Gate::denies('Add_Product', 'Add_Product')) {
-        //     abort(403);
-        // }
+        if (Gate::denies('Add_Product', 'Add_Product')) {
+            abort(403);
+        }
         $categories = Category::get();
         $brands = Brand::get();
         $params = [
@@ -67,15 +66,9 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-<<<<<<< HEAD:app/Http/Controllers/ProductController.php
-        // if (Gate::denies('Add_Product', 'Add_Product')) {
-        //     abort(403);
-        // }
-=======
         if (Gate::denies('Add_Product', 'Add_Product')) {
             abort(403);
         }
->>>>>>> 4176e5250976e45f4d8bb5d8af0645dd5f7e7356:BackEnd/app/Http/Controllers/ProductController.php
         try {
             $data = $request->all();
             // dd($data);
@@ -93,12 +86,7 @@ class ProductController extends Controller
             );
             return redirect()->back()->with($notification);
         }
-<<<<<<< HEAD:app/Http/Controllers/ProductController.php
-
 }
-=======
-    }
->>>>>>> 4176e5250976e45f4d8bb5d8af0645dd5f7e7356:BackEnd/app/Http/Controllers/ProductController.php
 
     /**
      * Display the specified resource.
@@ -152,7 +140,6 @@ class ProductController extends Controller
         }
         try {
             $data = $request->all();
-            // dd($data);
             $this->productService->update($id, $data);
             $notification = array(
                 'message' => 'Edited product successfully',

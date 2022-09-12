@@ -28,7 +28,13 @@
                         <div class="flex-grow-1">
                             <p class="text-truncate font-size-14 mb-2">Total Sales</p>
                             <h4 class="mb-2">{{ $totalSales }}</h4>
-                            <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                            <p class="text-muted mb-0">
+                                <span class="text-success fw-bold font-size-12 me-2">
+                                <i class="ri-arrow-right-up-line me-1 align-middle"></i>
+                                9.23%
+                                </span>
+                                from previous period
+                            </p>
                         </div>
                         <div class="avatar-sm">
                             <span class="avatar-title bg-light text-primary rounded-3">
@@ -45,7 +51,7 @@
                     <div class="d-flex">
                         <div class="flex-grow-1">
                             <p class="text-truncate font-size-14 mb-2">New Orders</p>
-                            <h4 class="mb-2">{{ $totalOrders}}</h4>
+                            <h4 class="mb-2">{{ $totalOrders }}</h4>
                             <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>from previous period</p>
                         </div>
                         <div class="avatar-sm">
@@ -203,6 +209,7 @@
     <!-- end row -->
 
     <div class="row">
+        <h5 class="mb-sm-0">Top 10 best selling products </h5> <br><br>
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-body">
@@ -218,14 +225,16 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Name</th>
-                                    <th>Position</th>
+                                    <th>Revenue</th>
                                 </tr>
                             </thead><!-- end thead -->
                             <tbody>
+                                @foreach ($byRevenues as $byRevenue)
                                 <tr>
-                                    <td><h6 class="mb-0">Charles Casey</h6></td>
-                                    <td>Web Developer</td>
+                                    <td>{{ $byRevenue->name }}</td>
+                                    <td>{{ $byRevenue->totalbyRevenue }}</td>
                                 </tr>
+                                @endforeach
                             </tbody><!-- end tbody -->
                         </table> <!-- end table -->
                     </div>
@@ -247,14 +256,16 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Name</th>
-                                    <th>Position</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead><!-- end thead -->
                             <tbody>
+                                @foreach ($byQuabtitys as $byQuabtity)
                                 <tr>
-                                    <td><h6 class="mb-0">Charles Casey</h6></td>
-                                    <td>Web Developer</td>
+                                    <td>{{ $byQuabtity->name}}</td>
+                                    <td>{{ $byQuabtity->totalByQuan}}</td>
                                 </tr>
+                                @endforeach
                             </tbody><!-- end tbody -->
                         </table> <!-- end table -->
                     </div>
@@ -275,28 +286,23 @@
                     </div>
                     <h4 class="card-title mb-4">Monthly Earnings</h4>
 
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="text-center mt-4">
-                                <h5>3475</h5>
-                                <p class="mb-2 text-truncate">Market Place</p>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                        <div class="col-4">
-                            <div class="text-center mt-4">
-                                <h5>458</h5>
-                                <p class="mb-2 text-truncate">Last Week</p>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                        <div class="col-4">
-                            <div class="text-center mt-4">
-                                <h5>9062</h5>
-                                <p class="mb-2 text-truncate">Last Month</p>
-                            </div>
-                        </div>
-                        <!-- end col -->
+                    <div class="table-responsive">
+                        <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th> Revenue Total</th>
+                                </tr>
+                            </thead><!-- end thead -->
+                            <tbody>
+                                @foreach ($customerByingSellings as $customerByingSelling)
+                                <tr>
+                                    <td>{{ $customerByingSelling->name}}</td>
+                                    <td>{{ $customerByingSelling->cusByingSelling}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody><!-- end tbody -->
+                        </table> <!-- end table -->
                     </div>
                     <!-- end row -->
 

@@ -57,27 +57,27 @@
                             <tbody>
                                 <tr>
                                     <td>Cpu</td>
-                                    <td>{{ $product->specification->cpu }}</td>
+                                    <td>{{ $product->specification->cpu ?? ''}}</td>
                                 </tr>
                                 <tr>
                                     <td>Ram</td>
-                                    <td>{{ $product->specification->ram }}</td>
+                                    <td>{{ $product->specification->ram ?? ''}}</td>
                                 </tr>
                                 <tr>
                                     <td>Rom</td>
-                                    <td>{{ $product->specification->rom }}</td>
+                                    <td>{{ $product->specification->rom ?? ''}}</td>
                                 </tr>
                                 <tr>
                                     <td>Color</td>
-                                    <td>{{ $product->specification->color }}</td>
+                                    <td>{{ $product->specification->color ?? ''}}</td>
                                 </tr>
                                 <tr>
                                     <td>Display</td>
-                                    <td>{{ $product->specification->display }}</td>
+                                    <td>{{ $product->specification->display ?? ''}}</td>
                                 </tr>
                                 <tr>
                                     <td>Battery</td>
-                                    <td>{{ $product->specification->battery }}</td>
+                                    <td>{{ $product->specification->battery ?? ''}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -98,7 +98,7 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="description" role="tabpanel"
                         aria-labelledby="description-tab">
-                        {{ $product->description }}
+                        {!! $product->description !!}
                     </div>
                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                         <div class="review-heading">REVIEWS</div>

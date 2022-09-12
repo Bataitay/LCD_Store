@@ -76,7 +76,7 @@
                             </table>
                             <div class="row">
                                 <div class="col-7">
-                                    Hiển thị {{ $categories->perPage() }} - {{ $categories->currentPage() }} của
+                                    Show {{ $categories->perPage() }} - {{ $categories->currentPage() }} of
                                     {{ $categories->lastPage() }}
                                 </div>
                                 <div class="col-5">

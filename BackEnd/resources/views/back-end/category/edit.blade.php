@@ -14,8 +14,8 @@
                                     <div class="form-group col-sm-10">
                                         <input name="name" class="form-control @error('name') is-invalid @enderror" type="text"
                                             value="{{ $category->name }}">
-                                        @error('name')
-                                            <div class="text text-danger"><i class=" ri-spam-2-line"></i></div>
+                                            @error('name')
+                                            <div class="text text-danger">{{ $message }}</div>
                                         @enderror
                                         <br><br>
                                         <a class="btn btn-danger waves-effect waves-light"
