@@ -25,5 +25,16 @@ export class ShopService {
   trendingProductSer():Observable<Category[]> {
     return this.http.get<Category[]>(environment.urlTrendingPro);
   }
-
+  addToCart(id: number){
+    return this.http.get('http://127.0.0.1:8000/api/add-to-cart/'+id);
+  }
+  getAllCart(){
+    return this.http.get('http://127.0.0.1:8000/api/list-cart');
+  }
+  updateQuantity(id: any, quantity: any){
+    return this.http.get('http://127.0.0.1:8000/api/update-cart/'+id+'/'+quantity);
+  }
+  deleteCart(id: any){
+    return this.http.get('http://127.0.0.1:8000/api/remove-to-cart/'+id);
+  }
 }
