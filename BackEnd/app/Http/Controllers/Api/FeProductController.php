@@ -32,8 +32,5 @@ class FeProductController extends Controller
         $products = $this->FeproductService->trendingProduct();
         return response()->json($products, 200);
     }
-    public function review(Request $request){
-        $review = $this->FeproductService->review($request);
-        return response()->json($review, 200);
-    }
+
 }
