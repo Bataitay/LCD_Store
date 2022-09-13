@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\FeProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('product_list',[FeProductController::class,'product_list']);
-Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
-Route::get('category_list',[FeProductController::class,'category_list']);
+Route::get('getProduct',[FeProductController::class,'getAll']);
+Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
+Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
