@@ -12,6 +12,7 @@ class ReviewApiController extends Controller
 {
     public function __construct(ReviewServiceInterface $reviewService)
     {
+        $this->middleware('auth:api');
         $this->reviewService = $reviewService;
     }
     public function index(Request $request)
