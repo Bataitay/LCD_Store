@@ -126,7 +126,7 @@
                               <div class="shopping-item">
                                   <div class="dropdown-cart-header">
                                       <span>2 Items</span>
-                                      <a href="cart.html">View Cart</a>
+                                      <a [routerLink]="['/cart']" >View Cart</a>
                                   </div>
                                   <ul class="shopping-list">
                                       <li>
@@ -161,7 +161,7 @@
                                           <span class="total-amount">$134.00</span>
                                       </div>
                                       <div class="button">
-                                          <a [routerLink]="['/cart']" class="btn animate">Checkout</a>
+                                          <a [routerLink]="['/checkout']" class="btn animate">Checkout</a>
                                       </div>
                                   </div>
                               </div>
