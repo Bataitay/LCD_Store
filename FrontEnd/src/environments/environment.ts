@@ -9,6 +9,8 @@ export const environment = {
   urlIdProduct : 'http://127.0.0.1:8000/api/product_detail',
   urlAllCategories : 'http://127.0.0.1:8000/api/category_list',
   urlTrendingPro : 'http://127.0.0.1:8000/api/trendingProduct',
+  urlReview : 'http://127.0.0.1:8000/api/review',
+  urlRegister : 'http://127.0.0.1:8000/api/register',
 
 };
 

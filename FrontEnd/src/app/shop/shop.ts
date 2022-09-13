@@ -9,3 +9,14 @@ export interface Product {
 export interface Category {
   name: any;
 }
+export interface Review {
+  content: any;
+  vote: any;
+  customer_id: any;
+  product_id:any
+}
+export interface Register {
+  email:any;
+  password: any;
+  password_confirmation: any;
+}
