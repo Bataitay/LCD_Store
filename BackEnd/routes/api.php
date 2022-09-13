@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FeProductController;
 use App\Http\Controllers\Api\ReviewApiController;
 use Illuminate\Http\Request;
@@ -19,13 +20,27 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group([
+    'middleware' => 'api',
 
 
-Route::get('product_list',[FeProductController::class,'product_list']);
-Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
-Route::get('category_list',[FeProductController::class,'category_list']);
-Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);
-//review
-Route::apiResource('review',ReviewApiController::class);
+], function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    Route::post('/change-pass', [AuthController::class, 'changePassWord']);
+    Route::get('product_list',[FeProductController::class,'product_list']);
+    Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
+    Route::get('category_list',[FeProductController::class,'category_list']);
+    Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);
+
+    Route::get('getProduct',[FeProductController::class,'getAll']);
+
+    //review
+    Route::apiResource('review',ReviewApiController::class);
+});
+
 
 
