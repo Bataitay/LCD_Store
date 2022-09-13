@@ -13,9 +13,8 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.shopService.category_list().subscribe(res => {
+    this.shopService.category_listSer().subscribe(res => {
       this.categories = res;
-      console.log(this.categories);
     });
   }
 }

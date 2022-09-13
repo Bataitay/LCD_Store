@@ -17,13 +17,12 @@ export class ProdutListComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getAllPro();
+    this.product_list();
   }
 
-  public getAllPro(){
-    this.shopService.product_list().subscribe(res => {
+  public product_list(){
+    this.shopService.product_listSer().subscribe(res => {
       this.products = res;
-      // console.log(this.url+res[8]['image']);
     })
   }
 

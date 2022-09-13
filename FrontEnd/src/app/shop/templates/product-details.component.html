@@ -30,9 +30,9 @@
                               <img [src]="url+product.image" id="current" alt="#">
                           </div>
                           <div class="images">
-                            <!-- <ng-container *ngFor="let product.file_names.lenght of file_names; let i =index"> -->
-                              <img [src]="url+product.file_names[0].file_name" class="img" alt="#">
-                            <!-- </ng-container> -->
+                            <ng-container *ngFor="let file_names of product.file_names; let i =index">
+                              <img [src]="url+product.file_names[i].file_name" class="img" alt="#">
+                            </ng-container>
                           </div>
                       </main>
                   </div>
@@ -42,7 +42,7 @@
                       <h2 class="title">{{ product.name }}</h2>
                       <p class="category"><i class="lni lni-tag"></i> Drones:<a href="javascript:void(0)">Action
                               cameras</a></p>
-                      <h3 class="price">{{ product.price }}<span>{{ product.sale_price }}</span></h3>
+                      <h3 class="price">{{ product.price | currency }}<span>{{ product.sale_price| currency }}</span></h3>
                       <div class="row">
                           <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group quantity">

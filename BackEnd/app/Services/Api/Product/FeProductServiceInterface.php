@@ -6,4 +6,5 @@ interface FeProductServiceInterface
 {
     public function getAll();
     public function find($id);
+    public function trendingProduct();
 }

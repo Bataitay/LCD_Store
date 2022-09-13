@@ -28,4 +28,8 @@ class FeProductController extends Controller
         $categories = Category::take(10)->get();
         return response()->json($categories, 200);
     }
+    public function trendingProduct(){
+        $products = $this->FeproductService->trendingProduct();
+        return response()->json($products, 200);
+    }
 }

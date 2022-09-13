@@ -5,9 +5,10 @@
 export const environment = {
   production: false,
   url:'http://127.0.0.1:8000/',
-  getAllProducts : 'http://127.0.0.1:8000/api/product_list',
-  getIdProduct : 'http://127.0.0.1:8000/api/product_detail',
-  getAllCategories : 'http://127.0.0.1:8000/api/category_list',
+  urlAllProducts : 'http://127.0.0.1:8000/api/product_list',
+  urlIdProduct : 'http://127.0.0.1:8000/api/product_detail',
+  urlAllCategories : 'http://127.0.0.1:8000/api/category_list',
+  urlTrendingPro : 'http://127.0.0.1:8000/api/trendingProduct',
 
 };
 

@@ -13,14 +13,17 @@ export class ShopService {
 
    }
 
-  product_list():Observable<Product[]> {
-    return this.http.get<Product[]>(environment.getAllProducts);
+  product_listSer():Observable<Product[]> {
+    return this.http.get<Product[]>(environment.urlAllProducts);
   }
-  product_detail(id:any):Observable<Product[]> {
-    return this.http.get<Product[]>(environment.getIdProduct+'/'+id);
+  product_detailSer(id:any):Observable<Product[]> {
+    return this.http.get<Product[]>(environment.urlIdProduct+'/'+id);
   }
-  category_list():Observable<Category[]> {
-    return this.http.get<Category[]>(environment.getAllCategories);
+  category_listSer():Observable<Category[]> {
+    return this.http.get<Category[]>(environment.urlAllCategories);
+  }
+  trendingProductSer():Observable<Category[]> {
+    return this.http.get<Category[]>(environment.urlTrendingPro);
   }
 
 }
