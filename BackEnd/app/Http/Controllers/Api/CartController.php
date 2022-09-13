@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class CartController extends Controller {
+    function getAllCart(){
+        $carts = Cache::get('carts');
+        $carts = array_values($carts);
+        return response()->json($carts);
+    }
     function addToCart($id){
         $product = Product::find($id);
         $carts = Cache::get('carts');
@@ -16,20 +21,25 @@ class CartController extends Controller {
             $carts[$id]['price'] = $product->sale_price ?? $product->price;
         }else{
             $carts[$id] = [
+                'id' => $id,
                 'quantity' => 1,
                 'name' => $product->name,
                 'price' => $product->sale_price ?? $product->price,
             ];
         }
         Cache::put('carts', $carts);
-        echo "<pre>";
-        print_r($carts);
     }
     function removeToCart($id){
         $carts = Cache::get('carts');
         unset($carts[$id]);
         Cache::put('carts', $carts);
-        echo "<pre>";
-        print_r($carts);
+    }
+    function removeAllCart(){
+        Cache::forget('carts');
+    }
+    function updateCart($id, $quantity){
+        $carts = Cache::get('carts');
+        $carts[$id]['quantity'] = $quantity;
+        Cache::put('carts', $carts);
     }
 }
