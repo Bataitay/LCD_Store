@@ -134,7 +134,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
         if (Gate::denies('Edit_Product', 'Edit_Product')) {
             abort(403);

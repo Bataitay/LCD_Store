@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { ShopService } from '../shop.service';
 
 @Component({
@@ -8,19 +9,21 @@ import { ShopService } from '../shop.service';
 })
 export class ProdutListComponent implements OnInit {
 
-  products: any[] =[]
+  products: any[] =[];
+  url: string = environment.url;
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
-    private _Router: Router) { }
+    private _Router: Router,
+    ) { }
 
   ngOnInit(): void {
     this.getAllPro();
   }
 
   public getAllPro(){
-    this.shopService.getAllPro().subscribe(res => {
+    this.shopService.product_list().subscribe(res => {
       this.products = res;
-      console.log(this.products);
+      // console.log(this.url+res[8]['image']);
     })
   }
 

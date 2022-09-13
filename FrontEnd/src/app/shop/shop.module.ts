@@ -9,13 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import { ProductDetailsComponent } from './components/product-details.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     CartComponent,
     CheckoutComponent,
-    ProdutListComponent
+    ProdutListComponent,
+    ProductDetailsComponent
   ],
   imports: [
     CommonModule,
