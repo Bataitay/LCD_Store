@@ -24,5 +24,8 @@ class FeProductService extends BaseService implements FeProductServiceInterface 
     {
         return $this->repository->trendingProduct();
     }
+    public function review($data){
+        return $this->repository->review($data);
+    }
 
 }

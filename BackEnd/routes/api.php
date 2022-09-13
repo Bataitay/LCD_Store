@@ -23,3 +23,4 @@ Route::get('product_list',[FeProductController::class,'product_list']);
 Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
 Route::get('category_list',[FeProductController::class,'category_list']);
 Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);
+Route::post('review',[FeProductController::class,'review']);
