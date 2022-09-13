@@ -52,10 +52,10 @@ class AuthController extends Controller
      */
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
+
             'email' => 'required|string|email|max:100|unique:customers',
             'password' => 'required|string|confirmed|min:6',
-           
+
         ]);
 
         if($validator->fails()){
@@ -68,6 +68,7 @@ class AuthController extends Controller
         $customer = $this->customerService->create($data);
 
         return response()->json([
+            'status' => true,
             'message' => 'User successfully registered',
             'customer' => $customer
         ], 201);
