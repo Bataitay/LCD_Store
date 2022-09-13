@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FeProductController;
 use App\Http\Controllers\Api\ReviewApiController;
+use App\Http\Controllers\Api\SocialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
