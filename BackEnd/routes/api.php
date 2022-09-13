@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\FeProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,5 @@ Route::get('product_list',[FeProductController::class,'product_list']);
 Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
 Route::get('category_list',[FeProductController::class,'category_list']);
 Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);
+Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
+Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
