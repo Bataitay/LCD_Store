@@ -25,6 +25,7 @@ class CartController extends Controller {
                 'quantity' => 1,
                 'name' => $product->name,
                 'price' => $product->sale_price ?? $product->price,
+                'image' => $product->image,
             ];
         }
         Cache::put('carts', $carts);
