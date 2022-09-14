@@ -11,7 +11,7 @@ import jwt_decode from 'jwt-decode';
 export class HeaderComponent implements OnInit {
   categories: any[] = []
   currentUser :any;
-  token:any;
+  token: any;
   userData:any;
   constructor(private shopService: ShopService,
     private authService: AuthService,
@@ -19,19 +19,20 @@ export class HeaderComponent implements OnInit {
   ) {
     this.authService.user.subscribe(user => {
       this.currentUser = user
-      this.currentUser = this.currentUser.email
-    }
-      );
+      this.currentUser = this.currentUser.email;
+    });
   }
 
   ngOnInit(): void {
     this.shopService.category_listSer().subscribe(res => {
       this.categories = res;
     });
-    this.token = localStorage.getItem('token');
-    this.userData = jwt_decode(this.token);
+    this.token = localStorage.getItem('currentUser') ;
+
   }
   logout(){
     this.authService.logout();
+    this.token = true;
   }
+
 }

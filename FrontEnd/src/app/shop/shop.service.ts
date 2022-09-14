@@ -36,6 +36,8 @@ export class ShopService {
   registerSer(register: Register): Observable<Register[]> {
     return this.http.post<Register[]>(environment.urlRegister, register);
   }
-
+  getbaner(){
+    return this.http.get(environment.urlBaner);
+  }
 
 }

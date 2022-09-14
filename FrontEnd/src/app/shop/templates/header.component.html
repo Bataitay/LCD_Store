@@ -40,7 +40,6 @@
                           <li><a href="index.html">Home</a></li>
                           <li><a href="about-us.html">About Us</a></li>
                           <li><a href="contact.html">Contact Us</a></li>
-                          <li><a type="submit" (click)="logout()"> logout</a></li>
                       </ul>
                   </div>
               </div>
@@ -50,14 +49,23 @@
                           <i class="lni lni-user"></i>
                           {{ currentUser  }}
                       </div>
-                      <ul class="user-login">
-                          <li>
-                              <a [routerLink]="['login']">Sign In</a>
-                          </li>
-                          <li>
-                              <a [routerLink]="['register']">Register</a>
-                          </li>
-                      </ul>
+                      <ng-container *ngIf="!token">
+                        <ul class="user-login">
+                            <li>
+                                <a [routerLink]="['login']">Sign In</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['register']">Register</a>
+                            </li>
+                        </ul>
+                      </ng-container>
+                      <ng-container *ngIf="token">
+                        <ul class="user-login">
+                            <li>
+                                <a type="submit" (click)="logout()"> logout</a>
+                            </li>
+                        </ul>
+                      </ng-container>
                   </div>
               </div>
           </div>
