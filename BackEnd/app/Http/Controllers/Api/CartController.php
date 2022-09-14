@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Cache;
 class CartController extends Controller {
     function getAllCart(){
         $carts = Cache::get('carts');
-        $carts = array_values($carts);
+        if($carts){
+            $carts = array_values($carts);
+        }
         return response()->json($carts);
     }
     function addToCart($id){

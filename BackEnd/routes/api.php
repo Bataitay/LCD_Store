@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FeProductController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReviewApiController;
 use App\Http\Controllers\Api\SocialController;
 use Illuminate\Http\Request;
@@ -49,3 +50,8 @@ Route::group([
     Route::get('remove-all-cart', [CartController::class, 'removeAllCart']);
     Route::get('update-cart/{id}/{quantity}', [CartController::class, 'updateCart']);
 });
+//Order
+Route::get('order/create', [OrderController::class, 'create']);
+Route::get('order/list-province', [OrderController::class, 'getAllProvince']);
+Route::get('order/list-district/{id}', [OrderController::class, 'getAllDistrictByProvinceId']);
+Route::get('order/list-ward/{id}', [OrderController::class, 'getAllWardByDistrictId']);

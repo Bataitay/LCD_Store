@@ -37,4 +37,16 @@ export class ShopService {
   deleteCart(id: any){
     return this.http.get('http://127.0.0.1:8000/api/remove-to-cart/'+id);
   }
+  createOrder(){
+    return this.http.get(environment.url+'api/order/create');
+  }
+  getAllProvince(){
+    return this.http.get(environment.url+'api/order/list-province');
+  }
+  getAllDistrictByProvinceId(id: any){
+    return this.http.get(environment.url+'api/order/list-district/'+id);
+  }
+  getAllWardDistrictById(id: any){
+    return this.http.get(environment.url+'api/order/list-ward/'+id);
+  }
 }
