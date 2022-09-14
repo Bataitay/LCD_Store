@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -35,7 +38,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //sendmail after order
+        $orderId=1;
+        $customerCurent= Auth::guard('api')->user();
+        $mailData = [
+            'title' => 'Order confirmation',
+            'body' => 'Dear'.$customerCurent->name,
+            'orderId' => $orderId
+        ];
+
+        Mail::to($customerCurent->email)->send(new SendMail($mailData));
+
     }
 
     /**

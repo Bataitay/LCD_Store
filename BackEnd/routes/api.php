@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FeProductController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReviewApiController;
-use App\Http\Controllers\Api\SocialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +42,7 @@ Route::group([
     //review
     Route::apiResource('review',ReviewApiController::class);
 });
+Route::post('sendmail',[OrderController::class,'store']);
 
 
 
