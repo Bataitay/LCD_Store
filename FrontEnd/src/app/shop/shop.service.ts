@@ -37,4 +37,5 @@ export class ShopService {
     return this.http.post<Register[]>(environment.urlRegister, register);
   }
 
+
 }

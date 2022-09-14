@@ -40,6 +40,7 @@
                           <li><a href="index.html">Home</a></li>
                           <li><a href="about-us.html">About Us</a></li>
                           <li><a href="contact.html">Contact Us</a></li>
+                          <li><a type="submit" (click)="logout()"> logout</a></li>
                       </ul>
                   </div>
               </div>
@@ -47,7 +48,7 @@
                   <div class="top-end">
                       <div class="user">
                           <i class="lni lni-user"></i>
-                          Hello
+                          {{ currentUser  }}
                       </div>
                       <ul class="user-login">
                           <li>

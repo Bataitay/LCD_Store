@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
   trendingProduct(){
     this.shopService.trendingProductSer().subscribe(res => {
       this.products = res;
-      console.log(res);
     })
   }
 

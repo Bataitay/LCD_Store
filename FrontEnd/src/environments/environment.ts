@@ -11,6 +11,7 @@ export const environment = {
   urlTrendingPro : 'http://127.0.0.1:8000/api/trendingProduct',
   urlReview : 'http://127.0.0.1:8000/api/review',
   urlRegister : 'http://127.0.0.1:8000/api/register',
+  urlLogin : 'http://127.0.0.1:8000/api/login',
 
 };
 

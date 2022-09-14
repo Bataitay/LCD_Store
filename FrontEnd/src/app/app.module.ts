@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopModule } from './shop/shop.module';
+import { RegisterComponent } from './shop/components/register.component';
+import { AuthGuard } from './shop/components/auth.guard';
 
 
 
@@ -20,6 +22,7 @@ import { ShopModule } from './shop/shop.module';
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    // RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { ShopModule } from './shop/shop.module';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ShopModule
+    ShopModule,
+    // AuthGuard
   ],
   providers: [],
   bootstrap: [AppComponent]

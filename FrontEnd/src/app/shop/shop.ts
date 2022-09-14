@@ -20,3 +20,7 @@ export interface Register {
   password: any;
   password_confirmation: any;
 }
+export interface User {
+  email:any;
+  token:any;
+}

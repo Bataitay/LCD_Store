@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Register } from '../shop';
 import { ShopService } from '../shop.service';
-
+import { MustMatch } from './validator.component';
 @Component({
   selector: 'app-register',
   templateUrl: '../templates/register.component.html',
@@ -12,6 +12,7 @@ import { ShopService } from '../shop.service';
 export class RegisterComponent implements OnInit {
   registerForm !: FormGroup;
   register:any;
+  submitted = false;
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -20,13 +21,23 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      email: ['', Validators.required],
-      password: [''],
-      password_confirmation: ['', Validators.required],
+      email: ['', [Validators.required,Validators.email]],
+      password: ['',[Validators.required,Validators.minLength(6)]],
+      password_confirmation: ['', [Validators.required]],
+    },
+    {
+      Validator: MustMatch('password','password_confirmation')
     });
-    console.log(this.registerForm);
+  }
+
+  get f(){
+    return this.registerForm.controls;
   }
   handdleRegister(){
+    this.submitted = true;
+    if(this.registerForm.invalid){
+      return;
+    }
     let register: Register = {
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,

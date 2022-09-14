@@ -11,6 +11,8 @@ import { CheckoutComponent } from './components/checkout.component';
 import { ProdutListComponent } from './components/produt-list.component';
 import { ProductDetailsComponent } from './components/product-details.component';
 import { RegisterComponent } from './components/register.component';
+import { LoginComponent } from './components/login.component';
+import { AuthGuard } from './components/auth.guard';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { RegisterComponent } from './components/register.component';
     CheckoutComponent,
     ProdutListComponent,
     ProductDetailsComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { RegisterComponent } from './components/register.component';
     BrowserAnimationsModule,
     FormsModule,
   ],
+  providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ShopModule { }
