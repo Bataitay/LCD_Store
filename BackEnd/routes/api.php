@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FeProductController;
 use App\Http\Controllers\Api\OrderController;
@@ -46,4 +47,12 @@ Route::post('sendmail',[OrderController::class,'store']);
 
 
 
+
+
+    //addToCart
+    Route::get('list-cart', [CartController::class, 'getAllCart']);
+    Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
+    Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
+    Route::get('remove-all-cart', [CartController::class, 'removeAllCart']);
+    Route::get('update-cart/{id}/{quantity}', [CartController::class, 'updateCart']);
 

@@ -25,5 +25,10 @@ export class ProdutListComponent implements OnInit {
       this.products = res;
     })
   }
+  addToCart(id: number){
+    this.shopService.addToCart(id).subscribe(res => {
+      this.shopService.getAllCart();
+    })
+  }
 
 }
