@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\Brand\BrandServiceInterface;
+use App\Services\Api\Brand\BrandApiServiceInterface;
 use Illuminate\Http\Request;
 
 class BrandApiController extends Controller
 {
     protected $brandService;
 
-    public function __construct(BrandServiceInterface $brandService)
+    public function __construct(BrandApiServiceInterface $brandService)
     {
         $this->brandService = $brandService;
     }
