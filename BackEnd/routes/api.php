@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BrandApiController;
 use App\Http\Controllers\Api\FeProductController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReviewApiController;
-use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,9 +45,8 @@ Route::group([
     Route::apiResource('review', ReviewApiController::class);
 });
 Route::post('sendmail', [OrderController::class, 'store']);
-Route::get('getC', [CustomerController::class, 'index']);
 
-
+Route::apiResource('brand',BrandApiController::class);
 
 
 
