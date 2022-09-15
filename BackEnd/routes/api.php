@@ -44,16 +44,15 @@ Route::group([
     //review
     Route::apiResource('review', ReviewApiController::class);
 });
-Route::post('sendmail', [OrderController::class, 'store']);
-Route::get('getC', [CustomerController::class, 'index']);
-
-
-
-
-
 //addToCart
 Route::get('list-cart', [CartController::class, 'getAllCart']);
 Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
 Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
 Route::get('remove-all-cart', [CartController::class, 'removeAllCart']);
 Route::get('update-cart/{id}/{quantity}', [CartController::class, 'updateCart']);
+//Order
+Route::get('order/create', [OrderController::class, 'create']);
+Route::get('order/list-province', [OrderController::class, 'getAllProvince']);
+Route::get('order/list-district/{id}', [OrderController::class, 'getAllDistrictByProvinceId']);
+Route::get('order/list-ward/{id}', [OrderController::class, 'getAllWardByDistrictId']);
+Route::post('order/store', [OrderController::class, 'store']);
