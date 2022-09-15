@@ -20,7 +20,7 @@
 
 <section class="checkout-wrapper section">
     <div class="container">
-        <form>
+        <form [formGroup]="form" (ngSubmit)="submit()" #localForm="ngForm">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="checkout-steps-form-style-1">
@@ -35,12 +35,21 @@
                                             <div class="single-form form-default">
                                                 <label>Provice/City</label>
                                                 <div class="select-items">
-                                                    <select class="form-control" (change)="onSelectProvince($event)">
-                                                        <option value="0">select</option>
+                                                    <select name="province" class="form-control"
+                                                        formControlName="provinceId"
+                                                        [ngClass]="{'is-invalid' : localForm.submitted && f['provinceId'].errors}"
+                                                        (change)="onSelectProvince($event)">
+                                                        <option disabled selected value> -- select an Provice/City -- </option>
                                                         <ng-container *ngFor="let province of listProvince">
-                                                            <option value="{{ province.id }}">{{ province.name }}</option>
+                                                            <option value="{{ province.id }}">{{ province.name }}
+                                                            </option>
                                                         </ng-container>
                                                     </select>
+                                                    <div *ngIf="localForm.submitted && f['provinceId'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['provinceId'].errors['required']">
+                                                            Provice/City required.
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -48,14 +57,22 @@
                                             <div class="single-form form-default">
                                                 <label>District</label>
                                                 <div class="select-items">
-                                                    <select class="form-control" (change)="onSelectDistrict($event)">
-                                                        <option value="0">select</option>
+                                                    <select class="form-control" formControlName="districtId"
+                                                    [ngClass]="{'is-invalid' : localForm.submitted && f['districtId'].errors}"
+                                                        (change)="onSelectDistrict($event)">
+                                                        <option disabled selected value> -- select an District -- </option>
                                                         <ng-container *ngIf="provinceSelected">
                                                             <ng-container *ngFor="let district of listDistrict">
-                                                                <option value="{{ district.id }}">{{ district.name }}</option>
+                                                                <option value="{{ district.id }}">{{ district.name }}
+                                                                </option>
                                                             </ng-container>
                                                         </ng-container>
                                                     </select>
+                                                    <div *ngIf="localForm.submitted && f['districtId'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['districtId'].errors['required']">
+                                                            District required.
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,14 +80,21 @@
                                             <div class="single-form form-default">
                                                 <label>Commune/Ward</label>
                                                 <div class="select-items">
-                                                    <select class="form-control">
-                                                        <option value="0">select</option>
+                                                    <select class="form-control" formControlName="wardId"
+                                                    [ngClass]="{'is-invalid' : localForm.submitted && f['wardId'].errors}"
+                                                        >
+                                                        <option disabled selected value> -- select an Commune/Ward -- </option>
                                                         <ng-container *ngIf="districtSelected">
                                                             <ng-container *ngFor="let ward of listWard">
                                                                 <option value="{{ ward.id }}">{{ ward.name }}</option>
                                                             </ng-container>
                                                         </ng-container>
                                                     </select>
+                                                    <div *ngIf="localForm.submitted && f['wardId'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['wardId'].errors['required']">
+                                                            Commune/Ward required.
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,7 +102,13 @@
                                             <div class="single-form form-default">
                                                 <label>Address</label>
                                                 <div class="form-input form">
-                                                    <input type="text" placeholder="Address">
+                                                    <input type="text" placeholder="Address" 
+                                                    formControlName="address">
+                                                </div>
+                                                <div class="text-danger">
+                                                    <div>
+                                                        Address required.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,9 +157,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="single-form form-default button">
-                                                    <button class="btn">pay now</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,30 +167,34 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="checkout-sidebar">
+                        <div class="checkout-sidebar-coupon">
+                            <p>Note</p>
+                            <div class="single-form form-default">
+                                <div class="form-input form justify-content-center d-flex">
+                                    <textarea id="" cols="50" rows="8" formControlName="note">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
                         <div class="checkout-sidebar-price-table mt-30">
                             <h5 class="title">Pricing Table</h5>
                             <div class="sub-total-price">
-                                <div class="total-price">
-                                    <p class="value">Subotal Price:</p>
-                                    <p class="price">$144.00</p>
-                                </div>
-                                <div class="total-price shipping">
-                                    <p class="value">Subotal Price:</p>
-                                    <p class="price">$10.50</p>
-                                </div>
-                                <div class="total-price discount">
-                                    <p class="value">Subotal Price:</p>
-                                    <p class="price">$10.00</p>
-                                </div>
+                                <ng-container *ngFor="let cart of listCart">
+                                    <div class="total-price">
+                                        <p class="value">{{ cart.name }} ({{ cart.quantity }}x {{ cart.price|currency
+                                            }})</p>
+                                        <p class="price">{{ cart.quantity*cart.price|currency }}</p>
+                                    </div>
+                                </ng-container>
                             </div>
                             <div class="total-payable">
                                 <div class="payable-price">
                                     <p class="value">Subotal Price:</p>
-                                    <p class="price">$164.50</p>
+                                    <p class="price">{{ cartSubtotal|currency }}</p>
                                 </div>
                             </div>
                             <div class="price-table-btn button">
-                                <a href="javascript:void(0)" class="btn btn-alt">Checkout</a>
+                                <button type="submit" class="btn btn-alt">Checkout</button>
                             </div>
                         </div>
                     </div>
