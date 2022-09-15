@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FeProductController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReviewApiController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,26 +34,26 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);
-    Route::get('product_list',[FeProductController::class,'product_list']);
-    Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
-    Route::get('category_list',[FeProductController::class,'category_list']);
-    Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);
+    Route::get('product_list', [FeProductController::class, 'product_list']);
+    Route::get('product_detail/{id}', [FeProductController::class, 'product_detail']);
+    Route::get('category_list', [FeProductController::class, 'category_list']);
+    Route::get('trendingProduct', [FeProductController::class, 'trendingProduct']);
 
-    Route::get('getProduct',[FeProductController::class,'getAll']);
+    Route::get('getProduct', [FeProductController::class, 'getAll']);
 
     //review
-    Route::apiResource('review',ReviewApiController::class);
+    Route::apiResource('review', ReviewApiController::class);
 });
-Route::post('sendmail',[OrderController::class,'store']);
+Route::post('sendmail', [OrderController::class, 'store']);
+Route::get('getC', [CustomerController::class, 'index']);
 
 
 
 
 
-    //addToCart
-    Route::get('list-cart', [CartController::class, 'getAllCart']);
-    Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
-    Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
-    Route::get('remove-all-cart', [CartController::class, 'removeAllCart']);
-    Route::get('update-cart/{id}/{quantity}', [CartController::class, 'updateCart']);
-
+//addToCart
+Route::get('list-cart', [CartController::class, 'getAllCart']);
+Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
+Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
+Route::get('remove-all-cart', [CartController::class, 'removeAllCart']);
+Route::get('update-cart/{id}/{quantity}', [CartController::class, 'updateCart']);
