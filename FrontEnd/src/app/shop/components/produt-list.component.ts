@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { OrderService } from '../service/order.service';
 import { ShopService } from '../shop.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class ProdutListComponent implements OnInit {
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private _Router: Router,
+    private orderService: OrderService,
     ) { }
 
   ngOnInit(): void {
@@ -26,8 +28,8 @@ export class ProdutListComponent implements OnInit {
     })
   }
   addToCart(id: number){
-    this.shopService.addToCart(id).subscribe(res => {
-      this.shopService.getAllCart();
+    this.orderService.addToCart(id).subscribe(res => {
+      this.orderService.getAllCart();
     })
   }
 

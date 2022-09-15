@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from '../service/order.service';
 import { ShopService } from '../shop.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class HeaderComponent implements OnInit {
     cartSubtotal: number = 0;
     constructor(private shopService: ShopService,
         private route: ActivatedRoute,
+        private orderService: OrderService
     ) { }
 
     ngOnInit(): void {
@@ -21,7 +23,7 @@ export class HeaderComponent implements OnInit {
         this.getAllCart();
     }
     getAllCart() {
-        this.shopService.getAllCart().subscribe(res => {
+        this.orderService.getAllCart().subscribe(res => {
             this.listCart = res;
             this.cartSubtotal = 0;
             for (let cart of this.listCart) {
@@ -30,7 +32,7 @@ export class HeaderComponent implements OnInit {
         });
     }
     deleteCart(id: any){
-        this.shopService.deleteCart(id).subscribe(res => {
+        this.orderService.deleteCart(id).subscribe(res => {
             this.getAllCart();
         });
     }
