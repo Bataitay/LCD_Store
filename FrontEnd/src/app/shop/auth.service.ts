@@ -11,25 +11,24 @@ import { User } from './shop';
 })
 export class AuthService {
 
-  private userSubject: BehaviorSubject<User>;
+  public userSubject: BehaviorSubject<User>;
+  public _userManager: any;
   public user: Observable<User>;
   token: any;
+
   constructor(private http: HttpClient,
     private router: Router) {
     this.userSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser') || '{}')
     );
     this.user = this.userSubject.asObservable();
-    // let data = this.user;
-    // this.token = data['token']
-    // console.log(this.user['token']);
   }
   public get userValue(): User {
     return this.userSubject.value;
   }
 
   loginSer(email: string, password: string) {
-    return this.http.post(environment.urlLogin, {email, password}).pipe(
+    return this.http.post(environment.urlLogin, { email, password }).pipe(
       map((token) => {
         let user: User = {
           email: email,
@@ -40,14 +39,14 @@ export class AuthService {
         return user;
       })
     );
-}
-logout() {
+  }
+  logout() {
 
-  localStorage.removeItem('currentUser');
-  let user: User = {
-    email: null,
-    token: null,
-  };
-  this.userSubject.next(user);
-}
+    localStorage.removeItem('currentUser');
+    let user: User = {
+      email: null,
+      token: null,
+    };
+    this.userSubject.next(user);
+  }
 }

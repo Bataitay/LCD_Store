@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Category, Product, Register, Review } from './shop';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+import { AuthService } from './auth.service';
+import { from } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  // product : Product[] =[];
-  constructor(private http: HttpClient,) {
+  constructor(private http: HttpClient,
+    private authService: AuthService) {
 
   }
   private handleError(error: any): Promise<any> {
@@ -28,10 +29,15 @@ export class ShopService {
   trendingProductSer(): Observable<Category[]> {
     return this.http.get<Category[]>(environment.urlTrendingPro);
   }
-  reviewSer(review: Review): Observable<Review[]> {
-    return this.http.post<Review[]>(environment.urlReview, review).pipe(
-      catchError(this.handleError)
-    );
+  reviewSer(token:any,review: Review): Observable<Review[]> {
+    return this.http.post<Review[]>(environment.urlReview, review,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+    })
+    .pipe(
+      map((z) => {
+        return z;
+      })
+    )
   }
   registerSer(register: Register): Observable<Register[]> {
     return this.http.post<Register[]>(environment.urlRegister, register);
@@ -39,5 +45,10 @@ export class ShopService {
   getbaner(){
     return this.http.get(environment.urlBaner);
   }
-
+  getCustomer(){
+    return this.http.get(environment.urlCustomer);
+  }
+  countReview(id:any){
+    return this.http.get(environment.urlCountReview + '/' +id);
+  }
 }

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './shop/components/footer.component';
 import { HeaderComponent } from './shop/components/header.component';
 import { ShopRoutingModule } from './shop/shop-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHandler, HttpEvent } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,7 +34,13 @@ import { AuthGuard } from './shop/components/auth.guard';
     ShopModule,
     // AuthGuard
   ],
-  providers: [],
+  providers: [
+//     {
+//     provide: HTTP_INTERCEPTORS,
+//     useClass: HeadersInterceptor,
+//     multi: true
+// }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

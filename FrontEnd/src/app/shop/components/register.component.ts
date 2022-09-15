@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Register } from '../shop';
 import { ShopService } from '../shop.service';
-import { MustMatch } from './validator.component';
+import { MustMatch} from './confirmed.validator.';
 @Component({
   selector: 'app-register',
   templateUrl: '../templates/register.component.html',
@@ -29,7 +29,6 @@ export class RegisterComponent implements OnInit {
       Validator: MustMatch('password','password_confirmation')
     });
   }
-
   get f(){
     return this.registerForm.controls;
   }
@@ -47,6 +46,7 @@ export class RegisterComponent implements OnInit {
       this.registerForm.reset();
       this.register = res;
       if (this.register.status == true) {
+        this._Router.navigate(['/login']);
         this.toastrService.success(JSON.stringify(this.register.message))
       } else {
         this.toastrService.error(JSON.stringify(this.register.message))
