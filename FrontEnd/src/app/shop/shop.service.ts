@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Brand, Category, Product } from './shop';
+
+
 import { HttpClient,HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,4 +29,5 @@ export class ShopService {
   getAllBrand():Observable<Brand[]> {
     return this.http.get<Brand[]>(environment.urlGetAllBrand);
   }
+
 }

@@ -45,7 +45,9 @@ Route::group([
     Route::apiResource('review', ReviewApiController::class);
 });
 
+
 Route::apiResource('brand',BrandApiController::class);
+
 
 
 
