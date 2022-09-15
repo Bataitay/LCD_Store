@@ -12,6 +12,8 @@ class CartController extends Controller {
         $carts = Cache::get('carts');
         if($carts){
             $carts = array_values($carts);
+        }else{
+            $carts = [];
         }
         return response()->json($carts);
     }
