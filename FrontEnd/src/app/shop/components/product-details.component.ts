@@ -18,7 +18,10 @@ export class ProductDetailsComponent implements OnInit {
   url: string = environment.url;
   id: any;
   reviewForm !: FormGroup;
+  answerForm !: FormGroup;
   review: any;
+  review_id: any;
+  answer: any;
   currentUser:any;
   customer_email:any;
   customer_id:any
@@ -40,11 +43,18 @@ export class ProductDetailsComponent implements OnInit {
     this.review = new window.bootstrap.Modal(
       document.getElementById('addReview')
     )
+    this.answer = new window.bootstrap.Modal(
+      document.getElementById('answer')
+    )
     this.shopService.product_detailSer(this.id).subscribe(res => {
       this.product = res;
       for (let review of this.product.reviews) {
         review.vote = parseInt(review.vote)
-        // this.reviewStatus = review.status;
+        console.log(review.id);
+        // for (let IdReview of review.id) {
+          this.review_id = review.id
+        // }
+
       }
     });
     this.authService.user.subscribe(user => {
@@ -58,6 +68,10 @@ export class ProductDetailsComponent implements OnInit {
       vote: [''],
       customer_id: [''],
       product_id: this.id,
+    });
+    this.answerForm = this.fb.group({
+      review_id: [''],
+      name_answer: [''],
     });
     this.getCustomer();
     this.countReview();
@@ -108,5 +122,21 @@ export class ProductDetailsComponent implements OnInit {
       /(this.countStar.fiveStar + this.countStar.fourStar + this.countStar.threeStar + this.countStar.twoStar + this.countStar.oneStar)).toFixed(2)
     });
   }
-
+  openAnswer(review_id: any) {
+    this.review_id = review_id;
+    this.answer.show();
+  }
+  addAnswer(){
+    let addAnswer = {
+      name_answer : this.answerForm.value.name_answer,
+      review_id : this.review_id,
+    }
+    console.log(addAnswer);
+    this.shopService.answer(addAnswer).subscribe(res => {
+      this.answerForm.reset();
+        let ref = document.getElementById('cancel')
+        ref?.click()
+        this.toastrService.success(JSON.stringify('Added answer successfully'))
+    })
+  }
 }

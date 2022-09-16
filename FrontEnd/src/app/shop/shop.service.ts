@@ -55,4 +55,7 @@ export class ShopService {
   getAllBrand():Observable<Brand[]> {
     return this.http.get<Brand[]>(environment.urlGetAllBrand);
   }
+  answer(data:any){
+    return this.http.post(environment.urlanswer, data);
+  }
 }

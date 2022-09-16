@@ -17,7 +17,7 @@ p {
   margin: 0;
   padding: 0;
   font-size: 14px;
-  line-height: 24px
+  /* line-height: 24px */
 }
 
 * {
@@ -5730,7 +5730,13 @@ blockquote span {
   padding-left: 80px;
   margin-bottom: 30px
 }
-
+.review-answer {
+  position: relative;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 19px;
+  margin-left: 35px;
+}
 @media(max-width:767px) {
   .product-details-info .reviews .single-review {
     padding-left: 60px
@@ -5827,7 +5833,6 @@ blockquote span {
   font-size: 14px;
   display: block;
   color: #888;
-  margin-top: 7px
 }
 
 .product-details-info .reviews .single-review .review-info .stars {
@@ -5840,9 +5845,9 @@ blockquote span {
   font-size: 14px
 }
 
-.product-details-info .reviews .single-review .review-info p {
+/* .product-details-info .reviews .single-review .review-info p {
   margin-top: 15px
-}
+} */
 
 .review-modal .modal-dialog {
   max-width: 600px
