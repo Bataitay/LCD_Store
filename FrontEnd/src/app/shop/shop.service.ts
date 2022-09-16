@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category, Product, Register, Review } from './shop';
+import { Brand, Category, Product, Register, Review } from './shop';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -9,6 +9,7 @@ import { from } from 'rxjs';
   providedIn: 'root'
 })
 export class ShopService {
+  brands: any[] = []
   constructor(private http: HttpClient,
     private authService: AuthService) {
 
@@ -51,5 +52,7 @@ export class ShopService {
   countReview(id:any){
     return this.http.get(environment.urlCountReview + '/' +id);
   }
-
+  getAllBrand():Observable<Brand[]> {
+    return this.http.get<Brand[]>(environment.urlGetAllBrand);
+  }
 }

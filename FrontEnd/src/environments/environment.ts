@@ -14,8 +14,8 @@ export const environment = {
   urlLogin : urlApi+'login',
   urlBaner : urlApi+'getBaner',
   urlCustomer : urlApi+'getCustomer',
-  urlCountReview : urlApi+'coutReview',
-
+  urlCountReview : urlApi+'coutReviewStar',
+  urlGetAllBrand : 'http://127.0.0.1:8000/api/brand',
 };
 
 /*

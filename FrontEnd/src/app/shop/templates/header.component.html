@@ -52,10 +52,10 @@
                       <ng-container *ngIf="!token">
                         <ul class="user-login">
                             <li>
-                                <a [routerLink]="['login']">Sign In</a>
+                                <a type="submit" [routerLink]="['login']">Sign In</a>
                             </li>
                             <li>
-                                <a [routerLink]="['register']">Register</a>
+                                <a type="submit" [routerLink]="['register']">Register</a>
                             </li>
                         </ul>
                       </ng-container>
@@ -129,41 +129,28 @@
                           <div class="cart-items">
                               <a href="javascript:void(0)" class="main-btn">
                                   <i class="lni lni-cart"></i>
-                                  <span class="total-items">2</span>
+                                  <span class="total-items">{{ listCart.length }}</span>
                               </a>
 
                               <div class="shopping-item">
                                   <div class="dropdown-cart-header">
                                       <span>2 Items</span>
-                                      <a href="cart.html">View Cart</a>
+                                      <a [routerLink]="['/cart']" >View Cart</a>
                                   </div>
-                                  <ul class="shopping-list">
-                                      <li>
-                                          <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                  class="lni lni-close"></i></a>
-                                          <div class="cart-img-head">
-                                              <a class="cart-img" href="product-details.html"><img
-                                                      src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
-                                          </div>
-                                          <div class="content">
-                                              <h4><a href="product-details.html">
-                                                      Apple Watch Series 6</a></h4>
-                                              <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                  class="lni lni-close"></i></a>
-                                          <div class="cart-img-head">
-                                              <a class="cart-img" href="product-details.html"><img
-                                                      src="http://127.0.0.1:8000/{{ cart.image }}" alt="#"></a>
-                                          </div>
-                                          <div class="content">
-                                              <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                              <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                          </div>
-                                      </li>
-                                  </ul>
+                                  <ul class="shopping-list" *ngFor="let cart of listCart">
+                                    <li>
+                                        <a (click)="deleteCart(cart.id)" class="remove" title="Remove this item"><i
+                                                class="lni lni-close"></i></a>
+                                        <div class="cart-img-head">
+                                            <a class="cart-img" href="product-details.html"><img
+                                                    src="http://127.0.0.1:8000/{{ cart.image }}" alt="#"></a>
+                                        </div>
+                                        <div class="content">
+                                            <h4><a href="product-details.html">{{ cart.name }}</a></h4>
+                                            <p class="quantity">{{ cart.quantity }}x - <span class="amount">{{ cart.price|currency }}</span></p>
+                                        </div>
+                                    </li>
+                                </ul>
                                   <div class="bottom">
                                       <div class="total">
                                           <span>Total</span>

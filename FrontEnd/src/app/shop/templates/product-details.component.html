@@ -100,7 +100,7 @@
       <div class="row">
         <div class="col-lg-4 col-12">
           <div class="single-block give-review">
-            <h4>4.5 (Overall)</h4>
+            <h4>{{ avgRateStar  }} (Overall)</h4>
             <ul>
               <!-- <ng-container *ngFor='let in of [].constructor(5) ;let i = index'>
                 <li>
@@ -110,10 +110,10 @@
               </ng-container>
               </li>
               </ng-container> -->
-                <!-- <ng-container *ngIf="reviewStatus == 1"> -->
+              <!-- <ng-container *ngIf="reviewStatus == 1"> -->
 
               <li>
-                <span>5 stars - {{countStar.review5}}</span>
+                <span>5 stars - {{countStar.fiveStar }}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
@@ -121,7 +121,7 @@
                 <i class="lni lni-star-filled"></i>
               </li>
               <li>
-                <span>4 stars - {{countStar.review4}}</span>
+                <span>4 stars - {{ countStar.fourStar }}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
@@ -129,7 +129,7 @@
                 <i class="lni lni-star"></i>
               </li>
               <li>
-                <span>3 stars - {{countStar.review3}}</span>
+                <span>3 stars - {{countStar.threeStar }}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
@@ -137,7 +137,7 @@
                 <i class="lni lni-star"></i>
               </li>
               <li>
-                <span>2 stars - {{countStar.review2 }}</span>
+                <span>2 stars - {{countStar.twoStar }}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star"></i>
@@ -145,7 +145,7 @@
                 <i class="lni lni-star"></i>
               </li>
               <li>
-                <span>1 star - {{countStar.review1}}</span>
+                <span>1 star - {{countStar.oneStar}}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star"></i>
                 <i class="lni lni-star"></i>
@@ -154,11 +154,17 @@
               </li>
               <!-- </ng-container> -->
             </ul>
-
-            <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#addReview"
-              (click)="openReview(product.id)">
-              Leave a Review
-            </button>
+            <ng-container *ngIf="!currentUser">
+              <a [routerLink]="['/login']" class="btn review-btn">
+                Login
+              </a>
+            </ng-container>
+            <ng-container *ngIf="currentUser">
+              <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#addReview"
+                (click)="openReview(product.id)">
+                Leave a Review
+              </button>
+            </ng-container>
           </div>
         </div>
         <div class="col-lg-8 col-12">
@@ -167,28 +173,28 @@
               <h4 class="title">Latest Reviews</h4>
               <ng-container *ngFor="let review of product.reviews; let i =index">
                 <ng-container *ngIf="review.status == 1">
-                <div class="single-review">
-                  <img src="" alt="#">
-                  <div class="review-info">
-                    <ng-container *ngFor="let review_dtl of reviews; let i =index">
-                      <ng-container *ngIf="review.customer_id == review_dtl.id">
-                        <h4>
-                          <span>{{review_dtl.email}}</span>
-                        </h4>
-                        <ul class="stars">
-                          <ng-container *ngFor='let in of [].constructor(review.vote) ;let i = index'>
-                            <li><i class="lni lni-star-filled"></i></li>
-                          </ng-container>
-                          <ng-container *ngFor='let in of [].constructor(5-review.vote) ;let i = index'>
-                            <i class="lni lni-star"></i>
-                          </ng-container>
-                        </ul>
+                  <div class="single-review">
+                    <img src="../../../assets/images/no_image.png" alt="#">
+                    <div class="review-info">
+                      <ng-container *ngFor="let review_dtl of reviews; let i =index">
+                        <ng-container *ngIf="review.customer_id == review_dtl.id">
+                          <h4>
+                            <span>{{review_dtl.email}}</span>
+                          </h4>
+                          <ul class="stars">
+                            <ng-container *ngFor='let in of [].constructor(review.vote) ;let i = index'>
+                              <li><i class="lni lni-star-filled"></i></li>
+                            </ng-container>
+                            <ng-container *ngFor='let in of [].constructor(5-review.vote) ;let i = index'>
+                              <i class="lni lni-star"></i>
+                            </ng-container>
+                          </ul>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
-                    <p>{{review.content}}</p>
+                      <p>{{review.content}}</p>
+                    </div>
                   </div>
-                </div>
-              </ng-container>
+                </ng-container>
               </ng-container>
             </div>
           </div>
@@ -204,6 +210,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+
         <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" id="cancel" aria-label="Close"></button>
       </div>
@@ -229,12 +236,7 @@
           </div>
         </div>
         <div class="modal-footer button">
-          <ng-container *ngIf="!currentUser">
-            <a type="button" class="btn" [routerLink]="['/login']">Login</a>
-          </ng-container>
-          <ng-container *ngIf="currentUser">
-            <button type="button" class="btn" (click)="addReview()">Submit Review</button>
-          </ng-container>
+          <button type="button" class="btn" (click)="addReview()">Submit Review</button>
         </div>
       </form>
     </div>
