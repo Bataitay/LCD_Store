@@ -12,7 +12,6 @@ class ReviewApiController extends Controller
 {
     public function __construct(ReviewServiceInterface $reviewService)
     {
-        $this->middleware('auth:api');
         $this->reviewService = $reviewService;
     }
     public function index(Request $request)
@@ -78,4 +77,9 @@ class ReviewApiController extends Controller
             return response()->json($newReview, $statusCode);
         }
     }
+    public function getReview($id){
+        $reviews =  $this->reviewService->getReview($id);
+        return response()->json($reviews, 200);
+    }
+
 }

@@ -43,4 +43,5 @@ class ReviewRepository extends BaseRepository implements ReviewRepositoryInterfa
           }
           return  $reviews   ->paginate(8);
     }
+
 }

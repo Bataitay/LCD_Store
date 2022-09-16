@@ -37,8 +37,9 @@ class Product extends Model
         return $this->hasMany(OrderDetail::class, 'product_id', 'id');
     }
     public function reviews(){
-        return $this->belongsTo(Review::class);
+        return $this->hasMany(Review::class);
     }
+
     public function scopeSearch($query, $term)
     {
         if ($term) {

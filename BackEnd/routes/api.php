@@ -35,6 +35,9 @@ Route::group([
     Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
     Route::get('category_list',[FeProductController::class,'category_list']);
     Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);
+    Route::get('getBaner',[FeProductController::class,'getBaner']);
+    Route::get('getCustomer',[FeProductController::class,'getCustomer']);
+    Route::get('coutReviewStar/{id}',[FeProductController::class,'coutReviewStar']);
 
     Route::get('getProduct',[FeProductController::class,'getAll']);
 
