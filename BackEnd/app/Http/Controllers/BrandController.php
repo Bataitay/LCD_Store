@@ -83,7 +83,7 @@ class BrandController extends Controller
             return view('back-end.brand.show',$params);
         } catch (Exception $e) {
             Log::error('errors' . $e->getMessage() . 'getLine' . $e->getLine());
-            abort(403);
+            abort(404);
         }
     }
 

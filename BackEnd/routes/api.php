@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BrandApiController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\FeProductController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReviewApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,11 +42,26 @@ Route::group([
     Route::get('getCustomer',[FeProductController::class,'getCustomer']);
     Route::get('coutReviewStar/{id}',[FeProductController::class,'coutReviewStar']);
 
-    Route::get('getProduct',[FeProductController::class,'getAll']);
-
     //review
-    Route::apiResource('review',ReviewApiController::class);
+    Route::apiResource('review', ReviewApiController::class);
 });
 
 
+Route::apiResource('brand',BrandApiController::class);
 
+
+
+
+
+//addToCart
+Route::get('list-cart', [CartController::class, 'getAllCart']);
+Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
+Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
+Route::get('remove-all-cart', [CartController::class, 'removeAllCart']);
+Route::get('update-cart/{id}/{quantity}', [CartController::class, 'updateCart']);
+//Order
+Route::get('order/create', [OrderController::class, 'create']);
+Route::get('order/list-province', [OrderController::class, 'getAllProvince']);
+Route::get('order/list-district/{id}', [OrderController::class, 'getAllDistrictByProvinceId']);
+Route::get('order/list-ward/{id}', [OrderController::class, 'getAllWardByDistrictId']);
+Route::post('order/store', [OrderController::class, 'store']);

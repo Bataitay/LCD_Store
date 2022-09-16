@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Api\Brand\BrandApiRepository;
+use App\Repositories\api\Brand\BrandApiRepositoryInterface;
 use App\Repositories\Api\Product\FeProductRepository;
 use App\Repositories\Api\Product\FeProductRepositoryInterface;
 use App\Repositories\Banner\BannerRepository;
@@ -28,8 +30,10 @@ use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
+use App\Services\Api\Brand\BrandApiServiceInterface;
 use App\Services\Api\Product\FeProductService;
 use App\Services\Api\Product\FeProductServiceInterface;
+use App\Services\Api\Brand\BrandApiService;
 use App\Services\Banner\BannerService;
 use App\Services\Banner\BannerServiceInterface;
 use App\Services\Order\OrderService;
@@ -91,6 +95,8 @@ class AppServiceProvider extends ServiceProvider
     // register Feproduct
     $this->app->bind(FeProductRepositoryInterface::class, FeProductRepository::class);
     $this->app->bind(FeProductServiceInterface::class, FeProductService::class);
+    $this->app->bind(BrandApiRepositoryInterface::class, BrandApiRepository::class);
+    $this->app->bind(BrandApiServiceInterface::class, BrandApiService::class);
     }
 
     /**

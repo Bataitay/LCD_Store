@@ -24,3 +24,8 @@ export interface User {
   email:any;
   token:any;
 }
+export interface Brand {
+  name: any;
+  logo: any;
+  status: any;
+}

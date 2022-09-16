@@ -37,10 +37,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Customer Name</th>
-                                        <th>Customer ID</th>
-                                        <th>Total Price</th>
+                                        <th>Phone Number</th>
+                                        <th>Email Address</th>
                                         <th>Created At</th>
-                                        <th>Updated At</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -54,11 +53,10 @@
                                     @foreach ($orders as $order)
                                         <tr class="item-{{ $order->id }}">
                                             <td>{{ $order->id }}</td>
-                                            <td>{{ $order->customer->name }}</td>
-                                            <td>{{ $order->customer_id }}</td>
-                                            <td>{{ $order->order_total_price }}</td>
+                                            <td>{{ $order->name }}</td>
+                                            <td>{{ $order->phone }}</td>
+                                            <td>{{ $order->email }}</td>
                                             <td>{{ $order->created_at }}</td>
-                                            <td>{{ $order->updated_at }}</td>
                                             <td>
                                                 @if($order->status)
                                                     <i class="bi bi-check-circle text-success"></i>
