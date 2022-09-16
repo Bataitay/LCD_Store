@@ -62,13 +62,18 @@ class OrderController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        echo "<pre>";
+        print_r($request->all());
         $order = Order::create([
             'note' => $request->note,
+            'payment_method' => 'updating',
             'address' => $request->address,
-            'customer_id' => 1,
             'province_id' => $request->provinceId,
             'district_id' => $request->districtId,
             'ward_id' => $request->wardId,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
         $carts = Cache::get('carts');
         foreach ($carts as $productId => $cart) {

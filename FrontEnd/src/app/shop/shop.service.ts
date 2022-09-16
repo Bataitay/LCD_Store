@@ -1,30 +1,56 @@
 import { Injectable } from '@angular/core';
-import { Brand, Category, Product } from './shop';
-
-
-import { HttpClient,HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Brand, Category, Product, Register, Review } from './shop';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+import { AuthService } from './auth.service';
+import { from } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  constructor(private http: HttpClient,) {
+  brands: any[] = []
+  constructor(private http: HttpClient,
+    private authService: AuthService) {
 
-   }
-
-  product_listSer():Observable<Product[]> {
+  }
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+  product_listSer(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.urlAllProducts);
   }
-  product_detailSer(id:any):Observable<Product[]> {
-    return this.http.get<Product[]>(environment.urlIdProduct+'/'+id);
+  product_detailSer(id: any): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.urlIdProduct + '/' + id);
   }
-  category_listSer():Observable<Category[]> {
+  category_listSer(): Observable<Category[]> {
     return this.http.get<Category[]>(environment.urlAllCategories);
   }
-  trendingProductSer():Observable<Category[]> {
+  trendingProductSer(): Observable<Category[]> {
     return this.http.get<Category[]>(environment.urlTrendingPro);
+  }
+  reviewSer(token:any,review: Review): Observable<Review[]> {
+    return this.http.post<Review[]>(environment.urlReview, review,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+    })
+    .pipe(
+      map((z) => {
+        return z;
+      })
+    )
+  }
+  registerSer(register: Register): Observable<Register[]> {
+    return this.http.post<Register[]>(environment.urlRegister, register);
+  }
+  getbaner(){
+    return this.http.get(environment.urlBaner);
+  }
+  getCustomer(){
+    return this.http.get(environment.urlCustomer);
+  }
+  countReview(id:any){
+    return this.http.get(environment.urlCountReview + '/' +id);
   }
   getAllBrand():Observable<Brand[]> {
     return this.http.get<Brand[]>(environment.urlGetAllBrand);
@@ -32,5 +58,6 @@ export class ShopService {
   googleLogin():Observable<any>{
     return this.http.get<any[]>(environment.urlGoogleLogin)
   }
+
 
 }

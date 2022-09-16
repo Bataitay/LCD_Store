@@ -12,11 +12,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $orders = $this->model->latest()->paginate(10);
         if(isset($request->search)){
             $orders = $this->model
-            ->select('*', 'orders.id as id', 'orders.created_at as created_at', 'orders.updated_at as updated_at', 'orders.deleted_at as deleted_at')
-            ->join('customers', 'orders.customer_id', '=', 'customers.id')
-            ->where('orders.id', 'LIKE', '%'.$request->search.'%')
-            ->orWhere('customers.name', 'LIKE', '%'.$request->search.'%')
-            ->orWhere('customers.id', 'LIKE', '%'.$request->search.'%')
+            ->where('name', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('email', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('phone', 'LIKE', '%'.$request->search.'%')
             ->paginate(10);
         }
         return $orders;

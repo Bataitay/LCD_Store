@@ -12,7 +12,6 @@ class ReviewApiController extends Controller
 {
     public function __construct(ReviewServiceInterface $reviewService)
     {
-        $this->middleware('auth:api');
         $this->reviewService = $reviewService;
     }
     public function index(Request $request)
@@ -32,14 +31,22 @@ class ReviewApiController extends Controller
     public function store(Request $request)
     {
         try {
-            $review =  $this->reviewService->create($request->all());
+            $data = $request->all();
+            $review =  $this->reviewService->create($data);
             $statusCode = 200;
-            return response()->json($review, $statusCode);
+            return response()->json([
+               'review' => $review,
+                'status' => true,
+                'message' => 'Review successFully'
+            ], $statusCode);
         } catch (\Exception $e) {
             Log::error('errors' . $e->getMessage() . 'getLine' . $e->getLine());
             $statusCode = 500;
             $review =  [];
-            return response()->json($review, $statusCode);
+            return response()->json([
+                'status' => false,
+                'message' => 'Review Failly'
+            ], $statusCode);
         }
     }
     public function update($id, Request $request)
@@ -70,4 +77,9 @@ class ReviewApiController extends Controller
             return response()->json($newReview, $statusCode);
         }
     }
+    public function getReview($id){
+        $reviews =  $this->reviewService->getReview($id);
+        return response()->json($reviews, 200);
+    }
+
 }

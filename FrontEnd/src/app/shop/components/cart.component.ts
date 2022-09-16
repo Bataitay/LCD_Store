@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../service/order.service';
 
 @Component({
-    selector: 'app-cart',
-    templateUrl: '../templates/cart.component.html',
+  selector: 'app-cart',
+  templateUrl: '../templates/cart.component.html',
 })
 export class CartComponent implements OnInit {
     listCart: any;
     cartSubtotal: number = 0;
     constructor(private orderService: OrderService) { }
 
-    ngOnInit(): void {
-        this.getAllCart();
-    }
+
+  ngOnInit(): void {
+    this.getAllCart();
+  }
 
     getAllCart() {
         this.orderService.getAllCart().subscribe(res => {

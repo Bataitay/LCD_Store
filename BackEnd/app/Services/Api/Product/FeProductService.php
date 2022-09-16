@@ -24,5 +24,10 @@ class FeProductService extends BaseService implements FeProductServiceInterface 
     {
         return $this->repository->trendingProduct();
     }
+    public function coutReviewStar($id){
+        return $this->repository->coutReviewStar($id);
+
+    }
+
 
 }

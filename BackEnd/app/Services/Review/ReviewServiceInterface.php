@@ -10,4 +10,6 @@ interface ReviewServiceInterface extends ServiceInterface
     public function restore($id);
     public function forceDelete($id);
     public function searchReview($name);
+    public function coutReview($id);
+
 }

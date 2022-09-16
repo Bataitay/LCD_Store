@@ -12,19 +12,26 @@ export class HomeComponent implements OnInit {
   products: any[] =[];
   brands: any[] = []
   url: string = environment.url;
-
+  baner:any;
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private _Router: Router) { }
 
   ngOnInit(): void {
     this.trendingProduct();
+    this.getBaner();
     this.getAllBrand();
 
   }
   trendingProduct(){
     this.shopService.trendingProductSer().subscribe(res => {
       this.products = res;
+    })
+  }
+  getBaner(){
+    this.shopService.getbaner().subscribe(res => {
+        this.baner = res;
+        this.baner = this.baner.image;
     })
   }
   getAllBrand(){

@@ -68,7 +68,7 @@
                                 <tfoot>
                                     <tr class="fw-bold">
                                         <td colspan="2">TOTAL</td>
-                                        <td class="text-end">{{ number_format($order->order_total_price) }}</td>
+                                        <td class="text-end">{{ number_format(1234567890) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>

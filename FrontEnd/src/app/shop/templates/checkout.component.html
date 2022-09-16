@@ -26,6 +26,63 @@
                     <div class="checkout-steps-form-style-1">
                         <ul id="accordionExample">
                             <li>
+                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                    aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
+                                <section class="checkout-steps-form-content collapse show" id="collapseThree"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="single-form form-default">
+                                                <label>Full Name</label>
+                                                <div class="row">
+                                                    <div class="col-md-6 form-input form">
+                                                        <input type="text" placeholder="Full Name"
+                                                            formControlName="name">
+                                                    </div>
+                                                    <div *ngIf="localForm.submitted && f['name'].errors && f['name'].errors['required']"
+                                                        class="text-danger">
+                                                        Name is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Email Address</label>
+                                                <div class="form-input form">
+                                                    <input type="email" placeholder="Email Address"
+                                                        formControlName="email">
+                                                </div>
+                                                <div *ngIf="localForm.submitted && f['email'].errors && f['email'].errors['required']"
+                                                    class="text-danger">
+                                                    Email is required.</div>
+                                                <div *ngIf="localForm.submitted && f['email'].errors && f['email'].errors['email']"
+                                                    class="text-danger">
+                                                    Type is not Email.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Phone Number</label>
+                                                <div class="form-input form">
+                                                    <input type="text" placeholder="Phone Number" formControlName="phone">
+                                                </div>
+                                                <div *ngIf="localForm.submitted && f['phone'].errors && f['phone'].errors['required']"
+                                                    class="text-danger">
+                                                    Phone is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form button">
+                                                <a class="btn" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseFour" aria-expanded="false"
+                                                    aria-controls="collapseFour">next
+                                                    step</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </li>
+                            <li>
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
                                     aria-expanded="false" aria-controls="collapseFour">Shipping Address</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapseFour"
@@ -39,13 +96,15 @@
                                                         formControlName="provinceId"
                                                         [ngClass]="{'is-invalid' : localForm.submitted && f['provinceId'].errors}"
                                                         (change)="onSelectProvince($event)">
-                                                        <option disabled selected value> -- select an Provice/City -- </option>
+                                                        <option disabled selected value> -- select an Provice/City --
+                                                        </option>
                                                         <ng-container *ngFor="let province of listProvince">
                                                             <option value="{{ province.id }}">{{ province.name }}
                                                             </option>
                                                         </ng-container>
                                                     </select>
-                                                    <div *ngIf="localForm.submitted && f['provinceId'].errors" class="invalid-feedback">
+                                                    <div *ngIf="localForm.submitted && f['provinceId'].errors"
+                                                        class="invalid-feedback">
                                                         <div *ngIf="f['provinceId'].errors['required']">
                                                             Provice/City required.
                                                         </div>
@@ -58,9 +117,10 @@
                                                 <label>District</label>
                                                 <div class="select-items">
                                                     <select class="form-control" formControlName="districtId"
-                                                    [ngClass]="{'is-invalid' : localForm.submitted && f['districtId'].errors}"
+                                                        [ngClass]="{'is-invalid' : localForm.submitted && f['districtId'].errors}"
                                                         (change)="onSelectDistrict($event)">
-                                                        <option disabled selected value> -- select an District -- </option>
+                                                        <option disabled selected value> -- select an District --
+                                                        </option>
                                                         <ng-container *ngIf="provinceSelected">
                                                             <ng-container *ngFor="let district of listDistrict">
                                                                 <option value="{{ district.id }}">{{ district.name }}
@@ -68,7 +128,8 @@
                                                             </ng-container>
                                                         </ng-container>
                                                     </select>
-                                                    <div *ngIf="localForm.submitted && f['districtId'].errors" class="invalid-feedback">
+                                                    <div *ngIf="localForm.submitted && f['districtId'].errors"
+                                                        class="invalid-feedback">
                                                         <div *ngIf="f['districtId'].errors['required']">
                                                             District required.
                                                         </div>
@@ -81,16 +142,17 @@
                                                 <label>Commune/Ward</label>
                                                 <div class="select-items">
                                                     <select class="form-control" formControlName="wardId"
-                                                    [ngClass]="{'is-invalid' : localForm.submitted && f['wardId'].errors}"
-                                                        >
-                                                        <option disabled selected value> -- select an Commune/Ward -- </option>
+                                                        [ngClass]="{'is-invalid' : localForm.submitted && f['wardId'].errors}">
+                                                        <option disabled selected value> -- select an Commune/Ward --
+                                                        </option>
                                                         <ng-container *ngIf="districtSelected">
                                                             <ng-container *ngFor="let ward of listWard">
                                                                 <option value="{{ ward.id }}">{{ ward.name }}</option>
                                                             </ng-container>
                                                         </ng-container>
                                                     </select>
-                                                    <div *ngIf="localForm.submitted && f['wardId'].errors" class="invalid-feedback">
+                                                    <div *ngIf="localForm.submitted && f['wardId'].errors"
+                                                        class="invalid-feedback">
                                                         <div *ngIf="f['wardId'].errors['required']">
                                                             Commune/Ward required.
                                                         </div>
@@ -102,14 +164,11 @@
                                             <div class="single-form form-default">
                                                 <label>Address</label>
                                                 <div class="form-input form">
-                                                    <input type="text" placeholder="Address" 
-                                                    formControlName="address">
+                                                    <input type="text" placeholder="Address" formControlName="address">
                                                 </div>
-                                                <div class="text-danger">
-                                                    <div>
-                                                        Address required.
-                                                    </div>
-                                                </div>
+                                                <div *ngIf="localForm.submitted && f['address'].errors && f['address'].errors['required']"
+                                                    class="text-danger">
+                                                    Address is required.</div>
                                             </div>
                                         </div>
                                     </div>
