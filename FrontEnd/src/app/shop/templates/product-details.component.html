@@ -100,7 +100,7 @@
       <div class="row">
         <div class="col-lg-4 col-12">
           <div class="single-block give-review">
-            <h4>4.5 (Overall)</h4>
+            <h4>{{ avgRateStar }} (Overall)</h4>
             <ul>
               <!-- <ng-container *ngFor='let in of [].constructor(5) ;let i = index'>
                 <li>
@@ -113,7 +113,7 @@
                 <!-- <ng-container *ngIf="reviewStatus == 1"> -->
 
               <li>
-                <span>5 stars - {{countStar.review5}}</span>
+                <span>5 stars - {{countStar.fiveStar}}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
@@ -121,7 +121,7 @@
                 <i class="lni lni-star-filled"></i>
               </li>
               <li>
-                <span>4 stars - {{countStar.review4}}</span>
+                <span>4 stars - {{countStar.fourStar}}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
@@ -129,7 +129,7 @@
                 <i class="lni lni-star"></i>
               </li>
               <li>
-                <span>3 stars - {{countStar.review3}}</span>
+                <span>3 stars - {{countStar.threeStar}}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
@@ -137,7 +137,7 @@
                 <i class="lni lni-star"></i>
               </li>
               <li>
-                <span>2 stars - {{countStar.review2 }}</span>
+                <span>2 stars - {{countStar.twoStar }}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star"></i>
@@ -145,7 +145,7 @@
                 <i class="lni lni-star"></i>
               </li>
               <li>
-                <span>1 star - {{countStar.review1}}</span>
+                <span>1 star - {{countStar.oneStar}}</span>
                 <i class="lni lni-star-filled"></i>
                 <i class="lni lni-star"></i>
                 <i class="lni lni-star"></i>

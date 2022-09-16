@@ -26,6 +26,7 @@ export class ProductDetailsComponent implements OnInit {
   reviews:any;
   countStar:any;
   reviewStatus:any;
+  avgRateStar:any;
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -102,7 +103,9 @@ export class ProductDetailsComponent implements OnInit {
   countReview(){
     this.shopService.countReview(this.id).subscribe(res => {
       this.countStar = res;
-      // console.log(this.countStar);
+      this.avgRateStar = ((this.countStar.fiveStar * 5)+(this.countStar.fourStar * 4)+(this.countStar.threeStar * 3)+(this.countStar.twoStar * 2)+(this.countStar.oneStar * 1))
+      /(this.countStar.fiveStar + this.countStar.fourStar + this.countStar.threeStar + this.countStar.twoStar + this.countStar.oneStar)
+      ;
     });
   }
 

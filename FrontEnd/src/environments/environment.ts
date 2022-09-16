@@ -14,7 +14,7 @@ export const environment = {
   urlLogin : urlApi+'login',
   urlBaner : urlApi+'getBaner',
   urlCustomer : urlApi+'getCustomer',
-  urlCountReview : urlApi+'coutReview',
+  urlCountReview : urlApi+'coutReviewStar',
 
 };
 
