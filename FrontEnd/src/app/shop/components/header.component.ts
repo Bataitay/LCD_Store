@@ -4,7 +4,6 @@ import { AuthService } from '../auth.service';
 import { User } from '../shop';
 import { OrderService } from '../service/order.service';
 import { ShopService } from '../shop.service';
-import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-header',
   templateUrl: '../templates/header.component.html',
