@@ -24,6 +24,7 @@ class FeProductRepository extends BaseRepository implements FeProductRepositoryI
     {
         $product = $this->model->with('specification')->with('file_names')
             ->with('brand')->with('category')->find($id);
+            dd($product);
         return $product;
     }
     public function trendingProduct(){

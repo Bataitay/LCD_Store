@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->date('date_of_birth')->nullable();
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('customer_id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone');
         });
     }
 
@@ -25,7 +28,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('customers', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             //
         });
     }
