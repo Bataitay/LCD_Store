@@ -10,6 +10,7 @@ import { ShopService } from '../shop.service';
 })
 export class HomeComponent implements OnInit {
   products: any[] =[];
+  brands: any[] = []
   url: string = environment.url;
 
   constructor(private shopService: ShopService,
@@ -18,12 +19,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.trendingProduct();
+    this.getAllBrand();
+
   }
   trendingProduct(){
     this.shopService.trendingProductSer().subscribe(res => {
       this.products = res;
-      console.log(res);
     })
   }
+  getAllBrand(){
+    this.shopService.getAllBrand().subscribe(res => {
+      this.brands = res;
+
+
+  })
+}
 
 }

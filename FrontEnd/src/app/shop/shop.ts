@@ -9,3 +9,8 @@ export interface Product {
 export interface Category {
   name: any;
 }
+export interface Brand {
+  name: any;
+  logo: any;
+  status: any;
+}

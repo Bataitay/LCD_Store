@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BrandApiController;
 use App\Http\Controllers\Api\FeProductController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReviewApiController;
-use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +44,14 @@ Route::group([
     //review
     Route::apiResource('review', ReviewApiController::class);
 });
+
+
+Route::apiResource('brand',BrandApiController::class);
+
+
+
+
+
 //addToCart
 Route::get('list-cart', [CartController::class, 'getAllCart']);
 Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
