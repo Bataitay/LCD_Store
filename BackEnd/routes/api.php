@@ -41,7 +41,8 @@ Route::group([
     Route::get('getBaner',[FeProductController::class,'getBaner']);
     Route::get('getCustomer',[FeProductController::class,'getCustomer']);
     Route::get('coutReviewStar/{id}',[FeProductController::class,'coutReviewStar']);
-
+    Route::get('getReview/{id}',[FeProductController::class,'getReview']);
+    Route::post('addAnswer',[ReviewApiController::class,'addAnswer']);
     //review
     Route::apiResource('review', ReviewApiController::class);
 });

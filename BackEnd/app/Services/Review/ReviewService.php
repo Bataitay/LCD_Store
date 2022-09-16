@@ -37,9 +37,11 @@ class ReviewService extends BaseService implements ReviewServiceInterface {
     {
         return $this->repository->searchReview($name);
     }
-    public function coutReview($id){
-        return $this->repository->coutReview($id);
+    public function answer($data){
+        return $this->repository->answer($data);
+    }
+    public function getReview($id){
+        return $this->repository->getReview($id);
 
     }
-
 }

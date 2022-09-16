@@ -72,7 +72,6 @@ class ProductController extends Controller
         }
         try {
             $data = $request->all();
-            // dd($data);
             $this->productService->create($data);
             $notification = array(
                 'message' => 'Added product successfully',
