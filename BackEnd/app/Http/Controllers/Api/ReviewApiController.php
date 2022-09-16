@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
 use App\Services\Review\ReviewServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -33,6 +34,7 @@ class ReviewApiController extends Controller
         try {
             $data = $request->all();
             $review =  $this->reviewService->create($data);
+            dd($review->id);
             $statusCode = 200;
             return response()->json([
                'review' => $review,
@@ -81,5 +83,9 @@ class ReviewApiController extends Controller
         $reviews =  $this->reviewService->getReview($id);
         return response()->json($reviews, 200);
     }
+    public function addAnswer(Request $request){
+        $answer = $this->reviewService->answer($request);
+        return response()->json($answer, 200);
 
+    }
 }

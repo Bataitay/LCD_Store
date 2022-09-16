@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Review;
 
+use App\Models\Answer;
 use App\Models\Review;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Route;
@@ -43,5 +44,11 @@ class ReviewRepository extends BaseRepository implements ReviewRepositoryInterfa
           }
           return  $reviews   ->paginate(8);
     }
-
+    public function answer($data){
+        $answer = new Answer();
+        $answer->review_id = $data['review_id'];
+        $answer->customer_id = $data['customer_id'];
+        $answer->answer = $data['name_answer'];
+        $answer->save();
+    }
 }
