@@ -28,6 +28,9 @@ export class CheckoutComponent implements OnInit {
             wardId: new FormControl('', Validators.required),
             address: new FormControl('', Validators.required),
             note: new FormControl(''),
+            name: new FormControl('', Validators.required),
+            email: new FormControl('', [Validators.required, Validators.email]),
+            phone: new FormControl('', Validators.required),
         })
         this.orderService.getAllProvince().subscribe(res => {
             this.listProvince = res;
@@ -62,11 +65,10 @@ export class CheckoutComponent implements OnInit {
         })
     }
     submit() {
-        this.orderService.storeOrder(this.form.value).subscribe(res => {
-            this.getAllCart();
-        });
         if(this.form.valid){
-
+            this.orderService.storeOrder(this.form.value).subscribe(res => {
+                this.getAllCart();
+            });
             this._router.navigate(['product-list'])
         }
     }
