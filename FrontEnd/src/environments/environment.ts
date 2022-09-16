@@ -10,6 +10,7 @@ export const environment = {
   urlAllCategories : 'http://127.0.0.1:8000/api/category_list',
   urlTrendingPro : 'http://127.0.0.1:8000/api/trendingProduct',
   urlGetAllBrand : 'http://127.0.0.1:8000/api/brand',
+  urlGoogleLogin : 'http://127.0.0.1:8000//auth/redirect/google',
 
 };
 

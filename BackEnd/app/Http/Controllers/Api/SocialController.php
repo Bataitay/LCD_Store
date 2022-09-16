@@ -12,10 +12,12 @@ use Laravel\Socialite\Facades\Socialite;
 class SocialController extends Controller
 {
     protected $customerService;
+    protected $auth;
 
-    public function __construct(CustomerServiceInterface $customerService)
+    public function __construct(CustomerServiceInterface $customerService,AuthController $auth)
     {
         $this->customerService = $customerService;
+        $this->auth= $auth;
     }
 
     public function redirect($provider)
@@ -38,15 +40,14 @@ class SocialController extends Controller
 
 
 
-        $user = $this->createUser($getInfo,$provider);
+        $customer = $this->createUser($getInfo,$provider);
 
 
 
-        auth()->login($user);
+       return auth('api')->login($customer);
 
 
 
-        return redirect()->to('/');
 
 
 

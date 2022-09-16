@@ -29,5 +29,8 @@ export class ShopService {
   getAllBrand():Observable<Brand[]> {
     return this.http.get<Brand[]>(environment.urlGetAllBrand);
   }
+  googleLogin():Observable<any>{
+    return this.http.get<any[]>(environment.urlGoogleLogin)
+  }
 
 }
