@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     })
   }
   getBaner(){
-    this.shopService.getbaner().subscribe(res => {
+    this.shopService.getAllBrand().subscribe(res => {
         this.baner = res;
         this.baner = this.baner.image;
     })

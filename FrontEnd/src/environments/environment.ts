@@ -17,7 +17,8 @@ export const environment = {
   urlCountReview : urlApi+'coutReviewStar',
   urlGetAllBrand : urlApi+'brand',
   urlGoogleLogin : 'http://127.0.0.1:8000/auth/redirect/google',
-
+  urlanswer : urlApi+'addAnswer',
+  urlIdReview : urlApi+'addAnswer',
 
 };
 
