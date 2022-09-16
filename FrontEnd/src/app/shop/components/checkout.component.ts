@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../service/order.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class CheckoutComponent implements OnInit {
 
     provinceSelected: boolean = false;
     districtSelected: boolean = false;
-    constructor(private orderService: OrderService, private _router: Router) { }
+    constructor(private orderService: OrderService, private _router: Router, private toastrService: ToastrService,) { }
 
     ngOnInit(): void {
         this.form = new FormGroup({
@@ -69,7 +70,8 @@ export class CheckoutComponent implements OnInit {
             this.orderService.storeOrder(this.form.value).subscribe(res => {
                 this.getAllCart();
             });
-            this._router.navigate(['product-list'])
+            this._router.navigate(['product-list']);
+            this.toastrService.success(JSON.stringify("Checkout Successfully"));
         }
     }
 }
