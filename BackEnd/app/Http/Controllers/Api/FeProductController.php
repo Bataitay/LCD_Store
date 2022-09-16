@@ -26,7 +26,7 @@ class FeProductController extends Controller
         return response()->json($product, 200);
     }
     public function category_list(){
-        $categories = Category::take(10)->get();
+        $categories = Category::with('products')->take(10)->get();
         return response()->json($categories, 200);
     }
     public function trendingProduct(){
