@@ -22,13 +22,7 @@ export class ProdutListComponent implements OnInit {
 
   public product_list(){
     this.shopService.product_listSer().subscribe(res => {
-      console.log(res);
       this.products = res;
-    })
-  }
-  addToCart(id: number){
-    this.shopService.addToCart(id).subscribe(res => {
-      this.shopService.getAllCart();
     })
   }
 

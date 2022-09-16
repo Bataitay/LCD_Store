@@ -1,37 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { User } from '../shop';
 import { ShopService } from '../shop.service';
-
+import jwt_decode from 'jwt-decode';
 @Component({
-    selector: 'app-header',
-    templateUrl: '../templates/header.component.html',
+  selector: 'app-header',
+  templateUrl: '../templates/header.component.html',
 })
 export class HeaderComponent implements OnInit {
-    categories: any[] = []
-    listCart: any;
-    cartSubtotal: number = 0;
-    constructor(private shopService: ShopService,
-        private route: ActivatedRoute,
-    ) { }
+  categories: any[] = []
+  currentUser :any;
+  token: any;
+  userData:any;
+  constructor(private shopService: ShopService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+  ) {
+    this.authService.user.subscribe(user => {
+      this.currentUser = user
+      this.currentUser = this.currentUser.email;
+    });
+  }
 
-    ngOnInit(): void {
-        this.shopService.category_listSer().subscribe(res => {
-            this.categories = res;
-        });
-        this.getAllCart();
-    }
-    getAllCart() {
-        this.shopService.getAllCart().subscribe(res => {
-            this.listCart = res;
-            this.cartSubtotal = 0;
-            for (let cart of this.listCart) {
-                this.cartSubtotal += cart.price * cart.quantity;
-            }
-        });
-    }
-    deleteCart(id: any){
-        this.shopService.deleteCart(id).subscribe(res => {
-            this.getAllCart();
-        });
-    }
+  ngOnInit(): void {
+    this.shopService.category_listSer().subscribe(res => {
+      this.categories = res;
+    });
+    this.token = localStorage.getItem('currentUser') ;
+
+  }
+  logout(){
+    this.authService.logout();
+    this.token = true;
+  }
+
 }

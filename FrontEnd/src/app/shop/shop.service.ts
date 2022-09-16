@@ -1,40 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Category, Product } from './shop';
-import { HttpClient,HttpErrorResponse  } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Category, Product, Register, Review } from './shop';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+import { AuthService } from './auth.service';
+import { from } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  // product : Product[] =[];
-  constructor(private http: HttpClient,) {
+  constructor(private http: HttpClient,
+    private authService: AuthService) {
 
-   }
-
-  product_listSer():Observable<Product[]> {
+  }
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+  product_listSer(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.urlAllProducts);
   }
-  product_detailSer(id:any):Observable<Product[]> {
-    return this.http.get<Product[]>(environment.urlIdProduct+'/'+id);
+  product_detailSer(id: any): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.urlIdProduct + '/' + id);
   }
-  category_listSer():Observable<Category[]> {
+  category_listSer(): Observable<Category[]> {
     return this.http.get<Category[]>(environment.urlAllCategories);
   }
-  trendingProductSer():Observable<Category[]> {
+  trendingProductSer(): Observable<Category[]> {
     return this.http.get<Category[]>(environment.urlTrendingPro);
   }
-  addToCart(id: number){
-    return this.http.get('http://127.0.0.1:8000/api/add-to-cart/'+id);
+  reviewSer(token:any,review: Review): Observable<Review[]> {
+    return this.http.post<Review[]>(environment.urlReview, review,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+    })
+    .pipe(
+      map((z) => {
+        return z;
+      })
+    )
   }
-  getAllCart(){
-    return this.http.get('http://127.0.0.1:8000/api/list-cart');
+  registerSer(register: Register): Observable<Register[]> {
+    return this.http.post<Register[]>(environment.urlRegister, register);
   }
-  updateQuantity(id: any, quantity: any){
-    return this.http.get('http://127.0.0.1:8000/api/update-cart/'+id+'/'+quantity);
+  getbaner(){
+    return this.http.get(environment.urlBaner);
   }
-  deleteCart(id: any){
-    return this.http.get('http://127.0.0.1:8000/api/remove-to-cart/'+id);
+  getCustomer(){
+    return this.http.get(environment.urlCustomer);
+  }
+  countReview(id:any){
+    return this.http.get(environment.urlCountReview + '/' +id);
   }
 }

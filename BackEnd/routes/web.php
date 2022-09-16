@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\SocialController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
@@ -24,12 +23,7 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/',function(){
-    return view('welcome');
-});
-Route::get('/auth/redirect/{provider}', [SocialController::class,'redirect']);
 
-Route::get('/callback/{provider}', [SocialController::class,'callback']);
 
 
 Route::controller(UserController::class)->group(function () {

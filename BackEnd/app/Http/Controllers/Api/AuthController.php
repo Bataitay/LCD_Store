@@ -16,7 +16,8 @@ class AuthController extends Controller
      * @return void
      */
     protected $customerService;
-    public function __construct(CustomerServiceInterface $customerService) {
+    public function __construct(CustomerServiceInterface $customerService)
+    {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
         $this->customerService = $customerService;
     }
@@ -26,8 +27,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request){
-    	$validator = Validator::make($request->all(), [
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
@@ -36,8 +38,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (! $token = auth('api')->attempt($validator->validated())) {
-            dd($token);
+        if (!$token = auth('api')->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -50,23 +51,30 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
+
             'email' => 'required|string|email|max:100|unique:customers',
             'password' => 'required|string|confirmed|min:6',
 
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()->toJson(),
+                'message' => 'User failled registered',
+                'status' => false,
+            ], 400);
         }
-        $data= array_merge(
+        $data = array_merge(
             $validator->validated(),
-            ['password' => bcrypt($request->password) ]
+            ['password' => bcrypt($request->password)]
         );
         $customer = $this->customerService->create($data);
 
         return response()->json([
+            'status' => true,
             'message' => 'User successfully registered',
             'customer' => $customer
         ], 201);
@@ -78,7 +86,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout() {
+    public function logout()
+    {
         auth()->logout();
 
         return response()->json(['message' => 'User successfully signed out']);
@@ -89,7 +98,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh() {
+    public function refresh()
+    {
         return $this->createNewToken(auth('api')->refresh());
     }
 
@@ -98,7 +108,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function userProfile() {
+    public function userProfile()
+    {
         return response()->json(auth()->user());
     }
 
@@ -109,7 +120,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function createNewToken($token){
+    protected function createNewToken($token)
+    {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
@@ -118,20 +130,21 @@ class AuthController extends Controller
         ]);
     }
 
-    public function changePassWord(Request $request) {
+    public function changePassWord(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'old_password' => 'required|string|min:6',
             'new_password' => 'required|string|confirmed|min:6',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
         $userId = auth()->user()->id;
 
         $user = User::where('id', $userId)->update(
-                    ['password' => bcrypt($request->new_password)]
-                );
+            ['password' => bcrypt($request->new_password)]
+        );
 
         return response()->json([
             'message' => 'User successfully changed password',

@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FeProductController;
 use App\Http\Controllers\Api\ReviewApiController;
-use App\Http\Controllers\Api\SocialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,15 +35,15 @@ Route::group([
     Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
     Route::get('category_list',[FeProductController::class,'category_list']);
     Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);
+    Route::get('getBaner',[FeProductController::class,'getBaner']);
+    Route::get('getCustomer',[FeProductController::class,'getCustomer']);
+    Route::get('coutReviewStar/{id}',[FeProductController::class,'coutReviewStar']);
 
     Route::get('getProduct',[FeProductController::class,'getAll']);
 
     //review
     Route::apiResource('review',ReviewApiController::class);
-    //addToCart
-    Route::get('list-cart', [CartController::class, 'getAllCart']);
-    Route::get('add-to-cart/{id}', [CartController::class, 'addToCart']);
-    Route::get('remove-to-cart/{id}', [CartController::class, 'removeToCart']);
-    Route::get('remove-all-cart', [CartController::class, 'removeAllCart']);
-    Route::get('update-cart/{id}/{quantity}', [CartController::class, 'updateCart']);
 });
+
+
+

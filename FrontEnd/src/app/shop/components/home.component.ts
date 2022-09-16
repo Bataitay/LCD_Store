@@ -11,19 +11,24 @@ import { ShopService } from '../shop.service';
 export class HomeComponent implements OnInit {
   products: any[] =[];
   url: string = environment.url;
-
+  baner:any;
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private _Router: Router) { }
 
   ngOnInit(): void {
     this.trendingProduct();
+    this.getBaner();
   }
   trendingProduct(){
     this.shopService.trendingProductSer().subscribe(res => {
       this.products = res;
-      console.log(res);
     })
   }
-
+  getBaner(){
+    this.shopService.getbaner().subscribe(res => {
+        this.baner = res;
+        this.baner = this.baner.image;
+    })
+  }
 }

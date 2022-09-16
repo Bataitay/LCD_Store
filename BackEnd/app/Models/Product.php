@@ -36,6 +36,10 @@ class Product extends Model
     public function oderDetails(){
         return $this->hasMany(OrderDetail::class, 'product_id', 'id');
     }
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+
     public function scopeSearch($query, $term)
     {
         if ($term) {
