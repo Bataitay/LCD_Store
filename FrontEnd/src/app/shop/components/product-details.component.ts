@@ -50,11 +50,7 @@ export class ProductDetailsComponent implements OnInit {
       this.product = res;
       for (let review of this.product.reviews) {
         review.vote = parseInt(review.vote)
-        console.log(review.id);
-        // for (let IdReview of review.id) {
           this.review_id = review.id
-        // }
-
       }
     });
     this.authService.user.subscribe(user => {
@@ -91,7 +87,6 @@ export class ProductDetailsComponent implements OnInit {
           continue;
         }
         this.reviews = res;
-        // console.log(this.reviews.email);
         }
     })
   }

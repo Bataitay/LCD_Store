@@ -23,7 +23,6 @@ export class ProdutListComponent implements OnInit {
     this.product_list();
     this.shopService.category_listSer().subscribe(res => {
       this.categories = res;
-      console.log(this.categories[0].products.length);
     });
   }
 
