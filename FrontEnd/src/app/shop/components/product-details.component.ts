@@ -7,10 +7,8 @@ import { AuthService } from '../auth.service';
 import { Review } from '../shop';
 import { ShopService } from '../shop.service';
 declare var window: any;
-import TimeAgo from 'javascript-time-ago';
-TimeAgo.addDefaultLocale(en)
-// English.
-import en from 'javascript-time-ago/locale/en';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-product-details',
   templateUrl: '../templates/product-details.component.html',
@@ -34,14 +32,14 @@ export class ProductDetailsComponent implements OnInit {
   reviewStatus: any;
   avgRateStar: any;
   anserRe_id: any;
-
+  now = moment();
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private _Router: Router,
     private toastrService: ToastrService,
     private authService: AuthService,
-  ) { }
+  ) {  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];

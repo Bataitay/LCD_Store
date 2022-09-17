@@ -27,8 +27,8 @@
 
           <div class="single-widget search">
             <h3>Search Product</h3>
-            <form action="#">
-              <input type="text" placeholder="Search Here...">
+            <form action="#" [formGroup]="serachForm" (ngSubmit)="handdleSearch()">
+              <input type="text" formControlName="search" placeholder="Search Here...">
               <button type="submit"><i class="lni lni-search-alt"></i></button>
             </form>
           </div>
@@ -39,7 +39,7 @@
             <ul class="list">
               <ng-container *ngFor="let category of categories ">
                 <li>
-                  <a type="button" (click)="filter(category.id) ">{{category.name}}</a>
+                  <a type="button" (click)="filterCate(category.id) ">{{category.name}}</a>
                   <span>({{ (category.products.length) }})</span>
                 </li>
               </ng-container>
@@ -48,27 +48,27 @@
           <div class="single-widget condition">
             <h3>Filter by Price</h3>
             <div class="form-check">
-              <input class="form-check-input" (click)="filter50_100()" type="checkbox" value="" id="flexCheckDefault1">
+              <input class="form-check-input" name="filter_price" (click)="filter50_100()" type="radio" value="" id="flexCheckDefault1">
               <label class="form-check-label" for="flexCheckDefault1">
-                $50 - $100L (208)
+                $50 - $100L ({{ quantity50_100.length }})
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+              <input class="form-check-input" name="filter_price" (click)="filter100_500()" type="radio" value="" id="flexCheckDefault2">
               <label class="form-check-label" for="flexCheckDefault2">
-                $100L - $500 (311)
+                $100L - $500 ({{quantity100_500.length}})
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+              <input class="form-check-input" name="filter_price" (click)="filter500_1000()" type="radio" value="" id="flexCheckDefault3">
               <label class="form-check-label" for="flexCheckDefault3">
-                $500 - $1,000 (485)
+                $500 - $1,000 ({{quantity500_1000.length}})
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
+              <input class="form-check-input" name="filter_price" (click)="filter1000_5000()" type="radio" value="" id="flexCheckDefault4">
               <label class="form-check-label" for="flexCheckDefault4">
-                $1,000 - $5,000 (213)
+                $1,000 - $5,000 ({{quantity1000_5000.length}})
               </label>
             </div>
           </div>
@@ -76,54 +76,12 @@
 
           <div class="single-widget condition">
             <h3>Filter by Brand</h3>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11">
-              <label class="form-check-label" for="flexCheckDefault11">
-                Apple (254)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault22">
-              <label class="form-check-label" for="flexCheckDefault22">
-                Bosh (39)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault33">
-              <label class="form-check-label" for="flexCheckDefault33">
-                Canon Inc. (128)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault44">
-              <label class="form-check-label" for="flexCheckDefault44">
-                Dell (310)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault55">
-              <label class="form-check-label" for="flexCheckDefault55">
-                Hewlett-Packard (42)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault66">
-              <label class="form-check-label" for="flexCheckDefault66">
-                Hitachi (217)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault77">
-              <label class="form-check-label" for="flexCheckDefault77">
-                LG Electronics (310)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault88">
-              <label class="form-check-label" for="flexCheckDefault88">
-                Panasonic (74)
-              </label>
-            </div>
+            <ng-container *ngFor="let brand of brands">
+              <div class="form-check">
+                <a  (click)="filterBrand(brand.id)" type="button">{{ brand.name }} </a>
+                  <span>({{ brand.products.length }})</span>
+              </div>
+            </ng-container>
           </div>
 
         </div>
@@ -153,8 +111,7 @@
                     <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab" data-bs-target="#nav-grid"
                       type="button" role="tab" aria-controls="nav-grid" aria-selected="true"><i
                         class="lni lni-grid-alt"></i></button>
-                    <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab" data-bs-target="#nav-list"
-                      type="button" role="tab" aria-controls="nav-list" aria-selected="false"><i
+                    <button class="nav-link" type="button" (click)="product_list()" ><i
                         class="lni lni-list"></i></button>
                   </div>
                 </nav>

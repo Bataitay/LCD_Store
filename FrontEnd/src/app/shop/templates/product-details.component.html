@@ -178,7 +178,7 @@
                     <div class="review-info">
                       <ng-container *ngFor="let review_dtl of reviews; let i =index">
                         <ng-container *ngIf="review.customer_id == review_dtl.id">
-                            <span>{{review_dtl.email}}</span>
+                            <span class="bg-dark text-white">{{review_dtl.email}}</span>
                           <ul class="stars">
                             <ng-container *ngFor='let in of [].constructor(review.vote) ;let i = index'>
                               <li><i class="lni lni-star-filled"></i></li>
@@ -189,16 +189,20 @@
                           </ul>
                         </ng-container>
                       </ng-container>
-                      <p>{{review.content}}</p>
-                      <button button type="button" class="btn review-btn text-danger" data-bs-toggle="modal" data-bs-target="#answer"
+                      <p class="text text-primary">{{review.content}}</p>
+                      <p><em style="font-size: 11px; ">
+                        {{ now.from(review.created_at) }} ago
+                      </em></p>
+                      <button button type="button" class="btn btn-secondary review-btn " data-bs-toggle="modal" data-bs-target="#answer"
                       (click)="openAnswer(review.id)"
                       ><small>answer</small></button>
                       <ng-container *ngFor=" let answer of review.answers">
                     <div class="review-answer">
-                      <span>{{answer.customer.email}}</span>
-                        <p>{{answer.answer}}</p>
+                      <span class="bg-dark text-white">{{answer.customer.email}}</span>
+                        <p class="text text-success">{{answer.answer}}</p>
+                        <p><em style="font-size: 11px; ">{{ now.from(answer.created_at) }} ago</em></p>
                         <p></p>
-                        <button button type="button" class="btn review-btn text-danger" data-bs-toggle="modal" data-bs-target="#answer"
+                        <button button type="button" class="btn btn-secondary review-btn  " data-bs-toggle="modal" data-bs-target="#answer"
                         (click)="openAnswer(review.id)"
                         ><small>answer</small></button>
                       </div>
