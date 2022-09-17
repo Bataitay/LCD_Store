@@ -54,9 +54,9 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
         Route::delete('product/delete/{id}', 'destroy')->name('product.delete');
         Route::get('product/getTrashed', 'getTrashed')->name('product.getTrashed');
         Route::get('product/restore/{id}', 'restore')->name('product.restore');
+        Route::delete('product/force_destroy/{id}', 'force_destroy')->name('product.force_destroy');
         Route::get('product/showStatus/{id}', 'showStatus')->name('product.showStatus');
         Route::get('product/hideStatus/{id}', 'hideStatus')->name('product.hideStatus');
-        Route::delete('product/force_destroy/{id}', 'force_destroy')->name('product.force_destroy');
     });
     Route::controller(UserController::class)->group(function () {
         Route::get('user/index', 'index')->name('user.index');

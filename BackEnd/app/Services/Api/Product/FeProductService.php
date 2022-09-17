@@ -12,9 +12,9 @@ class FeProductService extends BaseService implements FeProductServiceInterface 
     {
         $this->repository = $productRepository;
     }
-    public function getAll()
+    public function getAll($request)
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($request);
     }
     public function find($id)
     {
