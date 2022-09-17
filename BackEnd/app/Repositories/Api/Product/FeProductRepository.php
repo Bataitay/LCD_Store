@@ -20,18 +20,11 @@ class FeProductRepository extends BaseRepository implements FeProductRepositoryI
     }
     public function getAll($request)
     {
-        $products = $this->model->take(18)->get();
+        $products = $this->model->take(15)->get();
         if (!empty($request->search)) {
-            $search = $request->search;
-            $products = $products->search($search);
+            $products = $products->search($request->search);
         }
-        if (!empty($request->category_id)) {
-            $products->nameCate($request);
-        }
-        if (!empty($request->brand_id)) {
-            $products->nameBrand($request);
-        }
-        // $products->filterPrice(request(['startPrice', 'endPrice']));
+
         return $products;
     }
     public function find($id)
