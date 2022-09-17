@@ -7,7 +7,10 @@ import { AuthService } from '../auth.service';
 import { Review } from '../shop';
 import { ShopService } from '../shop.service';
 declare var window: any;
-
+import TimeAgo from 'javascript-time-ago';
+TimeAgo.addDefaultLocale(en)
+// English.
+import en from 'javascript-time-ago/locale/en';
 @Component({
   selector: 'app-product-details',
   templateUrl: '../templates/product-details.component.html',
@@ -20,17 +23,18 @@ export class ProductDetailsComponent implements OnInit {
   reviewForm !: FormGroup;
   answerForm !: FormGroup;
   review: any;
-  currentUser:any;
+  currentUser: any;
   review_id: any;
   answer: any;
-  customer_email:any;
-  customer_id:any
+  customer_email: any;
+  customer_id: any
   token: any;
-  reviews:any;
-  countStar:any;
-  reviewStatus:any;
-  avgRateStar:any;
-  anserRe_id:any;
+  reviews: any;
+  countStar: any;
+  reviewStatus: any;
+  avgRateStar: any;
+  anserRe_id: any;
+
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -51,7 +55,7 @@ export class ProductDetailsComponent implements OnInit {
       this.product = res;
       for (let review of this.product.reviews) {
         review.vote = parseInt(review.vote)
-        this.review_id = review.id
+        this.review_id = review.id;
       }
     });
     this.authService.user.subscribe(user => {
@@ -72,26 +76,25 @@ export class ProductDetailsComponent implements OnInit {
     });
     this.getCustomer();
     this.countReview();
-      this.shopService.IdReview(this.anserRe_id).subscribe(res =>{
-      console.log(res);
-      })
+    this.shopService.IdReview(this.anserRe_id).subscribe(res => {
+
+    })
   }
   openReview(id: any) {
     this.id = id;
     this.review.show();
   }
-  getCustomer(){
+  getCustomer() {
     this.shopService.getCustomer().subscribe(res => {
       this.customer_email = res;
       for (let customer of this.customer_email) {
-        if(this.currentUser == customer.email){
+        if (this.currentUser == customer.email) {
 
           this.customer_id = customer.id;
           continue;
         }
         this.reviews = res;
-        // console.log(this.reviews.email);
-        }
+      }
     })
   }
   addReview() {
@@ -101,11 +104,11 @@ export class ProductDetailsComponent implements OnInit {
       customer_id: this.customer_id,
       product_id: this.id,
     }
-    this.shopService.reviewSer(this.token,review).subscribe(res => {
+    this.shopService.reviewSer(this.token, review).subscribe(res => {
       this.reviewForm.reset();
       this.review = res;
       if (this.review.status == true) {
-        let ref = document.getElementById('cancel')
+        const ref = document.getElementById('cancel')
         ref?.click()
         this.toastrService.success(JSON.stringify(this.review.message))
       } else {
@@ -114,29 +117,29 @@ export class ProductDetailsComponent implements OnInit {
     })
   }
 
-  countReview(){
+  countReview() {
     this.shopService.countReview(this.id).subscribe(res => {
       this.countStar = res;
-      this.avgRateStar = (((this.countStar.fiveStar * 5)+(this.countStar.fourStar * 4)+(this.countStar.threeStar * 3)+(this.countStar.twoStar * 2)+(this.countStar.oneStar * 1))
-      /(this.countStar.fiveStar + this.countStar.fourStar + this.countStar.threeStar + this.countStar.twoStar + this.countStar.oneStar)).toFixed(2)
+      this.avgRateStar = (((this.countStar.fiveStar * 5) + (this.countStar.fourStar * 4) + (this.countStar.threeStar * 3) + (this.countStar.twoStar * 2) + (this.countStar.oneStar * 1))
+        / (this.countStar.fiveStar + this.countStar.fourStar + this.countStar.threeStar + this.countStar.twoStar + this.countStar.oneStar)).toFixed(2)
     });
   }
   openAnswer(review_id: any) {
     this.review_id = review_id;
     this.answer.show();
   }
-  addAnswer(){
+  addAnswer() {
     let addAnswer = {
-      name_answer : this.answerForm.value.name_answer,
-      review_id : this.review_id,
-      customer_id : this.customer_id,
+      name_answer: this.answerForm.value.name_answer,
+      review_id: this.review_id,
+      customer_id: this.customer_id,
     }
     console.log(addAnswer);
     this.shopService.answer(addAnswer).subscribe(res => {
       this.answerForm.reset();
       this.answer = res;
       if (this.answer.status == true) {
-        let ref = document.getElementById('cancels')
+        const ref = document.getElementById('cancels')
         ref?.click()
         this.toastrService.success(JSON.stringify('Added answer successfully'))
       }

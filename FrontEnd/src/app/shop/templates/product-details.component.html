@@ -193,13 +193,16 @@
                       <button button type="button" class="btn review-btn text-danger" data-bs-toggle="modal" data-bs-target="#answer"
                       (click)="openAnswer(review.id)"
                       ><small>answer</small></button>
+                      <ng-container *ngFor=" let answer of review.answers">
                     <div class="review-answer">
-                      <span>acount</span>
-                      <p>{{review.answer}}</p>
-                      <button button type="button" class="btn review-btn text-danger" data-bs-toggle="modal" data-bs-target="#answer"
-                      (click)="openAnswer(review.id)"
-                      ><small>answer</small></button>
-                     </div>
+                      <span>{{answer.customer.email}}</span>
+                        <p>{{answer.answer}}</p>
+                        <p></p>
+                        <button button type="button" class="btn review-btn text-danger" data-bs-toggle="modal" data-bs-target="#answer"
+                        (click)="openAnswer(review.id)"
+                        ><small>answer</small></button>
+                      </div>
+                    </ng-container>
                     </div>
                   </div>
                 </ng-container>

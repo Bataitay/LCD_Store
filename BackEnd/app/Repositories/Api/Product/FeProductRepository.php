@@ -37,14 +37,17 @@ class FeProductRepository extends BaseRepository implements FeProductRepositoryI
     public function find($id)
     {
         $product = $this->model
-                ->with(['specification', 'file_names', 'brand', 'category', 'reviews'
-                    =>function($query){
-                        return $query->with(['answers' => function($query){
+            ->with([
+                'specification', 'file_names', 'brand', 'category', 'reviews'
+                => function ($query) {
+                    return $query->with([
+                        'answers'
+                        => function ($query) {
                             return $query->with('customer');
                         }
                     ]);
-                    }
-                ])->find($id);
+                }
+            ])->find($id);
         return $product;
     }
     public function trendingProduct()
