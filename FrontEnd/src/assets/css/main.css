@@ -2022,9 +2022,16 @@ ol {
 .header .main-menu-search .search-input {
   width: 100%
 }
-
+.search_main{
+  top: 8px;
+}
+.search-btn {
+  float: right;
+  margin-top: -45px;
+  margin-right: 24px;
+}
 .header .main-menu-search .search-input input {
-  width: 100%;
+  width: 200%;
   height: 45px;
   border: 1px solid #e2e2e2;
   background-color: #fff;
@@ -6060,7 +6067,15 @@ blockquote span {
   color: #081828;
   padding: 0 15px;
 }
-
+.price_search {
+  font-weight: bolder;
+  float: left;
+  margin-top: -30px;
+  margin-left: 72px;
+}
+.search_image{
+  max-width: 17%;
+}
 .product-sidebar .single-widget.search form button {
   height: 40px;
   width: 40px;

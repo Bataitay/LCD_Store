@@ -1,276 +1,275 @@
 <header class="header navbar-area">
 
   <div class="topbar">
-      <div class="container">
-          <div class="row align-items-center">
-              <div class="col-lg-4 col-md-4 col-12">
-                  <div class="top-left">
-                      <ul class="menu-top-link">
-                          <li>
-                              <div class="select-position">
-                                  <select id="select4">
-                                      <option value="0" selected>$ USD</option>
-                                      <option value="1">€ EURO</option>
-                                      <option value="2">$ CAD</option>
-                                      <option value="3">₹ INR</option>
-                                      <option value="4">¥ CNY</option>
-                                      <option value="5">৳ BDT</option>
-                                  </select>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="select-position">
-                                  <select id="select5">
-                                      <option value="0" selected>English</option>
-                                      <option value="1">Español</option>
-                                      <option value="2">Filipino</option>
-                                      <option value="3">Français</option>
-                                      <option value="4">العربية</option>
-                                      <option value="5">हिन्दी</option>
-                                      <option value="6">বাংলা</option>
-                                  </select>
-                              </div>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-12">
-                  <div class="top-middle">
-                      <ul class="useful-links">
-                          <li><a href="index.html">Home</a></li>
-                          <li><a href="about-us.html">About Us</a></li>
-                          <li><a href="contact.html">Contact Us</a></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-12">
-                  <div class="top-end">
-                      <div class="user">
-                          <i class="lni lni-user"></i>
-                          {{ currentUser  }}
-                      </div>
-                      <ng-container *ngIf="!token">
-                        <ul class="user-login">
-                            <li>
-                                <a type="submit" [routerLink]="['login']">Sign In</a>
-                            </li>
-                            <li>
-                                <a type="submit" [routerLink]="['register']">Register</a>
-                            </li>
-                        </ul>
-                      </ng-container>
-                      <ng-container *ngIf="token">
-                        <ul class="user-login">
-                            <li>
-                                <a type="submit" (click)="logout()"> logout</a>
-                            </li>
-                        </ul>
-                      </ng-container>
-                  </div>
-              </div>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-4 col-md-4 col-12">
+          <div class="top-left">
+            <ul class="menu-top-link">
+              <li>
+                <div class="select-position">
+                  <select id="select4">
+                    <option value="0" selected>$ USD</option>
+                    <option value="1">€ EURO</option>
+                    <option value="2">$ CAD</option>
+                    <option value="3">₹ INR</option>
+                    <option value="4">¥ CNY</option>
+                    <option value="5">৳ BDT</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <div class="select-position">
+                  <select id="select5">
+                    <option value="0" selected>English</option>
+                    <option value="1">Español</option>
+                    <option value="2">Filipino</option>
+                    <option value="3">Français</option>
+                    <option value="4">العربية</option>
+                    <option value="5">हिन्दी</option>
+                    <option value="6">বাংলা</option>
+                  </select>
+                </div>
+              </li>
+            </ul>
           </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-12">
+          <div class="top-middle">
+            <ul class="useful-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-us.html">About Us</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-12">
+          <div class="top-end">
+            <div class="user">
+              <i class="lni lni-user"></i>
+              {{ currentUser }}
+            </div>
+            <ng-container *ngIf="!token">
+              <ul class="user-login">
+                <li>
+                  <a type="submit" [routerLink]="['login']">Sign In</a>
+                </li>
+                <li>
+                  <a type="submit" [routerLink]="['register']">Register</a>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-container *ngIf="token">
+              <ul class="user-login">
+                <li>
+                  <a type="submit" (click)="logout()"> logout</a>
+                </li>
+              </ul>
+            </ng-container>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 
 
   <div class="header-middle">
-      <div class="container">
-          <div class="row align-items-center">
-              <div class="col-lg-3 col-md-3 col-7">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-3 col-md-3 col-7">
 
-                  <a class="navbar-brand" [routerLink]="['home']">
-                      <img src="assets/images/logo/logo.svg" alt="Logo">
-                  </a>
+          <a class="navbar-brand" [routerLink]="['home']">
+            <img src="assets/images/logo/logo.svg" alt="Logo">
+          </a>
 
+        </div>
+        <div class="col-lg-5 col-md-7 d-xs-none">
+
+          <div class="main-menu-search">
+
+            <div class="navbar-search search-style-5">
+              <form action="">
+              <div class="search-input">
+                <input type="text" placeholder="Please choose product need to find" aria-label="Number" matInput
+                  (input)="handdleSearch($event)" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <ng-container *ngFor="let product of products ">
+                    <a (click)="reloadCurrentPage(product.id)">
+                    <mat-option class="search_main" [value]="product.name">
+                      <span><img class="search_image" [src]="url+product.image" [alt]="product.name">
+                        {{product.name}}
+                        <b class="price_search">{{ product.price | currency }}</b></span>
+                      </mat-option>
+                    </a>
+                      <hr>
+                    </ng-container>
+                </mat-autocomplete>
               </div>
-              <div class="col-lg-5 col-md-7 d-xs-none">
-
-                  <div class="main-menu-search">
-
-                      <div class="navbar-search search-style-5">
-                          <div class="search-select">
-                              <div class="select-position">
-                                  <select id="select1">
-                                      <option selected>All</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="search-input">
-                                  <input type="text"
-                                         placeholder="Pick choose"
-                                         aria-label="Number"
-                                         matInput
-                                         (input)="handdleSearch($event)"
-                                         [matAutocomplete]="auto">
-                                  <mat-autocomplete #auto="matAutocomplete">
-                                    <mat-option >hello</mat-option>
-                                    <mat-option >hello</mat-option>
-                                    <mat-option >hello</mat-option>
-                                  </mat-autocomplete>
-                          </div>
-                          <!-- <div class="search-btn">
-                              <button><i class="lni lni-search-alt"></i></button>
-                          </div> -->
-                      </div>
-
-                  </div>
-
-              </div>
-              <div class="col-lg-4 col-md-2 col-5">
-                  <div class="middle-right-area">
-                      <div class="nav-hotline">
-                          <i class="lni lni-phone"></i>
-                          <h3>Hotline:
-                              <span>(+100) 123 456 7890</span>
-                          </h3>
-                      </div>
-                      <div class="navbar-cart">
-                          <div class="wishlist">
-                              <a href="javascript:void(0)">
-                                  <i class="lni lni-heart"></i>
-                                  <span class="total-items">0</span>
-                              </a>
-                          </div>
-                          <div class="cart-items">
-                              <a href="javascript:void(0)" class="main-btn">
-                                  <i class="lni lni-cart"></i>
-                                  <span class="total-items">{{ listCart.length }}</span>
-                              </a>
-
-                              <div class="shopping-item">
-                                  <div class="dropdown-cart-header">
-                                      <span>2 Items</span>
-                                      <a [routerLink]="['/cart']" >View Cart</a>
-                                  </div>
-                                  <ul class="shopping-list" *ngFor="let cart of listCart">
-                                    <li>
-                                        <a (click)="deleteCart(cart.id)" class="remove" title="Remove this item"><i
-                                                class="lni lni-close"></i></a>
-                                        <div class="cart-img-head">
-                                            <a class="cart-img" href="product-details.html"><img
-                                                    src="http://127.0.0.1:8000/{{ cart.image }}" alt="#"></a>
-                                        </div>
-                                        <div class="content">
-                                            <h4><a href="product-details.html">{{ cart.name }}</a></h4>
-                                            <p class="quantity">{{ cart.quantity }}x - <span class="amount">{{ cart.price|currency }}</span></p>
-                                        </div>
-                                    </li>
-                                </ul>
-                                  <div class="bottom">
-                                      <div class="total">
-                                          <span>Total</span>
-                                          <span class="total-amount">$134.00</span>
-                                      </div>
-                                      <div class="button">
-                                          <a [routerLink]="['/cart']" class="btn animate">Checkout</a>
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
-                      </div>
-                  </div>
-              </div>
+            </form>
           </div>
+          <div class="search-btn">
+            <button><i class="lni lni-search-alt"></i></button>
+          </div>
+
+          </div>
+
+        </div>
+        <div class="col-lg-4 col-md-2 col-5">
+          <div class="middle-right-area">
+            <div class="nav-hotline">
+              <i class="lni lni-phone"></i>
+              <h3>Hotline:
+                <span>(+100) 123 456 7890</span>
+              </h3>
+            </div>
+            <div class="navbar-cart">
+              <div class="wishlist">
+                <a href="javascript:void(0)">
+                  <i class="lni lni-heart"></i>
+                  <span class="total-items">0</span>
+                </a>
+              </div>
+              <div class="cart-items">
+                <a href="javascript:void(0)" class="main-btn">
+                  <i class="lni lni-cart"></i>
+                  <span class="total-items">{{ listCart.length }}</span>
+                </a>
+
+                <div class="shopping-item">
+                  <div class="dropdown-cart-header">
+                    <span>2 Items</span>
+                    <a [routerLink]="['/cart']">View Cart</a>
+                  </div>
+                  <ul class="shopping-list" *ngFor="let cart of listCart">
+                    <li>
+                      <a (click)="deleteCart(cart.id)" class="remove" title="Remove this item"><i
+                          class="lni lni-close"></i></a>
+                      <div class="cart-img-head">
+                        <a class="cart-img" href="product-details.html"><img
+                            src="http://127.0.0.1:8000/{{ cart.image }}" alt="#"></a>
+                      </div>
+                      <div class="content">
+                        <h4><a href="product-details.html">{{ cart.name }}</a></h4>
+                        <p class="quantity">{{ cart.quantity }}x - <span class="amount">{{ cart.price|currency }}</span>
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="bottom">
+                    <div class="total">
+                      <span>Total</span>
+                      <span class="total-amount">$134.00</span>
+                    </div>
+                    <div class="button">
+                      <a [routerLink]="['/cart']" class="btn animate">Checkout</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 
 
   <div class="container">
-      <div class="row align-items-center">
-          <div class="col-lg-8 col-md-6 col-12">
-              <div class="nav-inner">
+    <div class="row align-items-center">
+      <div class="col-lg-8 col-md-6 col-12">
+        <div class="nav-inner">
 
-                  <div class="mega-category-menu">
-                      <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
-                      <ul class="sub-category">
-                        <ng-container *ngFor="let category of categories ">
-                          <li><a href="product-grids.html">{{ category.name }}</a></li>
-                        </ng-container>
-                      </ul>
-                  </div>
-
-
-                  <nav class="navbar navbar-expand-lg">
-                      <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                          aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="toggler-icon"></span>
-                          <span class="toggler-icon"></span>
-                          <span class="toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                          <ul id="nav" class="navbar-nav ms-auto">
-                              <li class="nav-item">
-                                  <a [routerLink]="['home']" class="active" aria-label="Toggle navigation">Home</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a  [routerLink]="['product-list']" class="active" aria-label="Toggle navigation">Shop</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a  [routerLink]="['product-list']" class="active" aria-label="Toggle navigation">Blog</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a  [routerLink]="['product-list']" class="active" aria-label="Toggle navigation">Contact Us</a>
-                              </li>
-                          </ul>
-                      </div>
-                  </nav>
-
-              </div>
+          <div class="mega-category-menu">
+            <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
+            <ul class="sub-category">
+              <ng-container *ngFor="let category of categories ">
+                <li><a href="product-grids.html">{{ category.name }}</a></li>
+              </ng-container>
+            </ul>
           </div>
-          <div class="col-lg-4 col-md-6 col-12">
 
-              <div class="nav-social">
-                  <h5 class="title">Follow Us:</h5>
-                  <ul>
-                      <li>
-                          <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
-                      </li>
-                  </ul>
-              </div>
 
-          </div>
+          <nav class="navbar navbar-expand-lg">
+            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="toggler-icon"></span>
+              <span class="toggler-icon"></span>
+              <span class="toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+              <ul id="nav" class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <a [routerLink]="['home']" class="active" aria-label="Toggle navigation">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a [routerLink]="['product-list']" class="active" aria-label="Toggle navigation">Shop</a>
+                </li>
+                <li class="nav-item">
+                  <a [routerLink]="['product-list']" class="active" aria-label="Toggle navigation">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a [routerLink]="['product-list']" class="active" aria-label="Toggle navigation">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+        </div>
       </div>
+      <div class="col-lg-4 col-md-6 col-12">
+
+        <div class="nav-social">
+          <h5 class="title">Follow Us:</h5>
+          <ul>
+            <li>
+              <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+            </li>
+            <li>
+              <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
+            </li>
+            <li>
+              <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
+            </li>
+            <li>
+              <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
   </div>
   <script>
     const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
 
     const timer = () => {
-        const now = new Date().getTime();
-        let diff = finaleDate - now;
-        if (diff < 0) {
-            document.querySelector('.alert').style.display = 'block';
-            document.querySelector('.container').style.display = 'none';
-        }
+      const now = new Date().getTime();
+      let diff = finaleDate - now;
+      if (diff < 0) {
+        document.querySelector('.alert').style.display = 'block';
+        document.querySelector('.container').style.display = 'none';
+      }
 
-        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
-        let minutes = Math.floor(diff % (1000 * 60 * 60) / (1000 * 60));
-        let seconds = Math.floor(diff % (1000 * 60) / 1000);
+      let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      let hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+      let minutes = Math.floor(diff % (1000 * 60 * 60) / (1000 * 60));
+      let seconds = Math.floor(diff % (1000 * 60) / 1000);
 
-        days <= 99 ? days = `0${days}` : days;
-        days <= 9 ? days = `00${days}` : days;
-        hours <= 9 ? hours = `0${hours}` : hours;
-        minutes <= 9 ? minutes = `0${minutes}` : minutes;
-        seconds <= 9 ? seconds = `0${seconds}` : seconds;
+      days <= 99 ? days = `0${days}` : days;
+      days <= 9 ? days = `00${days}` : days;
+      hours <= 9 ? hours = `0${hours}` : hours;
+      minutes <= 9 ? minutes = `0${minutes}` : minutes;
+      seconds <= 9 ? seconds = `0${seconds}` : seconds;
 
-        document.querySelector('#days').textContent = days;
-        document.querySelector('#hours').textContent = hours;
-        document.querySelector('#minutes').textContent = minutes;
-        document.querySelector('#seconds').textContent = seconds;
+      document.querySelector('#days').textContent = days;
+      document.querySelector('#hours').textContent = hours;
+      document.querySelector('#minutes').textContent = minutes;
+      document.querySelector('#seconds').textContent = seconds;
 
     }
     timer();
     setInterval(timer, 1000);
-</script>
+  </script>
 </header>
