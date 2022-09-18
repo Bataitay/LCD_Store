@@ -13,6 +13,10 @@ import { ProductDetailsComponent } from './components/product-details.component'
 import { RegisterComponent } from './components/register.component';
 import { LoginComponent } from './components/login.component';
 import { AuthGuard } from './components/auth.guard';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,9 @@ import { AuthGuard } from './components/auth.guard';
     ),
     BrowserAnimationsModule,
     FormsModule,
+    MatAutocompleteModule,
+    MatSliderModule,
+    MatInputModule
   ],
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

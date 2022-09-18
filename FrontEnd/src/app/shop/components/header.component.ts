@@ -51,4 +51,10 @@ export class HeaderComponent implements OnInit {
       this.getAllCart();
     });
   }
+  handdleSearch(name: any){
+    const keywork = name.target.value;
+  const search = this.shopService.searchProductList(keywork).then(res => {
+
+  })
+  }
 }

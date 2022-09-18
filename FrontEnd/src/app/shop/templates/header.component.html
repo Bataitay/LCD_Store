@@ -96,11 +96,21 @@
                               </div>
                           </div>
                           <div class="search-input">
-                              <input type="text" placeholder="Search">
+                                  <input type="text"
+                                         placeholder="Pick choose"
+                                         aria-label="Number"
+                                         matInput
+                                         (input)="handdleSearch($event)"
+                                         [matAutocomplete]="auto">
+                                  <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option >hello</mat-option>
+                                    <mat-option >hello</mat-option>
+                                    <mat-option >hello</mat-option>
+                                  </mat-autocomplete>
                           </div>
-                          <div class="search-btn">
+                          <!-- <div class="search-btn">
                               <button><i class="lni lni-search-alt"></i></button>
-                          </div>
+                          </div> -->
                       </div>
 
                   </div>

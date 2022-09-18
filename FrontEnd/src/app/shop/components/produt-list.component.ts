@@ -11,25 +11,26 @@ import { ShopService } from '../shop.service';
 })
 export class ProdutListComponent implements OnInit {
 
-  products: any[] =[];
+  products: any[] = [];
   url: string = environment.url;
-  categories:any;
+  categories: any;
   category_id: any;
-  quantity50_100:any;
-  quantity100_500:any;
-  quantity500_1000:any;
-  quantity1000_5000:any;
-  brands:any;
-  brand_id:any;
+  quantity50_100: any;
+  quantity100_500: any;
+  quantity500_1000: any;
+  quantity1000_5000: any;
+  brands: any;
+  brand_id: any;
   serachForm !: FormGroup;
   data: any;
+  name: any;
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private _Router: Router,
     private orderService: OrderService,
     private fb: FormBuilder,
 
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.product_list();
@@ -92,42 +93,48 @@ export class ProdutListComponent implements OnInit {
       }
       this.quantity1000_5000 = obj;
     })
-
   }
 
-   product_list(){
+  product_list() {
     this.shopService.product_listSer().subscribe(res => {
       this.products = res;
     })
   }
-  addToCart(id: number){
+  addToCart(id: number) {
     this.orderService.addToCart(id).subscribe(res => {
       this.orderService.getAllCart();
     })
   }
-   filterCate(category_id:any){
+  handdleSearch(search: any) {
+    let keywork = this.serachForm.value.search
+    this.shopService.searchProductList(keywork).then(res => {
+      this.data = res;
+      this.products = this.data
+    })
+  }
+  filterCate(category_id: any) {
     this.category_id = category_id;
     this.shopService.category_listSer().subscribe(res => {
       this.categories = res;
       for (const category of this.categories) {
-        if(this.category_id == category.id){
-        this.products = category.products;
+        if (this.category_id == category.id) {
+          this.products = category.products;
         }
       }
     });
   }
-  filterBrand(brand_id:any){
+  filterBrand(brand_id: any) {
     this.brand_id = brand_id;
     this.shopService.getAllBrand().subscribe(res => {
       this.brands = res;
       for (const brand of this.brands) {
-        if(this.brand_id == brand.id){
-        this.products = brand.products;
+        if (this.brand_id == brand.id) {
+          this.products = brand.products;
         }
       }
     });
   }
-  filter50_100(){
+  filter50_100() {
     this.shopService.product_listSer().subscribe(res => {
       this.products = res;
       let obj = []
@@ -139,7 +146,7 @@ export class ProdutListComponent implements OnInit {
       }
     })
   }
-  filter100_500(){
+  filter100_500() {
     this.shopService.product_listSer().subscribe(res => {
       this.products = res;
       let obj = []
@@ -151,7 +158,7 @@ export class ProdutListComponent implements OnInit {
       }
     })
   }
-  filter500_1000(){
+  filter500_1000() {
     this.shopService.product_listSer().subscribe(res => {
       this.products = res;
       let obj = []
@@ -163,23 +170,18 @@ export class ProdutListComponent implements OnInit {
       }
     })
   }
-  filter1000_5000(){
+  filter1000_5000() {
     this.shopService.product_listSer().subscribe(res => {
       this.products = res;
       let obj = []
       for (const product of this.products) {
-        if (product.price > 1000 && product.price <= 5000 ) {
+        if (product.price > 1000 && product.price <= 5000) {
           obj.push(product);
           this.products = obj;
         }
       }
     })
   }
-  handdleSearch(name: any){
-    const keywork = name.target.value;
-    const search = this.shopService.searchProductList(keywork).then(res => {
-      this.products == res;
-      console.log(this.products);
-    })
-  }
+
+
 }
