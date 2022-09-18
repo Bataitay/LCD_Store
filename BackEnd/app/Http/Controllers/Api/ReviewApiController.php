@@ -81,5 +81,11 @@ class ReviewApiController extends Controller
         $reviews =  $this->reviewService->getReview($id);
         return response()->json($reviews, 200);
     }
-
+    public function addAnswer(Request $request){
+        $answer = $this->reviewService->answer($request);
+        return response()->json([
+            'answer' => $answer,
+             'status' => true,
+         ], 200);
+    }
 }

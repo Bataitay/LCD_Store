@@ -9,5 +9,6 @@ interface ReviewRepositoryInterface extends RepositoryInterface{
     public function restore($id);
     public function forceDelete($id);
     public function searchReview($name);
-
+    public function answer($data);
+    public function getReview($id);
 }

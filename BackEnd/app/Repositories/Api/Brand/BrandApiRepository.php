@@ -18,7 +18,7 @@ class BrandApiRepository extends BaseRepository implements BrandApiRepositoryInt
 
     public function all($request)
     {
-        return $this->model->latest()->get();
+        return $this->model->with('products')->latest()->get();
     }
     public function create($data)
     {

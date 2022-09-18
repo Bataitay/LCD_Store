@@ -5849,7 +5849,9 @@ blockquote span {
 .review-modal .modal-dialog {
   max-width: 600px
 }
-
+.review-btn {
+    padding: 0px;
+}
 .review-modal .modal-header {
   padding: 25px
 }
