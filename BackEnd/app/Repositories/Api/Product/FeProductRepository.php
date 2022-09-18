@@ -18,14 +18,24 @@ class FeProductRepository extends BaseRepository implements FeProductRepositoryI
     {
         return Product::class;
     }
-    public function getAll($request)
+    public function getAll()
     {
         $products = $this->model->take(15)->get();
-        if (!empty($request->search)) {
-            $products = $products->search($request->search);
-        }
+
 
         return $products;
+    }
+    public function search($request)
+    {
+        $query = $this->model::query();
+        $data = $request->input('search');
+        if ($data) {
+            $query->whereRaw("name Like '%" . $data . "%' ")
+                ->orWhereRaw("price Like '%" .$data . "%' ")
+                ->orWhereRaw("description Like '%" .$data . "%' ")
+            ;
+        }
+        return $query->get();
     }
     public function find($id)
     {

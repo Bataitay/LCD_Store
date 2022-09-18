@@ -132,7 +132,6 @@ export class ProductDetailsComponent implements OnInit {
       review_id: this.review_id,
       customer_id: this.customer_id,
     }
-    console.log(addAnswer);
     this.shopService.answer(addAnswer).subscribe(res => {
       this.answerForm.reset();
       this.answer = res;

@@ -35,6 +35,7 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);
     Route::get('product_list',[FeProductController::class,'product_list']);
+    Route::get('product_list/search',[FeProductController::class,'search']);
     Route::get('product_detail/{id}',[FeProductController::class,'product_detail']);
     Route::get('category_list',[FeProductController::class,'category_list']);
     Route::get('trendingProduct',[FeProductController::class,'trendingProduct']);

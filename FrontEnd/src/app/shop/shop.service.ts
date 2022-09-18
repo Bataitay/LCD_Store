@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Brand, Category, Product, Register, Review } from './shop';
-
-
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -56,5 +54,16 @@ export class ShopService {
   }
   IdReview(id:any){
     return this.http.get(environment.urlIdReview + '/'+ id);
+  }
+  searchProductList(name:string){
+    const response = new Promise(resolve => {
+      this.http.get(environment.urlSearch + `product_list/search?
+      search=${name}`).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
+    return response;
   }
 }

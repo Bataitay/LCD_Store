@@ -22,6 +22,7 @@ export class ProdutListComponent implements OnInit {
   brands:any;
   brand_id:any;
   serachForm !: FormGroup;
+  data: any;
   constructor(private shopService: ShopService,
     private route: ActivatedRoute,
     private _Router: Router,
@@ -167,7 +168,6 @@ export class ProdutListComponent implements OnInit {
       this.products = res;
       let obj = []
       for (const product of this.products) {
-        console.log(product);
         if (product.price > 1000 && product.price <= 5000 ) {
           obj.push(product);
           this.products = obj;
@@ -175,13 +175,11 @@ export class ProdutListComponent implements OnInit {
       }
     })
   }
-  handdleSearch(){
-    let search = {
-      search: this.serachForm.value.search,
-    }
-    console.log(search);
-    this.shopService.product_listSer().subscribe(res => {
-      this.products = res;
+  handdleSearch(name: any){
+    const keywork = name.target.value;
+    const search = this.shopService.searchProductList(keywork).then(res => {
+      this.products == res;
+      console.log(this.products);
     })
   }
 }

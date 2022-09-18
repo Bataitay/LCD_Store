@@ -27,10 +27,10 @@
 
           <div class="single-widget search">
             <h3>Search Product</h3>
-            <form action="#" [formGroup]="serachForm" (ngSubmit)="handdleSearch()">
-              <input type="text" formControlName="search" placeholder="Search Here...">
+            <!-- <form action="#" > -->
+              <input type="text" (input)="handdleSearch($event)" placeholder="Search Here...">
               <button type="submit"><i class="lni lni-search-alt"></i></button>
-            </form>
+            <!-- </form> -->
           </div>
 
 
