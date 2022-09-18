@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SocialController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
@@ -23,7 +24,9 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/',function(){
+    return view('welcome');
+});
 
 
 Route::controller(UserController::class)->group(function () {
@@ -141,3 +144,6 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::get('searchCustomers', [CustomerController::class, 'searchByName'])->name('customer.searchKey');
     Route::get('searchCustomer', [CustomerController::class, 'searchCustomer'])->name('customer.search');
 });
+Route::get('/auth/redirect/{provider}', [SocialController::class,'redirect']);
+
+Route::get('/callback/{provider}', [SocialController::class,'callback']);

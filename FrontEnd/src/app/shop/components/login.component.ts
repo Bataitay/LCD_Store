@@ -50,6 +50,9 @@ export class LoginComponent implements OnInit {
         },
       });
   }
+  googleLogin(){
+    alert (123)
+  }
 }
 
 
