@@ -71,9 +71,7 @@ class ProductController extends Controller
             abort(403);
         }
         try {
-            $data = $request->all();
-            // dd($data);
-            $this->productService->create($data);
+            $this->productService->create($request);
             $notification = array(
                 'message' => 'Added product successfully',
                 'alert-type' => 'success'
@@ -134,7 +132,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
         if (Gate::denies('Edit_Product', 'Edit_Product')) {
             abort(403);

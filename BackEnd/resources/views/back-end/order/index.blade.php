@@ -65,7 +65,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('order.show', $order->id) }}"><i class="fas fa-eye text-primary"></i></a>
+                                                <a href="{{ route('order.show', $order->id) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
