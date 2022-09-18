@@ -18,5 +18,9 @@ class Review extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
 
 }

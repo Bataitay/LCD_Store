@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Brand, Category, Product, Register, Review } from './shop';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthService } from './auth.service';
-import { from } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  brands: any[] = []
-  constructor(private http: HttpClient,
-    private authService: AuthService) {
+  constructor(private http: HttpClient,) {
 
   }
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
-  }
+
   product_listSer(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.urlAllProducts);
   }
@@ -30,6 +24,21 @@ export class ShopService {
   trendingProductSer(): Observable<Category[]> {
     return this.http.get<Category[]>(environment.urlTrendingPro);
   }
+  getAllBrand(): Observable<Brand[]> {
+    return this.http.get<Brand[]>(environment.urlGetAllBrand);
+  }
+  getAllBaner() {
+    return this.http.get(environment.urlBaner);
+  }
+  googleLogin(): Observable<any> {
+    return this.http.get<any[]>(environment.urlGoogleLogin)
+  }
+  registerSer(register: Register): Observable<Register[]> {
+    return this.http.post<Register[]>(environment.urlRegister, register);
+  }
+  getCustomer(){
+    return this.http.get(environment.urlCustomer);
+  }
   reviewSer(token:any,review: Review): Observable<Review[]> {
     return this.http.post<Review[]>(environment.urlReview, review,{
       headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
@@ -40,19 +49,24 @@ export class ShopService {
       })
     )
   }
-  registerSer(register: Register): Observable<Register[]> {
-    return this.http.post<Register[]>(environment.urlRegister, register);
-  }
-  getbaner(){
-    return this.http.get(environment.urlBaner);
-  }
-  getCustomer(){
-    return this.http.get(environment.urlCustomer);
-  }
   countReview(id:any){
     return this.http.get(environment.urlCountReview + '/' +id);
   }
-  getAllBrand():Observable<Brand[]> {
-    return this.http.get<Brand[]>(environment.urlGetAllBrand);
+  answer(data:any){
+    return this.http.post(environment.urlanswer, data);
+  }
+  IdReview(id:any){
+    return this.http.get(environment.urlIdReview + '/'+ id);
+  }
+  searchProductList(name:string){
+    const response = new Promise(resolve => {
+      this.http.get(environment.urlSearch + `product_list/search?
+      search=${name}`).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
+    return response;
   }
 }
