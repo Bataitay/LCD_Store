@@ -88,7 +88,7 @@ class OrderController extends Controller {
         Cache::forget('carts');
         $carts = Cache::get('carts');
 
-        
+
         //sendmail after order
         $orderId=$order->id;
         $customerCurent= Auth::guard('api')->user();
