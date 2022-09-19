@@ -8,11 +8,15 @@
                         <div class="mb-3">
                             <h3>Order Check</h3>
                             <input formControlName="orderId" name="orderId" type="input" class="form-control"
+                            [ngClass]=" localForm.submitted && (f['orderId'].errors || isEmptyOrder) ? 'border border-danger' : ''"
                                 id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Order Code">
                         </div>
                         <div *ngIf="localForm.submitted && f['orderId'].errors && f['orderId'].errors['required']"
                             class="text-danger">
                             Please input order code.</div>
+                        <div *ngIf="localForm.submitted && isEmptyOrder"
+                            class="text-danger">
+                            Order not found!</div>
                         <div>
                             <button type="submit" class="btn btn-primary btn-block mb-4">Check</button>
                         </div>
