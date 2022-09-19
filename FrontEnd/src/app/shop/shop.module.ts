@@ -16,6 +16,9 @@ import { AuthGuard } from './components/auth.guard';
 import { OrderDetailComponent } from './components/order-detail.component';
 import { OrderPayOnlineComponent } from './components/order-pay-online.component';
 import { OrderCheckComponent } from './components/order-check.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { OrderCheckComponent } from './components/order-check.component';
     ),
     BrowserAnimationsModule,
     FormsModule,
+    MatAutocompleteModule,
+    MatSliderModule,
+    MatInputModule
   ],
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopModule } from './shop/shop.module';
 import { RegisterComponent } from './shop/components/register.component';
 import { AuthGuard } from './shop/components/auth.guard';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -32,6 +35,10 @@ import { AuthGuard } from './shop/components/auth.guard';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ShopModule,
+    MatAutocompleteModule,
+    MatSliderModule,
+    MatInputModule
+
     // AuthGuard
   ],
   providers: [

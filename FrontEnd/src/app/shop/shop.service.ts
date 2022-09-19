@@ -60,7 +60,7 @@ export class ShopService {
   }
   searchProductList(name:string){
     const response = new Promise(resolve => {
-      this.http.get(environment.urlSearch + `product_list/search?
+      this.http.get(environment.urlSearch+`product_list/search?
       search=${name}`).subscribe(data => {
         resolve(data)
       }, err => {
