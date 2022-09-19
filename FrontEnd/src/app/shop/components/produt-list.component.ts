@@ -74,24 +74,24 @@ export class ProdutListComponent implements OnInit {
       this.products = res;
       let obj = []
       for (const product of this.products) {
-        if (product.price > 100 && product.price <= 500) {
+        if (product.price > 500 && product.price <= 1000) {
           obj.push(product);
           this.products = obj;
         }
+        this.quantity500_1000 = obj;
       }
-      this.quantity500_1000 = obj;
     })
 
     this.shopService.product_listSer().subscribe(res => {
       this.products = res;
       let obj = []
       for (const product of this.products) {
-        if (product.price > 100 && product.price <= 500) {
+        if (product.price > 1000 && product.price <= 5000) {
           obj.push(product);
           this.products = obj;
         }
+        this.quantity1000_5000 = obj;
       }
-      this.quantity1000_5000 = obj;
     })
   }
 
