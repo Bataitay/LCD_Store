@@ -13,6 +13,12 @@ import { ProductDetailsComponent } from './components/product-details.component'
 import { RegisterComponent } from './components/register.component';
 import { LoginComponent } from './components/login.component';
 import { AuthGuard } from './components/auth.guard';
+import { OrderDetailComponent } from './components/order-detail.component';
+import { OrderPayOnlineComponent } from './components/order-pay-online.component';
+import { OrderCheckComponent } from './components/order-check.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,10 @@ import { AuthGuard } from './components/auth.guard';
     ProdutListComponent,
     ProductDetailsComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    OrderDetailComponent,
+    OrderPayOnlineComponent,
+    OrderCheckComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +47,9 @@ import { AuthGuard } from './components/auth.guard';
     ),
     BrowserAnimationsModule,
     FormsModule,
+    MatAutocompleteModule,
+    MatSliderModule,
+    MatInputModule
   ],
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

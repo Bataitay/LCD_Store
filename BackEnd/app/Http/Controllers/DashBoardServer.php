@@ -41,9 +41,8 @@ class DashBoardServer extends Controller
             ->take(10)
             ->get();
         $customerByingSellings = DB::table('orders')
-            ->leftJoin('customers', 'customers.id', '=', 'orders.customer_id')
-            ->selectRaw('customers.*, sum( orders.order_total_price) cusByingSelling')
-            ->groupBy('orders.customer_id')
+            ->selectRaw('orders.*, sum(order_total_price) cusByingSelling')
+            ->groupBy('name')
             ->orderBy('cusByingSelling', 'desc')
             ->take(10)
             ->get();

@@ -27,10 +27,10 @@
 
           <div class="single-widget search">
             <h3>Search Product</h3>
-            <!-- <form action="#" > -->
-              <input type="text" (input)="handdleSearch($event)" placeholder="Search Here...">
-              <button type="submit"><i class="lni lni-search-alt"></i></button>
-            <!-- </form> -->
+            <form action="#"  [formGroup]="serachForm">
+              <input type="text" formControlName="search" placeholder="Search Here...">
+              <button type="submit" (click)="handdleSearch($event)"><i class="lni lni-search-alt"></i></button>
+            </form>
           </div>
 
 
@@ -127,7 +127,7 @@
 
                       <div class="single-product">
                         <div class="product-image">
-                          <img [src]="url+product.image" [alt]="product.name">
+                          <img  [src]="url+product.image" [alt]="product.name">
                           <div class="button">
                             <button (click)="addToCart(product.id)" class="btn"><i class="lni lni-cart"></i> Add to
                               Cart</button>
@@ -147,7 +147,7 @@
                             <li><span>4.0 Review(s)</span></li>
                           </ul>
                           <div class="price">
-                            <span>{{ product.price | currency }}</span>
+                            <span>{{ product.price  }}</span>
                           </div>
                         </div>
                       </div>
