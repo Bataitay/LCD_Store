@@ -12,11 +12,13 @@ use Laravel\Socialite\Facades\Socialite;
 class SocialController extends Controller
 {
     protected $customerService;
+    protected $authController;
 
 
-    public function __construct(CustomerServiceInterface $customerService)
+    public function __construct(CustomerServiceInterface $customerService,AuthController $authController)
     {
         $this->customerService = $customerService;
+        $this->authController= $authController;
 
     }
 
@@ -42,9 +44,15 @@ class SocialController extends Controller
 
         $customer = $this->createUser($getInfo,$provider);
 
+    //   return  $this->authController->createNewToken(auth('api')->login($customer));
 
-
-       return auth('api')->login($customer);
+      $token= auth('api')->login($customer);
+      return response()->json([
+        'access_token' => $token,
+        'token_type' => 'bearer',
+        'expires_in' => auth('api')->factory()->getTTL() * 60,
+        'user' =>$customer
+    ]);
 
 
 
@@ -78,6 +86,7 @@ class SocialController extends Controller
         ]);
 
       }
+
 
       return $customer;
 
