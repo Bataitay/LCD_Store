@@ -99,7 +99,7 @@ class OrderController extends Controller {
             'orderId' => $order->id
         ];
         try{
-            // Mail::to($order->email)->send(new SendMail($mailData));
+            Mail::to($order->email)->send(new SendMail($mailData));
             return response()->json(Order::with(['oderDetails'])->find($order->id));
         }catch(\Exception $e){
             Log::error('message: ' . $e->getMessage() . 'line: ' . $e->getLine() . 'file: ' . $e->getFile());
