@@ -25,9 +25,15 @@
                                     <label for="exampleInputEmail1">Name Category</label>
                                     <select name="category_id" id="category_id" class="form-control category_id"
                                         aria-label="Default select example" data-toggle="select2">
+                                        <option selected disabled>Open this select menu</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
-                                                @if ($product->category_id == $category->id) selected @endif>{{ $category->name }}
+                                                @if(old('category_id')  == $category->id)
+                                                    selected
+                                                @elseif($product->category_id == $category->id)
+                                                    selected
+                                                @endif
+                                                >{{ $category->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -41,9 +47,15 @@
                                     <label for="exampleInputEmail1">Name Brand</label>
                                     <select name="brand_id" id="brand" class="form-control brand"
                                         aria-label="Default select example" data-toggle="select2">
+                                        <option selected disabled>Open this select menu</option>
                                         @foreach ($brands as $brand)
                                             <option value="{{ $brand->id }}"
-                                                @if ($product->brand_id == $brand->id) selected @endif>{{ $brand->name }}
+                                                @if(old('brand_id')  == $brand->id)
+                                                    selected
+                                                @elseif($product->brand_id == $brand->id)
+                                                    selected
+                                                @endif
+                                                >{{ $brand->name }}
                                             </option>
                                         @endforeach
                                     </select>

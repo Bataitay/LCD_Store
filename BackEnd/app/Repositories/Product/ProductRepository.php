@@ -42,6 +42,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
     public function create($data)
     {
+        // dd($data->category_id);
         try {
             //create product
             $product = $this->model;
@@ -129,6 +130,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
             //create product_images
             if ($data['file_names']) {
+                ProductImage::where('product_id', '=', $product->id)->delete();
                 foreach ($data['file_names'] as $file_detail) {
                     // File::delete($product->file_names()->file_name);
                     $detail_path = 'storage/' . $file_detail->store('/products', 'public');

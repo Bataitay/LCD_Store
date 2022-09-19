@@ -25,7 +25,8 @@
                 <div class="col-lg-8">
                     <div class="checkout-steps-form-style-1">
                         <ul id="accordionExample">
-                            <li>
+                            <li
+                                [ngClass]=" localForm.submitted && (f['name'].errors || f['email'].errors || f['address'].errors || f['phone'].errors) ? 'border border-danger' : ''">
                                 <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                     aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
                                 <section class="checkout-steps-form-content collapse show" id="collapseThree"
@@ -64,7 +65,8 @@
                                             <div class="single-form form-default">
                                                 <label>Phone Number</label>
                                                 <div class="form-input form">
-                                                    <input type="text" placeholder="Phone Number" formControlName="phone">
+                                                    <input type="text" placeholder="Phone Number"
+                                                        formControlName="phone">
                                                 </div>
                                                 <div *ngIf="localForm.submitted && f['phone'].errors && f['phone'].errors['required']"
                                                     class="text-danger">
@@ -73,16 +75,15 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="single-form button">
-                                                <a class="btn" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseFour" aria-expanded="false"
-                                                    aria-controls="collapseFour">next
+                                                <a class="btn" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour">next
                                                     step</a>
                                             </div>
                                         </div>
                                     </div>
                                 </section>
                             </li>
-                            <li>
+                            <li [ngClass]=" localForm.submitted && form.invalid ? 'border border-danger' : ''">
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
                                     aria-expanded="false" aria-controls="collapseFour">Shipping Address</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapseFour"
@@ -94,7 +95,6 @@
                                                 <div class="select-items">
                                                     <select name="province" class="form-control"
                                                         formControlName="provinceId"
-                                                        [ngClass]="{'is-invalid' : localForm.submitted && f['provinceId'].errors}"
                                                         (change)="onSelectProvince($event)">
                                                         <option disabled selected value> -- select an Provice/City --
                                                         </option>
@@ -103,11 +103,9 @@
                                                             </option>
                                                         </ng-container>
                                                     </select>
-                                                    <div *ngIf="localForm.submitted && f['provinceId'].errors"
-                                                        class="invalid-feedback">
-                                                        <div *ngIf="f['provinceId'].errors['required']">
-                                                            Provice/City required.
-                                                        </div>
+                                                    <div *ngIf="localForm.submitted && f['provinceId'].errors && f['provinceId'].errors['required']"
+                                                        class="text-danger">
+                                                        Provice/City required.
                                                     </div>
                                                 </div>
                                             </div>
@@ -117,7 +115,6 @@
                                                 <label>District</label>
                                                 <div class="select-items">
                                                     <select class="form-control" formControlName="districtId"
-                                                        [ngClass]="{'is-invalid' : localForm.submitted && f['districtId'].errors}"
                                                         (change)="onSelectDistrict($event)">
                                                         <option disabled selected value> -- select an District --
                                                         </option>
@@ -128,11 +125,9 @@
                                                             </ng-container>
                                                         </ng-container>
                                                     </select>
-                                                    <div *ngIf="localForm.submitted && f['districtId'].errors"
-                                                        class="invalid-feedback">
-                                                        <div *ngIf="f['districtId'].errors['required']">
-                                                            District required.
-                                                        </div>
+                                                    <div *ngIf="localForm.submitted && f['districtId'].errors && f['districtId'].errors['required']"
+                                                        class="text-danger">
+                                                        District required.
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,8 +136,7 @@
                                             <div class="single-form form-default">
                                                 <label>Commune/Ward</label>
                                                 <div class="select-items">
-                                                    <select class="form-control" formControlName="wardId"
-                                                        [ngClass]="{'is-invalid' : localForm.submitted && f['wardId'].errors}">
+                                                    <select class="form-control" formControlName="wardId">
                                                         <option disabled selected value> -- select an Commune/Ward --
                                                         </option>
                                                         <ng-container *ngIf="districtSelected">
@@ -151,11 +145,9 @@
                                                             </ng-container>
                                                         </ng-container>
                                                     </select>
-                                                    <div *ngIf="localForm.submitted && f['wardId'].errors"
-                                                        class="invalid-feedback">
-                                                        <div *ngIf="f['wardId'].errors['required']">
-                                                            Commune/Ward required.
-                                                        </div>
+                                                    <div *ngIf="localForm.submitted && f['wardId'].errors && f['wardId'].errors['required']"
+                                                        class="text-danger">
+                                                        Commune/Ward required.
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,7 +166,7 @@
                                     </div>
                                 </section>
                             </li>
-                            <li>
+                            <li (click)="pay()">
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
                                     aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapsefive"
@@ -214,6 +206,9 @@
                                                         <div class="form-input form">
                                                             <input type="text" placeholder="***">
                                                         </div>
+                                                    </div>
+                                                    <div class="single-form form-default">
+                                                        <div id="paypalBtn"></div>
                                                     </div>
                                                 </div>
                                             </div>

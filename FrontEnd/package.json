@@ -20,7 +20,11 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+<<<<<<< HEAD
     "angular-ng-autocomplete": "^2.0.12",
+=======
+    "creditcardpayments": "^1.0.3",
+>>>>>>> bbc831ae670b39592f5d7ff7d7d32f1e7e43f312
     "javascript-time-ago": "^2.5.7",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
