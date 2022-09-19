@@ -49,4 +49,7 @@ export class AuthService {
     };
     this.userSubject.next(user);
   }
+  loginGoogle(provider:any){
+    return this.http.get(environment.urlGoogleLogin+provider)
+  }
 }
