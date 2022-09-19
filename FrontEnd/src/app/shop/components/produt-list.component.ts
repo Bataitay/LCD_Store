@@ -141,9 +141,9 @@ export class ProdutListComponent implements OnInit {
       for (const product of this.products) {
         if (product.price >= 50 && product.price <= 100) {
           obj.push(product);
-          this.products = obj;
         }
       }
+      this.products = obj;
     })
   }
   filter100_500() {
@@ -153,9 +153,9 @@ export class ProdutListComponent implements OnInit {
       for (const product of this.products) {
         if (product.price > 100 && product.price <= 500) {
           obj.push(product);
-          this.products = obj;
         }
       }
+      this.products = obj;
     })
   }
   filter500_1000() {
@@ -163,11 +163,12 @@ export class ProdutListComponent implements OnInit {
       this.products = res;
       let obj = []
       for (const product of this.products) {
+        console.log(product.price);
         if (product.price >= 500 && product.price <= 1000) {
           obj.push(product);
-          this.products = obj;
         }
       }
+      this.products = obj;
     })
   }
   filter1000_5000() {
@@ -177,9 +178,9 @@ export class ProdutListComponent implements OnInit {
       for (const product of this.products) {
         if (product.price > 1000 && product.price <= 5000) {
           obj.push(product);
-          this.products = obj;
         }
       }
+      this.products = obj;
     })
   }
 
