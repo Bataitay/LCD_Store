@@ -1,0 +1,92 @@
+<div class="container">
+    <!-- Title -->
+    <div class="mb-3 text-center">
+        <h2>Order Detail</h2>
+    </div>
+    <div class="d-flex justify-content-between align-items-center py-3">
+        <h5>Order Code: {{ orderId }}</h5>
+    </div>
+
+    <!-- Main content -->
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Details -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="mb-3 d-flex justify-content-between">
+                        <div>
+                            <span class="me-3">Created At: {{ order.created_at }}</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <span class="me-3">Customer Name: {{ order.name }}</span>
+                    </div>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Product</td>
+                                <td>Quantity</td>
+                                <td class="text-end">Price</td>
+                                <td class="text-end">Subtotal</td>
+                            </tr>
+                            <tr *ngFor="let orderDetail of order.oder_details">
+                                <td>
+                                    <div class="d-flex mb-2">
+                                        <div class="flex-shrink-0">
+                                            <img [src]="url+orderDetail.products.image"
+                                                alt="" width="35" class="img-fluid">
+                                        </div>
+                                        <div class="flex-lg-grow-1 ms-3">
+                                            <h6 class="small mb-0">
+                                                <a href="#" class="text-reset">{{ orderDetail.products.name }}</a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ orderDetail.product_quantity }}</td>
+                                <td class="text-end">{{ orderDetail.product_price|currency }}</td>
+                                <td class="text-end">{{ orderDetail.product_price * orderDetail.product_quantity|currency }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="fw-bold">
+                                <td colspan="3">TOTAL</td>
+                                <td class="text-end">{{ totalPrice|currency }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!-- Payment -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3 class="h6">Payment Method</h3>
+                            <p>{{ order.payment_method }}<br>
+                                Total: {{ totalPrice|currency }} <span class="badge bg-success rounded-pill">PAID</span></p>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3 class="h6">Billing address</h3>
+                                <div>
+                                    <strong>{{ order.province.name }}, {{ order.district.name }}, {{ order.ward.name }}</strong>
+                                </div>
+                                <div>
+                                    <strong>{{ order.address }}</strong>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Customer Notes -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="h6">Note</h3>
+                    <p>{{ order.note }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

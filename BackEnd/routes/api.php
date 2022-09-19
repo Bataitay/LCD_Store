@@ -67,3 +67,4 @@ Route::get('order/list-province', [OrderController::class, 'getAllProvince']);
 Route::get('order/list-district/{id}', [OrderController::class, 'getAllDistrictByProvinceId']);
 Route::get('order/list-ward/{id}', [OrderController::class, 'getAllWardByDistrictId']);
 Route::post('order/store', [OrderController::class, 'store']);
+Route::get('order/show/{id}', [OrderController::class, 'show']);

@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\Province;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller {
     /**
@@ -62,21 +63,21 @@ class OrderController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        echo "<pre>";
-        print_r($request->all());
-        $order = Order::create([
-            'note' => $request->note,
-            'payment_method' => 'updating',
-            'address' => $request->address,
-            'province_id' => $request->provinceId,
-            'district_id' => $request->districtId,
-            'ward_id' => $request->wardId,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-        ]);
+        $order = new Order;
+        $order->note = $request->note;
+        $order->payment_method = $request->payMethod;
+        $order->address = $request->address;
+        $order->province_id = $request->provinceId;
+        $order->district_id = $request->districtId;
+        $order->ward_id = $request->wardId;
+        $order->name = $request->name;
+        $order->email = $request->email;
+        $order->phone = $request->phone;
+        $order->save();
         $carts = Cache::get('carts');
+        $order_total_price = 0;
         foreach ($carts as $productId => $cart) {
+            $order_total_price += $cart['price'] * $cart['quantity'];
             OrderDetail::create([
                 'product_price' => $cart['price'],
                 'product_quantity' => $cart['quantity'],
@@ -85,21 +86,24 @@ class OrderController extends Controller {
             ]);
             Product::where('id', $productId)->decrement('quantity', $cart['quantity']);
         }
+        $order->order_total_price = $order_total_price;
+        $order->save();
         Cache::forget('carts');
         $carts = Cache::get('carts');
 
-        
+
         //sendmail after order
-        $orderId=$order->id;
-        $customerCurent= Auth::guard('api')->user();
         $mailData = [
             'title' => 'Order confirmation',
-            'body' => 'Dear'.$customerCurent->name,
-            'orderId' => $orderId
+            'body' => 'Dear'.$order->name,
+            'orderId' => $order->id
         ];
-
-        Mail::to($customerCurent->email)->send(new SendMail($mailData));
-        return response()->json($carts);
+        try{
+            // Mail::to($order->email)->send(new SendMail($mailData));
+            return response()->json(Order::with(['oderDetails'])->find($order->id));
+        }catch(\Exception $e){
+            Log::error('message: ' . $e->getMessage() . 'line: ' . $e->getLine() . 'file: ' . $e->getFile());
+        }
     }
 
     /**
@@ -109,7 +113,9 @@ class OrderController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        //
+        return response()->json(Order::with(['province', 'district', 'ward', 'oderDetails' => function ($query) {
+            return $query->with(['products']);
+        }])->find($id));
     }
 
     /**

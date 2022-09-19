@@ -26,7 +26,7 @@
                     <div class="checkout-steps-form-style-1">
                         <ul id="accordionExample">
                             <li
-                                [ngClass]=" localForm.submitted && (f['name'].errors || f['email'].errors || f['address'].errors || f['phone'].errors) ? 'border border-danger' : ''">
+                                [ngClass]=" localForm.submitted && (f['name'].errors || f['email'].errors || f['phone'].errors) ? 'border border-danger' : ''">
                                 <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                     aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
                                 <section class="checkout-steps-form-content collapse show" id="collapseThree"
@@ -83,7 +83,8 @@
                                     </div>
                                 </section>
                             </li>
-                            <li [ngClass]=" localForm.submitted && form.invalid ? 'border border-danger' : ''">
+                            <li
+                                [ngClass]=" localForm.submitted && (f['provinceId'].errors || f['districtId'].errors || f['wardId'].errors || f['address'].errors) ? 'border border-danger' : ''">
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
                                     aria-expanded="false" aria-controls="collapseFour">Shipping Address</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapseFour"
@@ -166,7 +167,7 @@
                                     </div>
                                 </section>
                             </li>
-                            <li (click)="pay()">
+                            <li [ngClass]=" localForm.submitted && f['payMethod'].errors ? 'border border-danger' : ''">
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
                                     aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapsefive"
@@ -174,42 +175,31 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="checkout-payment-form">
-                                                <div class="single-form form-default">
-                                                    <label>Cardholder Name</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="Cardholder Name">
-                                                    </div>
-                                                </div>
-                                                <div class="single-form form-default">
-                                                    <label>Card Number</label>
-                                                    <div class="form-input form">
-                                                        <input id="credit-input" type="text"
-                                                            placeholder="0000 0000 0000 0000">
-                                                        <img src="assets/images/payment/card.png" alt="card">
-                                                    </div>
-                                                </div>
                                                 <div class="payment-card-info">
-                                                    <div class="single-form form-default mm-yy">
-                                                        <label>Expiration</label>
-                                                        <div class="expiration d-flex">
-                                                            <div class="form-input form">
-                                                                <input type="text" placeholder="MM">
-                                                            </div>
-                                                            <div class="form-input form">
-                                                                <input type="text" placeholder="YYYY">
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="single-form form-default">
-                                                        <label>CVC/CVV <span><i
-                                                                    class="mdi mdi-alert-circle"></i></span></label>
-                                                        <div class="form-input form">
-                                                            <input type="text" placeholder="***">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                formControlName="payMethod" name="payMethod"
+                                                                value="later" id="flexRadioDefault1">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                Payment on delivery
+                                                            </label>
                                                         </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                formControlName="payMethod" name="payMethod"
+                                                                value="online" id="flexRadioDefault2">
+                                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                                online payment
+                                                            </label>
+                                                        </div>
+                                                        <div *ngIf="localForm.submitted && f['payMethod'].errors && f['payMethod'].errors['required']"
+                                                            class="text-danger">
+                                                            Pay method is required.</div>
                                                     </div>
-                                                    <div class="single-form form-default">
+                                                    <!-- <div class="single-form form-default">
                                                         <div id="paypalBtn"></div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>

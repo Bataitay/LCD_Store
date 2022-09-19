@@ -9,6 +9,7 @@ import { ShopService } from '../shop.service';
 declare var window: any;
 import * as moment from 'moment';
 import { map, Observable, switchMap } from 'rxjs';
+import { OrderService } from '../service/order.service';
 
 @Component({
   selector: 'app-product-details',
@@ -40,6 +41,7 @@ export class ProductDetailsComponent implements OnInit {
     private _Router: Router,
     private toastrService: ToastrService,
     private authService: AuthService,
+    private orderService: OrderService,
   ) {  }
 
   ngOnInit(): void {
@@ -143,5 +145,9 @@ export class ProductDetailsComponent implements OnInit {
       }
     })
   }
-
+  addToCart(id: number){
+    this.orderService.addToCart(id).subscribe(res => {
+      this.orderService.getAllCart();
+    })
+  }
 }

@@ -1,11 +1,9 @@
-import { Component, OnInit , ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../service/order.service';
 import { render } from 'creditcardpayments/creditCardPayments';
-// paypal.Buttons.driver("angular2", ng.core);
-declare var paypal: any;
 @Component({
     selector: 'app-checkout',
     templateUrl: '../templates/checkout.component.html',
@@ -22,7 +20,7 @@ export class CheckoutComponent implements OnInit {
 
     provinceSelected: boolean = false;
     districtSelected: boolean = false;
-    constructor(private orderService: OrderService, private _router: Router, private toastrService: ToastrService, ) {
+    constructor(private orderService: OrderService, private _router: Router, private toastrService: ToastrService,) {
         this.getAllCart();
     }
 
@@ -36,6 +34,7 @@ export class CheckoutComponent implements OnInit {
             name: new FormControl('', Validators.required),
             email: new FormControl('', [Validators.required, Validators.email]),
             phone: new FormControl('', Validators.required),
+            payMethod: new FormControl('', Validators.required),
         })
         this.orderService.getAllProvince().subscribe(res => {
             this.listProvince = res;
@@ -69,22 +68,18 @@ export class CheckoutComponent implements OnInit {
         })
     }
     submit() {
-        if(this.form.valid){
+        if (this.form.valid) {
+            let order: any;
             this.orderService.storeOrder(this.form.value).subscribe(res => {
                 this.getAllCart();
+                order = JSON.parse(res);
+                if (this.form.value.payMethod == "later") {
+                    this._router.navigate(['order-detail', order.id]);
+                    this.toastrService.success(JSON.stringify("Ordered successfully"));
+                } else if (this.form.value.payMethod == "online") {
+                    this._router.navigate(['order-pay-online', order.id]);
+                }
             });
-            this._router.navigate(['product-list']);
-            this.toastrService.success(JSON.stringify("Checkout Successfully"));
         }
-    }
-    pay(){
-        render({
-            id: "#paypalBtn",
-            currency: "USD",
-            value: this.cartSubtotal.toString(),
-            onApprove: (details) => {
-                alert('pay susseccfull');
-            }
-        })
     }
 }
