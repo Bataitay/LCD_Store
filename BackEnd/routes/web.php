@@ -144,6 +144,6 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::get('searchCustomers', [CustomerController::class, 'searchByName'])->name('customer.searchKey');
     Route::get('searchCustomer', [CustomerController::class, 'searchCustomer'])->name('customer.search');
 });
-Route::get('/auth/redirect/{provider}', [SocialController::class,'redirect']);
+Route::get('/auth/redirect/{provider}', [SocialController::class,'redirect'])->middleware('cors');
 
-Route::get('/callback/{provider}', [SocialController::class,'callback']);
+Route::get('/callback/{provider}', [SocialController::class,'callback'])->middleware('cors');

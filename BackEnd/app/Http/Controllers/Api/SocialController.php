@@ -25,8 +25,9 @@ class SocialController extends Controller
     public function redirect($provider)
 
     {
-
-        return Socialite::driver($provider)->redirect();
+        // $res=Socialite::driver($provider)->redirect();
+        // return  response()->json($res,200);
+        return Socialite::driver($provider)->redirect($this->callback($provider));
 
     }
 
