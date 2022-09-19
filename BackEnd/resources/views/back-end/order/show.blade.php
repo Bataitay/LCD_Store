@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <span class="me-3">Customer Name: {{ $order->customer->name }}</span>
+                                <span class="me-3">Customer Name: {{ $order->name }}</span>
                             </div>
                             <table class="table table-borderless">
                                 <tbody>
@@ -40,35 +40,39 @@
                                         <td>Product</td>
                                         <td>Quantity</td>
                                         <td class="text-end">Price</td>
+                                        <td class="text-end">Subtotal</td>
                                     </tr>
-                                    @foreach ($orderDetails as $orderDetail)
                                     @php
-                                    //  dd($orderDetail->products);
+                                        $totalPriceOrder = 0;
                                     @endphp
+                                    @foreach ($orderDetails as $orderDetail)
                                     <tr>
                                         <td>
                                             <div class="d-flex mb-2">
                                                 <div class="flex-shrink-0">
-                                                    <img src="https://via.placeholder.com/280x280/87CEFA/000000"
+                                                    <img src="{{ asset($orderDetail->products->image) }}"
                                                         alt="" width="35" class="img-fluid">
                                                 </div>
                                                 <div class="flex-lg-grow-1 ms-3">
                                                     <h6 class="small mb-0">
                                                         <a href="#" class="text-reset">{{ $orderDetail->products->name }}</a>
                                                     </h6>
-                                                    <span class="small">Color: Black</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>{{ $orderDetail->product_quantity }}</td>
                                         <td class="text-end">{{ number_format($orderDetail->product_price) }}</td>
+                                        <td class="text-end">{{ number_format($orderDetail->product_price * $orderDetail->product_quantity) }}</td>
+                                        @php
+                                            $totalPriceOrder += $orderDetail->product_price * $orderDetail->product_quantity;    
+                                        @endphp
                                     </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr class="fw-bold">
-                                        <td colspan="2">TOTAL</td>
-                                        <td class="text-end">{{ number_format(1234567890) }}</td>
+                                        <td colspan="3">TOTAL</td>
+                                        <td class="text-end">{{ number_format($totalPriceOrder) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -86,11 +90,12 @@
                                 <div class="col-lg-6">
                                     <h3 class="h6">Billing address</h3>
                                     <address>
-                                        <strong>John Doe</strong><br>
-                                        1355 Market St, Suite 900<br>
-                                        San Francisco, CA 94103<br>
-                                        <abbr title="Phone">P:</abbr> (123) 456-7890
-                                    </address>
+                                        <div>
+                                            <strong>{{ $order->province->name }}, {{ $order->district->name }}, {{ $order->ward->name }}</strong>
+                                        </div>
+                                        <div>
+                                            <strong>{{ $order->address }}</strong>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +105,7 @@
                     <!-- Customer Notes -->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h3 class="h6">Customer Notes</h3>
+                            <h3 class="h6">Note</h3>
                             <p>{{ $order->note }}</p>
                         </div>
                     </div>

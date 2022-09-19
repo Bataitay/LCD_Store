@@ -22,11 +22,12 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name Category</label>
-                                    <select name="category_id" id="category_id" class="form-control category_id"
+                                    <select name="category_id" id="category_id"
+                                        class="form-control category_id @error('category_id') is-invalid @enderror"
                                         aria-label="Default select example" data-toggle="select2">
-                                        <option selected="" value="">Open this select menu</option>
+                                        <option selected disabled>Open this select menu</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}" {{ old('category_id')  == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('category_id')
@@ -37,14 +38,15 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name Brand</label>
-                                    <select name="brand_id" id="brand" class="form-control brand"
+                                    <select name="brand_id" id="brand"
+                                        class="form-control brand @error('brand_id') is-invalid @enderror"
                                         aria-label="Default select example" data-toggle="select2">
-                                        <option selected="" value="">Open this select menu</option>
+                                        <option selected disabled>Open this select menu</option>
                                         @foreach ($brands as $brand)
-                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                            <option value="{{ $brand->id }}" {{ old('brand_id')  == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('brand')
+                                    @error('brand_id')
                                         <div class="text text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -174,25 +176,27 @@
                                 <div class="form-group">
                                     <label for="image">Main photo</label><br>
                                     <div class="card_file_name">
-                                        <div class="form-group form_img">
+                                        <div class="form-group form_img  @error('image') border border-danger @enderror">
                                             <span class="inner">
                                                 Drag & drop image here or
                                                 <label for="file" class="choose">Browse</label>
                                             </span>
                                             <input type="file" name="image" id="file"
-                                                class="form-control file @error('image') is-invalid @enderror">
+                                                class="form-control file ">
                                         </div>
                                         <div class="card-img">
-                                            <img id="showImage" class="rounded image_show w-100"
-                                            src="">
+                                            <img id="showImage" class="rounded image_show w-100" src="">
                                         </div>
+                                        @error('image')
+                                            <div class="text text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-8">
                                 <label for="file_name">Detailed photos</label>
                                 <div class="card_file_name">
-                                    <div class="form-group form_input">
+                                    <div class="form-group form_input @error('file_names') border border-danger @enderror">
                                         <span class="inner">
                                             Drag & drop image here or
                                             <span class="select">Browse</span>
@@ -201,7 +205,9 @@
                                             class="form-control files @error('file_name') is-invalid @enderror">
                                     </div>
                                     <div class="container_image">
-
+                                        @error('file_names')
+                                            <div class="text text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

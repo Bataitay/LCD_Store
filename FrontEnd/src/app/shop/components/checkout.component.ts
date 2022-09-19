@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild, ElementRef} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../service/order.service';
-
+import { render } from 'creditcardpayments/creditCardPayments';
+// paypal.Buttons.driver("angular2", ng.core);
+declare var paypal: any;
 @Component({
     selector: 'app-checkout',
     templateUrl: '../templates/checkout.component.html',
@@ -20,7 +22,9 @@ export class CheckoutComponent implements OnInit {
 
     provinceSelected: boolean = false;
     districtSelected: boolean = false;
-    constructor(private orderService: OrderService, private _router: Router, private toastrService: ToastrService,) { }
+    constructor(private orderService: OrderService, private _router: Router, private toastrService: ToastrService, ) {
+        this.getAllCart();
+    }
 
     ngOnInit(): void {
         this.form = new FormGroup({
@@ -36,7 +40,6 @@ export class CheckoutComponent implements OnInit {
         this.orderService.getAllProvince().subscribe(res => {
             this.listProvince = res;
         })
-        this.getAllCart()
     }
     get f() {
         return this.form.controls;
@@ -73,5 +76,15 @@ export class CheckoutComponent implements OnInit {
             this._router.navigate(['product-list']);
             this.toastrService.success(JSON.stringify("Checkout Successfully"));
         }
+    }
+    pay(){
+        render({
+            id: "#paypalBtn",
+            currency: "USD",
+            value: this.cartSubtotal.toString(),
+            onApprove: (details) => {
+                alert('pay susseccfull');
+            }
+        })
     }
 }

@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   }
   getAllBrand(){
     this.shopService.getAllBrand().subscribe(res => {
+
       this.brands = res;
 
 

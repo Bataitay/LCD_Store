@@ -29,7 +29,9 @@ class StoreProductRequest extends FormRequest
             'price' => 'required',
             'sale_price' => 'required',
             'quantity' => 'required',
-            'description' => 'required',
+            'category_id' => 'required',
+            'brand_id' => 'required',
+            'file_names' => 'required',
         ];
     }
 

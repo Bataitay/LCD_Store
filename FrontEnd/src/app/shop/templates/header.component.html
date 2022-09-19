@@ -129,7 +129,7 @@
 
                               <div class="shopping-item">
                                   <div class="dropdown-cart-header">
-                                      <span>2 Items</span>
+                                      <span>{{ listCart.length }} Items</span>
                                       <a [routerLink]="['/cart']" >View Cart</a>
                                   </div>
                                   <ul class="shopping-list" *ngFor="let cart of listCart">
@@ -149,7 +149,7 @@
                                   <div class="bottom">
                                       <div class="total">
                                           <span>Total</span>
-                                          <span class="total-amount">$134.00</span>
+                                          <span class="total-amount">{{ cartSubtotal|currency }}</span>
                                       </div>
                                       <div class="button">
                                           <a [routerLink]="['/cart']" class="btn animate">Checkout</a>
