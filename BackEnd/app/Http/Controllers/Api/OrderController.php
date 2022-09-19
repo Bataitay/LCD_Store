@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\Province;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller {
     /**
@@ -92,16 +93,17 @@ class OrderController extends Controller {
 
 
         //sendmail after order
-        // $orderId=$order->id;
-        // $customerCurent= Auth::guard('api')->user();
-        // $mailData = [
-        //     'title' => 'Order confirmation',
-        //     'body' => 'Dear'.$customerCurent->name,
-        //     'orderId' => $orderId
-        // ];
-
-        // Mail::to($customerCurent->email)->send(new SendMail($mailData));
-        return response()->json(Order::with(['oderDetails'])->find($order->id));
+        $mailData = [
+            'title' => 'Order confirmation',
+            'body' => 'Dear'.$order->name,
+            'orderId' => $order->id
+        ];
+        try{
+            // Mail::to($order->email)->send(new SendMail($mailData));
+            return response()->json(Order::with(['oderDetails'])->find($order->id));
+        }catch(\Exception $e){
+            Log::error('message: ' . $e->getMessage() . 'line: ' . $e->getLine() . 'file: ' . $e->getFile());
+        }
     }
 
     /**
