@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 d-flex">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 text-center">
+                <form [formGroup]="form" (ngSubmit)="submit()" #localForm="ngForm">
+                    <div>
+                        <div class="mb-3">
+                            <h3>Order Check</h3>
+                            <input formControlName="orderId" name="orderId" type="input" class="form-control"
+                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Order Code">
+                        </div>
+                        <div *ngIf="localForm.submitted && f['orderId'].errors && f['orderId'].errors['required']"
+                            class="text-danger">
+                            Please input order code.</div>
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-block mb-4">Check</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

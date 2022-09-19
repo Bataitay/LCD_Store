@@ -5,6 +5,9 @@ import { CartComponent } from './components/cart.component';
 import { CheckoutComponent } from './components/checkout.component';
 import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login.component';
+import { OrderCheckComponent } from './components/order-check.component';
+import { OrderDetailComponent } from './components/order-detail.component';
+import { OrderPayOnlineComponent } from './components/order-pay-online.component';
 import { ProductDetailsComponent } from './components/product-details.component';
 import { ProdutListComponent } from './components/produt-list.component';
 import { RegisterComponent } from './components/register.component';
@@ -25,6 +28,9 @@ const routes: Routes = [
   },
   { path: 'product-list', component: ProdutListComponent },
   { path: 'product-detail/:id', component: ProductDetailsComponent },
+  { path: 'order-detail/:id', component: OrderDetailComponent },
+  { path: 'order-pay-online/:id', component: OrderPayOnlineComponent },
+  { path: 'order/check', component: OrderCheckComponent },
 ];
 
 @NgModule({
