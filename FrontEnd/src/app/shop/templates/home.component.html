@@ -86,10 +86,10 @@
       </div>
       <div class="brands-logo-wrapper">
           <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
-              <div class="brand-logo">
-                  <img src="assets/images/brands/01.png" alt="#">
-              </div>
-              <div class="brand-logo">
+            <div class="brand-logo" *ngFor="let brand of brands">
+              <img [src]="url+brand.logo" alt="#">
+            </div>
+              <!-- <div class="brand-logo">
                   <img src="assets/images/brands/02.png" alt="#">
               </div>
               <div class="brand-logo">
@@ -109,7 +109,7 @@
               </div>
               <div class="brand-logo">
                   <img src="assets/images/brands/04.png" alt="#">
-              </div>
+              </div> -->
           </div>
       </div>
   </div>
