@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
-import { Review } from '../shop';
+import { Product, Review } from '../shop';
 import { ShopService } from '../shop.service';
 declare var window: any;
 import * as moment from 'moment';
+import { map, Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -15,7 +16,6 @@ import * as moment from 'moment';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  product: any;
   url: string = environment.url;
   id: any;
   reviewForm !: FormGroup;
@@ -33,8 +33,9 @@ export class ProductDetailsComponent implements OnInit {
   avgRateStar: any;
   anserRe_id: any;
   now = moment();
+  product:any;
   constructor(private shopService: ShopService,
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
     private fb: FormBuilder,
     private _Router: Router,
     private toastrService: ToastrService,
@@ -42,7 +43,7 @@ export class ProductDetailsComponent implements OnInit {
   ) {  }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
+    this.id = this._route.snapshot.params['id'];
     this.review = new window.bootstrap.Modal(
       document.getElementById('addReview')
     )
