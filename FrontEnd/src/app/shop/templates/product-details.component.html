@@ -143,17 +143,17 @@
                 <i class="lni lni-star"></i>
               </li>
             </ul>
-            <ng-container *ngIf="!token">
+            <!-- <ng-container *ngIf="!token">
               <a [routerLink]="['/login']" class="btn review-btn">
                 Login
               </a>
             </ng-container>
-             <ng-container *ngIf="token">
+             <ng-container *ngIf="token"> -->
               <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#addReview"
                 (click)="openReview(product.id)">
                 Leave a Review
               </button>
-            </ng-container>
+            <!-- </ng-container> -->
           </div>
         </div>
         <div class="col-lg-8 col-12">
