@@ -6,6 +6,7 @@ use App\Mail\MailBirthdayCustomer;
 use App\Models\Customer;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmail extends Command
@@ -37,33 +38,40 @@ class SendEmail extends Command
 
     public function handle()
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $customers = DB::table('customers')->select('*')
-            ->whereRaw("MONTH(date_of_birth) = MONTH(NOW()) AND DAY(date_of_birth) = DAY(NOW())")
-            ->get();
+        try{
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $customers = DB::table('customers')->select('*')
+                ->whereRaw("MONTH(date_of_birth) = MONTH(NOW()) AND DAY(date_of_birth) = DAY(NOW())")
+                ->get();
 
-        if (!count($customers) == 0) {
+            if (!count($customers) == 0) {
 
-            foreach ($customers as $customer) {
-                $charactersLength = strlen($characters);
-                $randomString = '';
-                for ($i = 0; $i < 10; $i++) {
-                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                foreach ($customers as $customer) {
+                    $charactersLength = strlen($characters);
+                    $randomString = '';
+                    for ($i = 0; $i < 10; $i++) {
+                        $randomString .= $characters[rand(0, $charactersLength - 1)];
+                    }
+
+                    DB::table('vouchers')->insert([
+                        'voucher' => $randomString,
+                    ]);
+
+                    $mailData = [
+                        'title' => 'Happy birthday to ' . $customer->name,
+                        'body' => "Dear $customer->name",
+                        'voucher' => $randomString
+                    ];
+                        Mail::to($customer->email)->send(new MailBirthdayCustomer($mailData));
                 }
-
-                DB::table('vouchers')->insert([
-                    'voucher' => $randomString,
-                ]);
-
-                $mailData = [
-                    'title' => 'Happy birthday to ' . $customer->name,
-                    'body' => "Dear $customer->name",
-                    'voucher' => $randomString
-                ];
-                    Mail::to($customer->email)->send(new MailBirthdayCustomer($mailData));
+                return 0;
             }
-            return 0;
+            return 1;
+
+        }catch(\Exception $e){
+            Log::error('errors ' . $e->getMessage() . 'getLine ' . $e->getLine());
+            return 1;
         }
-        return 1;
+
     }
 }
