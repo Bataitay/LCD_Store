@@ -25,9 +25,10 @@ class SocialController extends Controller
     public function redirect($provider)
 
     {
-        // $res=Socialite::driver($provider)->redirect();
-        // return  response()->json($res,200);
-        return Socialite::driver($provider)->redirect($this->callback($provider));
+        $this->middleware('cors');
+        $res=Socialite::driver($provider)->redirect()->getTargetUrl();
+
+        return  response()->json($res,200);
 
     }
 
@@ -36,16 +37,12 @@ class SocialController extends Controller
     public function callback($provider)
 
     {
+        $this->middleware('cors');
 
-
-
-        $getInfo = Socialite::driver($provider)->user();
-
-
+        $getInfo = Socialite::driver($provider)->stateless()->user();
 
         $customer = $this->createUser($getInfo,$provider);
 
-    //   return  $this->authController->createNewToken(auth('api')->login($customer));
 
       $token= auth('api')->login($customer);
       return response()->json([
@@ -53,7 +50,7 @@ class SocialController extends Controller
         'token_type' => 'bearer',
         'expires_in' => auth('api')->factory()->getTTL() * 60,
         'user' =>$customer
-    ]);
+      ],200);
 
 
 
