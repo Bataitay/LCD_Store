@@ -1,0 +1,273 @@
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-6 col-12">
+        <div class="breadcrumbs-content">
+          <h1 class="page-title">Details Product</h1>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-12">
+        <ul class="breadcrumb-nav">
+          <li><a routerLink="/home"><i class="lni lni-home"></i> Home</a></li>
+          <li><a [routerLink]="['/product-list']">Shop</a></li>
+          <li>Details Product</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="item-details section">
+  <div class="container">
+    <div class="top-area">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-12 col-12">
+          <div class="product-images">
+            <main id="gallery">
+              <div class="main-img">
+                <img [src]="url+product.image" id="current" alt="#">
+              </div>
+              <div class="images">
+                <ng-container *ngFor="let file_names of product.file_names; let i =index">
+                  <img [src]="url+product.file_names[i].file_name" class="img" alt="#">
+                </ng-container>
+              </div>
+            </main>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-12">
+          <div class="product-info">
+            <h2 class="title">{{ product.name }}</h2>
+            <p class="category"><i class="lni lni-tag"></i> Drones:<a href="javascript:void(0)">Action
+                cameras</a></p>
+            <h3 class="price">{{ product.price | currency }}<span>{{ product.sale_price| currency }}</span></h3>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-12">
+                <div class="form-group quantity">
+                  <label for="color">Color</label>
+                  <span>{{ product.specification.color }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="bottom-content">
+              <div class="row align-items-end">
+                <div class="col-lg-4 col-md-4 col-12">
+                  <div class="button cart-button">
+                    <button (click)="addToCart(product.id)" class="btn" style="width: 100%;">Add to Cart</button>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                  <div class="wish-button">
+                    <button class="btn"><i class="lni lni-reload"></i> Compare</button>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                  <div class="wish-button">
+                    <button class="btn"><i class="lni lni-heart"></i> To Wishlist</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="product-details-info">
+      <div class="single-block">
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <div class="info-body custom-responsive-margin">
+              <h4>Details</h4>
+              <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab"
+                [innerHTML]="product.description"></div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-12">
+            <div class="info-body">
+              <h4>Specifications</h4>
+              <ul class="normal-list">
+                <li><span>Cpu:</span> {{ product.specification.cpu }} </li>
+                <li><span>Ram:</span>{{ product.specification.ram }}</li>
+                <li><span>Rom:</span> {{ product.specification.rom }}</li>
+                <li><span>Display:</span>{{ product.specification.display }}</li>
+                <li><span>Battery:</span> {{ product.specification.battery }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <div class="single-block give-review">
+            <h4>{{ avgRateStar  }} (Overall)</h4>
+            <ul>
+              <li>
+                <span>5 stars - {{countStar.fiveStar }}</span>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+              </li>
+              <li>
+                <span>4 stars - {{ countStar.fourStar }}</span>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star"></i>
+              </li>
+              <li>
+                <span>3 stars - {{countStar.threeStar }}</span>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star"></i>
+                <i class="lni lni-star"></i>
+              </li>
+              <li>
+                <span>2 stars - {{countStar.twoStar }}</span>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star"></i>
+                <i class="lni lni-star"></i>
+                <i class="lni lni-star"></i>
+              </li>
+              <li>
+                <span>1 star - {{countStar.oneStar}}</span>
+                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star"></i>
+                <i class="lni lni-star"></i>
+                <i class="lni lni-star"></i>
+                <i class="lni lni-star"></i>
+              </li>
+            </ul>
+            <ng-container *ngIf="!token">
+              <a [routerLink]="['/login']" class="btn review-btn">
+                Login
+              </a>
+            </ng-container>
+             <ng-container *ngIf="token">
+              <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#addReview"
+                (click)="openReview(product.id)">
+                Leave a Review
+              </button>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-lg-8 col-12">
+          <div class="single-block">
+            <div class="reviews">
+              <h4 class="title">Latest Reviews</h4>
+              <ng-container *ngFor="let review of product.reviews; let i =index">
+                <ng-container *ngIf="review.status == 1">
+                  <div class="single-review">
+                    <img src="../../../assets/images/no_image.png" alt="#">
+                    <div class="review-info">
+                      <ng-container *ngFor="let review_dtl of reviews; let i =index">
+                        <ng-container *ngIf="review.customer_id == review_dtl.id">
+                            <span class="bg-dark text-white">{{review_dtl.email}}</span>
+                          <ul class="stars">
+                            <ng-container *ngFor='let in of [].constructor(review.vote) ;let i = index'>
+                              <li><i class="lni lni-star-filled"></i></li>
+                            </ng-container>
+                            <ng-container *ngFor='let in of [].constructor(5-review.vote) ;let i = index'>
+                              <i class="lni lni-star"></i>
+                            </ng-container>
+                          </ul>
+                        </ng-container>
+                      </ng-container>
+                      <p class="text text-primary">{{review.content}}</p>
+                      <p><em style="font-size: 11px; ">
+                        {{ now.from(review.created_at) }} ago
+                      </em></p>
+                      <button button type="button" class="btn btn-secondary review-btn " data-bs-toggle="modal" data-bs-target="#answer"
+                      (click)="openAnswer(review.id)"
+                      ><small>answer</small></button>
+                      <ng-container *ngFor=" let answer of review.answers">
+                    <div class="review-answer">
+                      <span class="bg-dark text-white">{{answer.customer.email}}</span>
+                        <p class="text text-success">{{answer.answer}}</p>
+                        <p><em style="font-size: 11px; ">{{ now.from(answer.created_at) }} ago</em></p>
+                        <p></p>
+                        <button button type="button" class="btn btn-secondary review-btn  " data-bs-toggle="modal" data-bs-target="#answer"
+                        (click)="openAnswer(review.id)"
+                        ><small>answer</small></button>
+                      </div>
+                    </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade review-modal" id="addReview" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" id="cancels" aria-label="Close"></button>
+      </div>
+      <form action="" [formGroup]="reviewForm" (ngSubmit)="addReview()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="review-rating">Rating</label>
+                <select class="form-control" formControlName="vote" id="review-rating">
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Star</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="review-message">Review</label>
+            <textarea class="form-control" formControlName="content" id="review-message" rows="8" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer button">
+          <button type="button" class="btn" (click)="addReview()">Submit Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade review-modal" id="answer" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Answer Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" id="cancel" aria-label="Close"></button>
+      </div>
+      <form action="" [formGroup]="answerForm" (ngSubmit)="addAnswer()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="review-message">Review</label>
+            <textarea class="form-control" formControlName="name_answer" id="review-message" rows="8" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer button">
+          <button type="button" class="btn" (click)="addAnswer()">Submit Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

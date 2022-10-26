@@ -1,0 +1,168 @@
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-6 col-12">
+        <div class="breadcrumbs-content">
+          <h1 class="page-title">Shop Grid</h1>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-12">
+        <ul class="breadcrumb-nav">
+          <li><a [routerLink]="['/home']"><i class="lni lni-home"></i> Home</a></li>
+          <li><a [routerLink]="['/product-list']">Shop</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="product-grids section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-12">
+
+        <div class="product-sidebar">
+
+          <div class="single-widget search">
+            <h3>Search Product</h3>
+            <form action="#"  [formGroup]="serachForm">
+              <input type="text" formControlName="search" placeholder="Search Here...">
+              <button type="submit" (click)="handdleSearch($event)"><i class="lni lni-search-alt"></i></button>
+            </form>
+          </div>
+
+
+          <div class="single-widget">
+            <h3>All Categories</h3>
+            <ul class="list">
+              <ng-container *ngFor="let category of categories ">
+                <li>
+                  <a type="button" (click)="filterCate(category.id) ">{{category.name}}</a>
+                  <span>({{ (category.products.length) }})</span>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+          <div class="single-widget condition">
+            <h3>Filter by Price</h3>
+            <div class="form-check">
+              <input class="form-check-input" name="filter_price" (click)="filter50_100()" type="radio" value="" id="flexCheckDefault1">
+              <label class="form-check-label" for="flexCheckDefault1">
+                $50 - $100L ({{ quantity50_100.length }})
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" name="filter_price" (click)="filter100_500()" type="radio" value="" id="flexCheckDefault2">
+              <label class="form-check-label" for="flexCheckDefault2">
+                $100L - $500 ({{quantity100_500.length}})
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" name="filter_price" (click)="filter500_1000()" type="radio" value="" id="flexCheckDefault3">
+              <label class="form-check-label" for="flexCheckDefault3">
+                $500 - $1,000 ({{quantity500_1000.length}})
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" name="filter_price" (click)="filter1000_5000()" type="radio" value="" id="flexCheckDefault4">
+              <label class="form-check-label" for="flexCheckDefault4">
+                $1,000 - $5,000 ({{quantity1000_5000.length}})
+              </label>
+            </div>
+          </div>
+
+
+          <div class="single-widget condition">
+            <h3>Filter by Brand</h3>
+            <ng-container *ngFor="let brand of brands">
+              <div class="form-check">
+                <a  (click)="filterBrand(brand.id)" type="button">{{ brand.name }} </a>
+                  <span>({{ brand.products.length }})</span>
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-lg-9 col-12">
+        <div class="product-grids-head">
+          <div class="product-grid-topbar">
+            <div class="row align-items-center">
+              <div class="col-lg-7 col-md-8 col-12">
+                <div class="product-sorting">
+                  <label for="sorting">Sort by:</label>
+                  <select class="form-control" id="sorting">
+                    <option>Popularity</option>
+                    <option>Low - High Price</option>
+                    <option>High - Low Price</option>
+                    <option>Average Rating</option>
+                    <option>A - Z Order</option>
+                    <option>Z - A Order</option>
+                  </select>
+                  <h3 class="total-show-product">Showing: <span>1 - 12 items</span></h3>
+                </div>
+              </div>
+              <div class="col-lg-5 col-md-4 col-12">
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab" data-bs-target="#nav-grid"
+                      type="button" role="tab" aria-controls="nav-grid" aria-selected="true"><i
+                        class="lni lni-grid-alt"></i></button>
+                    <button class="nav-link" type="button" (click)="product_list()" ><i
+                        class="lni lni-list"></i></button>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-grid" role="tabpanel" aria-labelledby="nav-grid-tab">
+              <div class="row">
+                <ng-container *ngFor="let product of products">
+                  <ng-container *ngIf="product.status == 1">
+                    <div class="col-lg-4 col-md-6 col-12">
+
+                      <div class="single-product">
+                        <div class="product-image">
+                          <img  [src]="url+product.image" [alt]="product.name">
+                          <div class="button">
+                            <button (click)="addToCart(product.id)" class="btn"><i class="lni lni-cart"></i> Add to
+                              Cart</button>
+                          </div>
+                        </div>
+                        <div class="product-info">
+                          <span class="category">Watches</span>
+                          <h4 class="title">
+                            <a routerLink='/product-detail/{{product.id}}'>{{ product.name }}</a>
+                          </h4>
+                          <ul class="review">
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star-filled"></i></li>
+                            <li><i class="lni lni-star"></i></li>
+                            <li><span>4.0 Review(s)</span></li>
+                          </ul>
+                          <div class="price">
+                            <span>{{ product.price  }}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </ng-container>
+                </ng-container>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

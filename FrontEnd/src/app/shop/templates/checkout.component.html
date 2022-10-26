@@ -1,0 +1,249 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">checkout</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-nav">
+                    <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                    <li><a href="index.html">Shop</a></li>
+                    <li>checkout</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="checkout-wrapper section">
+    <div class="container">
+        <form [formGroup]="form" (ngSubmit)="submit()" #localForm="ngForm">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="checkout-steps-form-style-1">
+                        <ul id="accordionExample">
+                            <li
+                                [ngClass]=" localForm.submitted && (f['name'].errors || f['email'].errors || f['phone'].errors) ? 'border border-danger' : ''">
+                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                    aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
+                                <section class="checkout-steps-form-content collapse show" id="collapseThree"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="single-form form-default">
+                                                <label>Full Name</label>
+                                                <div class="row">
+                                                    <div class="col-md-6 form-input form">
+                                                        <input type="text" placeholder="Full Name"
+                                                            formControlName="name">
+                                                    </div>
+                                                    <div *ngIf="localForm.submitted && f['name'].errors && f['name'].errors['required']"
+                                                        class="text-danger">
+                                                        Name is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Email Address</label>
+                                                <div class="form-input form">
+                                                    <input type="email" placeholder="Email Address"
+                                                        formControlName="email">
+                                                </div>
+                                                <div *ngIf="localForm.submitted && f['email'].errors && f['email'].errors['required']"
+                                                    class="text-danger">
+                                                    Email is required.</div>
+                                                <div *ngIf="localForm.submitted && f['email'].errors && f['email'].errors['email']"
+                                                    class="text-danger">
+                                                    Type is not Email.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Phone Number</label>
+                                                <div class="form-input form">
+                                                    <input type="text" placeholder="Phone Number"
+                                                        formControlName="phone">
+                                                </div>
+                                                <div *ngIf="localForm.submitted && f['phone'].errors && f['phone'].errors['required']"
+                                                    class="text-danger">
+                                                    Phone is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form button">
+                                                <a class="btn" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour">next
+                                                    step</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </li>
+                            <li
+                                [ngClass]=" localForm.submitted && (f['provinceId'].errors || f['districtId'].errors || f['wardId'].errors || f['address'].errors) ? 'border border-danger' : ''">
+                                <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                    aria-expanded="false" aria-controls="collapseFour">Shipping Address</h6>
+                                <section class="checkout-steps-form-content collapse" id="collapseFour"
+                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Provice/City</label>
+                                                <div class="select-items">
+                                                    <select name="province" class="form-control"
+                                                        formControlName="provinceId"
+                                                        (change)="onSelectProvince($event)">
+                                                        <option disabled selected value> -- select an Provice/City --
+                                                        </option>
+                                                        <ng-container *ngFor="let province of listProvince">
+                                                            <option value="{{ province.id }}">{{ province.name }}
+                                                            </option>
+                                                        </ng-container>
+                                                    </select>
+                                                    <div *ngIf="localForm.submitted && f['provinceId'].errors && f['provinceId'].errors['required']"
+                                                        class="text-danger">
+                                                        Provice/City required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>District</label>
+                                                <div class="select-items">
+                                                    <select class="form-control" formControlName="districtId"
+                                                        (change)="onSelectDistrict($event)">
+                                                        <option disabled selected value> -- select an District --
+                                                        </option>
+                                                        <ng-container *ngIf="provinceSelected">
+                                                            <ng-container *ngFor="let district of listDistrict">
+                                                                <option value="{{ district.id }}">{{ district.name }}
+                                                                </option>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </select>
+                                                    <div *ngIf="localForm.submitted && f['districtId'].errors && f['districtId'].errors['required']"
+                                                        class="text-danger">
+                                                        District required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Commune/Ward</label>
+                                                <div class="select-items">
+                                                    <select class="form-control" formControlName="wardId">
+                                                        <option disabled selected value> -- select an Commune/Ward --
+                                                        </option>
+                                                        <ng-container *ngIf="districtSelected">
+                                                            <ng-container *ngFor="let ward of listWard">
+                                                                <option value="{{ ward.id }}">{{ ward.name }}</option>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </select>
+                                                    <div *ngIf="localForm.submitted && f['wardId'].errors && f['wardId'].errors['required']"
+                                                        class="text-danger">
+                                                        Commune/Ward required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label>Address</label>
+                                                <div class="form-input form">
+                                                    <input type="text" placeholder="Address" formControlName="address">
+                                                </div>
+                                                <div *ngIf="localForm.submitted && f['address'].errors && f['address'].errors['required']"
+                                                    class="text-danger">
+                                                    Address is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </li>
+                            <li [ngClass]=" localForm.submitted && f['payMethod'].errors ? 'border border-danger' : ''">
+                                <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
+                                    aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
+                                <section class="checkout-steps-form-content collapse" id="collapsefive"
+                                    aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="checkout-payment-form">
+                                                <div class="payment-card-info">
+                                                    <div class="single-form form-default">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                formControlName="payMethod" name="payMethod"
+                                                                value="later" id="flexRadioDefault1">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                Payment on delivery
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                formControlName="payMethod" name="payMethod"
+                                                                value="online" id="flexRadioDefault2">
+                                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                                online payment
+                                                            </label>
+                                                        </div>
+                                                        <div *ngIf="localForm.submitted && f['payMethod'].errors && f['payMethod'].errors['required']"
+                                                            class="text-danger">
+                                                            Pay method is required.</div>
+                                                    </div>
+                                                    <!-- <div class="single-form form-default">
+                                                        <div id="paypalBtn"></div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="checkout-sidebar">
+                        <div class="checkout-sidebar-coupon">
+                            <p>Note</p>
+                            <div class="single-form form-default">
+                                <div class="form-input form justify-content-center d-flex">
+                                    <textarea id="" cols="50" rows="8" formControlName="note">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-sidebar-price-table mt-30">
+                            <h5 class="title">Pricing Table</h5>
+                            <div class="sub-total-price">
+                                <ng-container *ngFor="let cart of listCart">
+                                    <div class="total-price">
+                                        <p class="value">{{ cart.name }} ({{ cart.quantity }}x {{ cart.price|currency
+                                            }})</p>
+                                        <p class="price">{{ cart.quantity*cart.price|currency }}</p>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div class="total-payable">
+                                <div class="payable-price">
+                                    <p class="value">Subotal Price:</p>
+                                    <p class="price">{{ cartSubtotal|currency }}</p>
+                                </div>
+                            </div>
+                            <div class="price-table-btn button">
+                                <button type="submit" class="btn btn-alt">Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

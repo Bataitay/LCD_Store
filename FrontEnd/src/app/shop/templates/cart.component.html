@@ -1,0 +1,119 @@
+<div class="breadcrumbs">
+  <div class="container">
+      <div class="row align-items-center">
+          <div class="col-lg-6 col-md-6 col-12">
+              <div class="breadcrumbs-content">
+                  <h1 class="page-title">Cart</h1>
+              </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12">
+              <ul class="breadcrumb-nav">
+                  <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                  <li><a href="index.html">Shop</a></li>
+                  <li>Cart</li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="shopping-cart section">
+  <div class="container">
+      <div class="cart-list-head">
+          <div class="cart-list-title">
+              <div class="row">
+                  <div class="col-lg-1 col-md-1 col-12">
+                  </div>
+                  <div class="col-lg-4 col-md-3 col-12">
+                      <p>Product Name</p>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-12">
+                      <p>Quantity</p>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-12">
+                      <p>Discount</p>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-12">
+                      <p>Subtotal</p>
+                  </div>
+                  <div class="col-lg-1 col-md-2 col-12">
+                      <p>Remove</p>
+                  </div>
+              </div>
+          </div>
+          <div class="cart-single-list" *ngFor="let cart of listCart">
+              <div class="row align-items-center">
+                  <div class="col-lg-1 col-md-1 col-12">
+                      <a href="product-details.html"><img src="http://127.0.0.1:8000/{{ cart.image }}" alt="#"></a>
+                  </div>
+                  <div class="col-lg-4 col-md-3 col-12">
+                      <h5 class="product-name"><a href="product-details.html">
+                              {{ cart.name }}</a></h5>
+                      <p class="product-des">
+                          <span><em>Type:</em> Mirrorless</span>
+                          <span><em>Color:</em> Black</span>
+                      </p>
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                      <a class="btn btn-link px-2"
+                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                          (click)="updateQuantity(cart.id, quantity.value)">
+                          <i class="lni lni-minus"></i>
+                      </a>
+
+                      <input #quantity id="form1" min="1" max="3" name="quantity" value="{{ cart.quantity }}" type="number"
+                          class="form-control form-control-sm" />
+
+                      <a class="btn btn-link px-2"
+                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                          (click)="updateQuantity(cart.id, quantity.value)">
+                          <i class="lni lni-plus"></i>
+                      </a>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-12">
+                      <p>{{ cart.price | currency }}</p>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-12">
+                      <p>{{ cart.price * cart.quantity| currency}}</p>
+                  </div>
+                  <div class="col-lg-1 col-md-2 col-12">
+                      <a class="remove-item" (click)="deleteCart(cart.id)"><i class="lni lni-close"></i></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12">
+
+              <div class="total-amount">
+                  <div class="row">
+                      <div class="col-lg-8 col-md-6 col-12">
+                          <div class="left">
+                              <div class="coupon">
+                                  <form action="#" target="_blank">
+                                      <input name="Coupon" placeholder="Enter Your Coupon">
+                                      <div class="button">
+                                          <button class="btn">Apply Coupon</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-12">
+                          <div class="right">
+                              <ul>
+                                  <li>Cart Subtotal<span>{{ cartSubtotal|currency }}</span></li>
+                                  <li>Shipping<span>Free</span></li>
+                                  <li class="last">You Pay<span>{{ cartSubtotal|currency }}</span></li>
+                              </ul>
+                              <div class="button">
+                                  <a [routerLink]="['/checkout']" class="btn">Checkout</a>
+                                  <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
